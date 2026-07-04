@@ -62,29 +62,24 @@
        SHARED SECTION HEADING (matches homepage)
        ========================================= */
     .section-eyebrow {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 8px;
+        background: #E6F7F4;
+        border: 1px solid rgba(15,118,110,.18);
+        color: #0F766E;
+        padding: 7px 20px;
+        border-radius: 30px;
+        margin-bottom: 16px;
     }
-    .section-eyebrow .bar {
-        width: 34px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #14B8A6);
-        border-radius: 2px;
-    }
-    .section-eyebrow .bar.rev { background: linear-gradient(90deg, #14B8A6, transparent); }
+    .section-eyebrow i { font-size: 10px; color: #F59E0B; }
     .section-eyebrow span {
         font-family: 'Oswald', sans-serif;
         text-transform: uppercase;
-        letter-spacing: .18em;
-        font-size: 12px;
-        font-weight: 600;
-        color: #F59E0B;
-    }
-    @media(min-width:992px) {
-        .text-lg-start .section-eyebrow { justify-content: flex-start; }
+        letter-spacing: .12em;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #0F766E;
     }
     .section-heading {
         font-family: 'Poppins', sans-serif;
@@ -105,8 +100,8 @@
     @media(max-width:767px) {
         .section-heading { font-size: 1.7rem; margin-bottom: 14px; }
         .section-sub { font-size: 13px; margin-bottom: 28px; }
-        .section-eyebrow span { font-size: 10.5px; letter-spacing: .14em; }
-        .section-eyebrow .bar { width: 22px; }
+        .section-eyebrow { padding: 6px 16px; margin-bottom: 12px; }
+        .section-eyebrow span { font-size: 10px; letter-spacing: .1em; }
     }
 
     /* =========================================
@@ -504,7 +499,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <div class="section-eyebrow"><span class="bar"></span><span>Our Advantage</span><span class="bar rev"></span></div>
+                    <div class="section-eyebrow"><i class="fas fa-leaf"></i><span>Our Advantage</span></div>
                     <h2 class="section-heading">Why Choose <span>Meibotan?</span></h2>
                     <p class="section-sub">Meibotan is a Fido Pharma venture built on a simple belief — wellness should be trustworthy, effective and rooted in science. Every product we make blends time-tested Indian wellness traditions with rigorous modern research, so you get real results you can rely on.</p>
                 </div>
@@ -561,7 +556,7 @@
     <!-- PHARMACY MADE EASY -->
     <section class="pharmacy-section">
         <div class="container">
-            <div class="section-eyebrow"><span class="bar"></span><span>Seamless Experience</span><span class="bar rev"></span></div>
+            <div class="section-eyebrow"><i class="fas fa-leaf"></i><span>Seamless Experience</span></div>
             <h2 class="section-heading text-center">Pharmacy Has Never <span>Been This Easy</span></h2>
             <div class="row align-items-center mt-4">
                 <div class="col-lg-6">
@@ -610,7 +605,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-                    <div class="section-eyebrow"><span class="bar"></span><span>Our Journey</span></div>
+                    <div class="section-eyebrow"><i class="fas fa-leaf"></i><span>Our Journey</span></div>
                     <h2 class="section-heading">Inspired by Traditions, <span>Perfected by Innovation</span></h2>
                     <img src="<?php echo base_url(); ?>/assets/frontend/images/meibotan-about.jpg" class="history-img" alt="Meibotan Journey">
                 </div>
@@ -655,7 +650,7 @@
     <!-- CORE VALUES -->
     <section class="values-section">
         <div class="container">
-            <div class="section-eyebrow"><span class="bar"></span><span>What We Stand For</span><span class="bar rev"></span></div>
+            <div class="section-eyebrow"><i class="fas fa-leaf"></i><span>What We Stand For</span></div>
             <h2 class="section-heading">Our Core <span>Values</span></h2>
             <div class="row mt-4">
                 <div class="col-6 col-md-3 mb-4">
@@ -693,7 +688,7 @@
     <!-- STATS -->
     <section class="stats-section">
         <div class="container">
-            <div class="section-eyebrow"><span class="bar"></span><span>Trusted By Many</span><span class="bar rev"></span></div>
+            <div class="section-eyebrow"><i class="fas fa-leaf"></i><span>Trusted By Many</span></div>
             <h2>Let's Medical Check Up With Us</h2>
             <p>Ensure your health is in top condition with our comprehensive medical check-up services. Trust our expert team for accurate assessments and personalized care.</p>
             <div class="row mt-4">
