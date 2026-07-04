@@ -41,119 +41,21 @@
     body { background-color: #fff; }
 
     /* =========================================
-       ABOUT HERO
+       ABOUT HERO (simple banner image, no overlay)
        ========================================= */
-    .about-hero {
-        position: relative;
-        min-height: 460px;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-    }
-    .about-hero-img {
-        position: absolute;
-        inset: 0;
+    .about-hero-simple {
         width: 100%;
-        height: 100%;
+        line-height: 0;
+    }
+    .about-hero-simple img {
+        width: 100%;
+        height: auto;
+        max-height: 480px;
         object-fit: cover;
-    }
-    .about-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background:
-            radial-gradient(circle at 15% 20%, rgba(20,184,166,.20), transparent 45%),
-            radial-gradient(circle at 85% 80%, rgba(245,158,11,.14), transparent 50%),
-            linear-gradient(160deg, rgba(10,46,43,.92) 0%, rgba(15,118,110,.82) 100%);
-    }
-    .about-hero .container {
-        position: relative;
-        z-index: 2;
-        padding: 100px 15px;
-        text-align: center;
-    }
-    .about-hero-badge {
-        display: inline-block;
-        background: rgba(255,255,255,.10);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(94,234,212,.5);
-        color: #5EEAD4;
-        padding: 7px 20px;
-        border-radius: 30px;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: .12em;
-        margin-bottom: 22px;
-    }
-    .about-hero-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 46px;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 16px;
-        line-height: 1.2;
-        letter-spacing: -.01em;
-    }
-    .about-hero-title span { color: #5EEAD4; }
-    .about-hero-sub {
-        color: rgba(236,254,255,.88);
-        font-size: 15.5px;
-        max-width: 600px;
-        margin: 0 auto 30px;
-        line-height: 1.75;
-    }
-    .about-hero-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: #F59E0B;
-        color: #fff !important;
-        padding: 13px 30px;
-        border-radius: 30px;
-        font-weight: 600;
-        font-size: 14px;
-        text-decoration: none !important;
-        margin-bottom: 36px;
-        transition: all .3s ease;
-    }
-    .about-hero-cta i { font-size: 12px; transition: transform .3s ease; }
-    .about-hero-cta:hover {
-        background: #14B8A6;
-        transform: translateY(-2px);
-        box-shadow: 0 12px 28px rgba(0,0,0,.25);
-    }
-    .about-hero-cta:hover i { transform: translateX(4px); }
-    .about-breadcrumb {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,.15);
-        max-width: 260px;
-        margin: 0 auto;
-    }
-    .about-breadcrumb a {
-        color: #5EEAD4;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 13px;
-    }
-    .about-breadcrumb span {
-        color: rgba(255,255,255,.85);
-        font-size: 13px;
-    }
-    .about-breadcrumb i {
-        font-size: 9px;
-        margin: 0 10px;
-        color: rgba(255,255,255,.4);
+        display: block;
     }
     @media(max-width:767px) {
-        .about-hero { min-height: 340px; }
-        .about-hero .container { padding: 60px 20px; }
-        .about-hero-title { font-size: 26px; }
-        .about-hero-sub { font-size: 13.5px; }
-        .about-hero-cta { padding: 11px 24px; font-size: 13px; margin-bottom: 26px; }
+        .about-hero-simple img { max-height: 220px; }
     }
 
     /* =========================================
@@ -338,35 +240,50 @@
     }
     .timeline {
         position: relative;
-        padding-left: 30px;
-        border-left: 3px solid rgba(15,118,110,.18);
+        padding-left: 46px;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 6px;
+        bottom: 6px;
+        width: 3px;
+        background: linear-gradient(180deg, #14B8A6, #0F766E 60%, rgba(15,118,110,.15));
+        border-radius: 3px;
     }
     .timeline-item {
         position: relative;
         background: #fff;
+        border: 1px solid #ECFEFF;
         border-radius: 14px;
         padding: 16px 20px;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
         box-shadow: 0 8px 20px rgba(15,118,110,.07);
-        transition: transform .3s ease, box-shadow .3s ease;
+        transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
     }
     .timeline-item:last-child { margin-bottom: 0; }
     .timeline-item:hover {
-        transform: translateX(4px);
-        box-shadow: 0 12px 28px rgba(15,118,110,.14);
+        transform: translateX(6px);
+        border-color: rgba(20,184,166,.4);
+        box-shadow: 0 14px 30px rgba(15,118,110,.16);
     }
-    .timeline-item::before {
-        content: '';
+    .timeline-dot {
         position: absolute;
-        left: -37px;
-        top: 22px;
-        width: 14px;
-        height: 14px;
+        left: -46px;
+        top: 14px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
-        background: #0F766E;
-        border: 3px solid #F8FAFC;
-        box-shadow: 0 0 0 3px rgba(15,118,110,.25);
+        background: linear-gradient(135deg, #14B8A6, #0F766E);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 5px #F8FAFC, 0 6px 16px rgba(15,118,110,.35);
+        transition: transform .3s ease;
     }
+    .timeline-item:hover .timeline-dot { transform: scale(1.1); }
+    .timeline-dot i { color: #fff; font-size: 14px; }
     .timeline-item h5 {
         display: inline-block;
         color: #fff;
@@ -381,9 +298,11 @@
     @media(max-width:767px) {
         .history-section { padding: 45px 15px; }
         .history-img { max-width: 100%; margin-bottom: 30px; }
-        .timeline { padding-left: 24px; }
+        .timeline { padding-left: 38px; }
+        .timeline::before { left: 16px; }
         .timeline-item { padding: 13px 16px; }
-        .timeline-item::before { left: -31px; top: 19px; }
+        .timeline-dot { left: -38px; top: 12px; width: 32px; height: 32px; }
+        .timeline-dot i { font-size: 12px; }
     }
 
     /* =========================================
@@ -405,63 +324,99 @@
         box-shadow: 0 18px 38px rgba(15,118,110,.16);
     }
     .value-icon {
-        width: 74px;
-        height: 74px;
+        width: 72px;
+        height: 72px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #E6F7F4, #ECFEFF);
+        background: linear-gradient(135deg, #14B8A6, #0F766E);
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 18px;
+        box-shadow: 0 10px 24px rgba(15,118,110,.25);
         transition: transform .3s ease;
     }
-    .value-card:hover .value-icon { transform: scale(1.08); }
-    .value-icon img { width: 36px; height: 36px; object-fit: contain; }
+    .value-card:hover .value-icon { transform: scale(1.08) rotate(-4deg); }
+    .value-icon i { color: #fff; font-size: 26px; }
     .value-card h5 { font-weight: 700; color: #1F2937; font-size: 16px; margin-bottom: 8px; }
     .value-card p { color: #6B7280; font-size: 13px; line-height: 1.6; margin: 0; }
     @media(max-width:767px) {
         .values-section { padding: 45px 15px; }
         .value-card { padding: 26px 14px 20px; border-radius: 14px; }
-        .value-icon { width: 58px; height: 58px; margin-bottom: 14px; }
-        .value-icon img { width: 28px; height: 28px; }
+        .value-icon { width: 56px; height: 56px; margin-bottom: 14px; }
+        .value-icon i { font-size: 20px; }
         .value-card h5 { font-size: 14.5px; }
         .value-card p { font-size: 12px; }
     }
 
     /* =========================================
-       STATS
+       STATS (professional cards + animated counters)
        ========================================= */
-    .stats-section { padding: 70px 15px; text-align: center; background: #fff; }
+    .stats-section { padding: 70px 15px; text-align: center; background: #F8FAFC; }
     .stats-section h2 { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 600; color: #1F2937; margin-bottom: 14px; }
     .stats-section > .container > p { color: #6B7280; font-size: 14px; max-width: 640px; margin: 0 auto 30px; }
     .stat-box {
-        background: linear-gradient(135deg, #14B8A6, #0F766E);
-        color: #fff;
-        padding: 32px 16px 26px;
+        position: relative;
+        background: #fff;
+        border: 1px solid #E2E8F0;
         border-radius: 18px;
-        box-shadow: 0 12px 30px rgba(15,118,110,.2);
-        transition: transform .3s ease, box-shadow .3s ease;
+        padding: 34px 16px 28px;
+        overflow: hidden;
+        box-shadow: 0 8px 22px rgba(15,118,110,.06);
+        transition: transform .35s ease, box-shadow .35s ease;
     }
-    .stat-box:hover { transform: translateY(-6px); box-shadow: 0 18px 38px rgba(15,118,110,.3); }
+    .stat-box::after {
+        content: '';
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #14B8A6, #0F766E);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .4s ease;
+    }
+    .stat-box:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 36px rgba(15,118,110,.14);
+        border-color: rgba(20,184,166,.4);
+    }
+    .stat-box:hover::after { transform: scaleX(1); }
     .stat-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: rgba(255,255,255,.16);
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #E6F7F4, #ECFEFF);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 12px;
+        margin: 0 auto 16px;
     }
-    .stat-icon i { font-size: 17px; color: #fff; }
-    .stat-number { font-size: 2.1rem; font-weight: 700; }
-    .stat-box .stat-label { font-size: 13px; opacity: .9; margin-top: 4px; }
+    .stat-icon i { color: #0F766E; font-size: 20px; }
+    .stat-number {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, #14B8A6, #0F766E);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .stat-box .stat-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        color: #6B7280;
+        margin-top: 8px;
+    }
     @media(max-width:767px) {
         .stats-section { padding: 45px 15px; }
         .stats-section h2 { font-size: 1.7rem; }
-        .stat-box { padding: 24px 12px 20px; }
-        .stat-icon { width: 36px; height: 36px; margin-bottom: 8px; }
-        .stat-number { font-size: 1.5rem; }
+        .stat-box { padding: 24px 10px 20px; border-radius: 14px; }
+        .stat-icon { width: 44px; height: 44px; margin-bottom: 10px; }
+        .stat-icon i { font-size: 16px; }
+        .stat-number { font-size: 1.7rem; }
+        .stat-box .stat-label { font-size: 11px; }
     }
 
     /* =========================================
@@ -540,25 +495,20 @@
   <main>
 
     <!-- ABOUT HERO -->
-    <section class="about-hero">
-        <img src="<?php echo base_url(); ?>/assets/frontend/images/meibotan-about-us11.jpg" class="about-hero-img" alt="About Meibotan">
-        <div class="about-hero-overlay"></div>
-        <div class="container">
-            <span class="about-hero-badge">A Fido Pharma Venture</span>
-            <h1 class="about-hero-title">About <span>Meibotan</span></h1>
-            <p class="about-hero-sub">Where age-old wellness traditions meet modern scientific innovation — crafted with purity, integrity and care.</p>
-            <a href="https://www.meibotan.com/shop" class="about-hero-cta">Explore Our Products <i class="fas fa-arrow-right"></i></a>
-            <nav class="about-breadcrumb">
-                <a href="<?php echo base_url(); ?>">Home</a>
-                <i class="fas fa-chevron-right"></i>
-                <span>About Us</span>
-            </nav>
-        </div>
+    <section class="about-hero-simple">
+        <img src="<?php echo base_url(); ?>/assets/frontend/images/meibotan-about-us11.jpg" alt="About Meibotan">
     </section>
 
     <!-- WHY CHOOSE US -->
     <section class="why-us-section">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="section-eyebrow"><span class="bar"></span><span>Our Advantage</span><span class="bar rev"></span></div>
+                    <h2 class="section-heading">Why Choose <span>Meibotan?</span></h2>
+                    <p class="section-sub">Meibotan is a Fido Pharma venture built on a simple belief — wellness should be trustworthy, effective and rooted in science. Every product we make blends time-tested Indian wellness traditions with rigorous modern research, so you get real results you can rely on.</p>
+                </div>
+            </div>
             <div class="row align-items-center">
                 <div class="col-lg-5 mb-4 mb-lg-0">
                     <div class="why-video-wrap">
@@ -568,8 +518,6 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="section-eyebrow"><span class="bar"></span><span>Our Advantage</span></div>
-                    <h2 class="section-heading">Why Choose <span>Us?</span></h2>
                     <div class="why-card">
                         <div class="why-icon"><i class="fas fa-flask"></i></div>
                         <div>
@@ -669,26 +617,32 @@
                 <div class="col-lg-6">
                     <div class="timeline">
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-search"></i></span>
                             <h5>2019</h5>
                             <p>Laid the foundation with extensive market research, supplier scouting, and product feasibility studies to validate the concept.</p>
                         </div>
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-flask"></i></span>
                             <h5>2020</h5>
                             <p>Initiated product development and began rigorous testing to ensure safety, efficacy, and compliance with health standards.</p>
                         </div>
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-user-md"></i></span>
                             <h5>2021</h5>
                             <p>Collaborated with healthcare experts to refine formulations by blending traditional Indian remedies with modern science.</p>
                         </div>
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-box-open"></i></span>
                             <h5>2022</h5>
                             <p>Launched our first batch of nutraceuticals and supplements, building strong partnerships across supply chains.</p>
                         </div>
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-seedling"></i></span>
                             <h5>2023</h5>
                             <p>Expanded the portfolio with probiotics, enzymes, and whey protein — entering new retail and distribution networks.</p>
                         </div>
                         <div class="timeline-item">
+                            <span class="timeline-dot"><i class="fas fa-award"></i></span>
                             <h5>2024</h5>
                             <p>Strengthened our brand presence with cosmetic product launches and committed to driving innovation for holistic wellness.</p>
                         </div>
@@ -706,36 +660,28 @@
             <div class="row mt-4">
                 <div class="col-6 col-md-3 mb-4">
                     <div class="value-card">
-                        <div class="value-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png" alt="Innovation">
-                        </div>
+                        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
                         <h5>Innovation</h5>
                         <p>Bringing modern techniques to traditional wisdom</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-4">
                     <div class="value-card">
-                        <div class="value-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2976/2976323.png" alt="Transparency">
-                        </div>
+                        <div class="value-icon"><i class="fas fa-eye"></i></div>
                         <h5>Transparency</h5>
                         <p>Clean labels, honest claims and tested formulations</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-4">
                     <div class="value-card">
-                        <div class="value-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906275.png" alt="Trust">
-                        </div>
+                        <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
                         <h5>Trust</h5>
                         <p>Book lab tests online for hassle-free, home sample collection service. Get reports online.</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-4">
                     <div class="value-card">
-                        <div class="value-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2983/2983543.png" alt="Customer-Centricity">
-                        </div>
+                        <div class="value-icon"><i class="fas fa-users"></i></div>
                         <h5>Customer-Centricity</h5>
                         <p>Understanding and addressing the unique needs of every individual</p>
                     </div>
@@ -754,28 +700,28 @@
                 <div class="col-6 col-md-3 mb-3">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fas fa-user-friends"></i></div>
-                        <div class="stat-number">830+</div>
+                        <div class="stat-number" data-target="830" data-suffix="+">0</div>
                         <div class="stat-label">Happy Patient</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-3">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fas fa-user-md"></i></div>
-                        <div class="stat-number">30+</div>
+                        <div class="stat-number" data-target="30" data-suffix="+">0</div>
                         <div class="stat-label">Expert Doctor</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-3">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="stat-number">45</div>
+                        <div class="stat-number" data-target="45" data-suffix="">0</div>
                         <div class="stat-label">Years Experiences</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 mb-3">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fas fa-hospital-alt"></i></div>
-                        <div class="stat-number">35+</div>
+                        <div class="stat-number" data-target="35" data-suffix="+">0</div>
                         <div class="stat-label">Total Branches</div>
                     </div>
                 </div>
@@ -798,6 +744,51 @@
 
   <?= $this->include('frontend/partials/footer') ?>
 </div>
+<script>
+    (function () {
+        var counters = document.querySelectorAll('.stat-number');
+        if (!counters.length) return;
+        var animated = false;
+
+        function runCounters() {
+            if (animated) return;
+            animated = true;
+            counters.forEach(function (el) {
+                var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                var suffix = el.getAttribute('data-suffix') || '';
+                var duration = 1400;
+                var start = null;
+
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    var progress = Math.min((timestamp - start) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(eased * target) + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        el.textContent = target + suffix;
+                    }
+                }
+                window.requestAnimationFrame(step);
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        runCounters();
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            observer.observe(document.querySelector('.stats-section'));
+        } else {
+            runCounters();
+        }
+    })();
+</script>
 <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 <script src="<?php echo base_url(); ?>/assets/frontend/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>/assets/frontend/js/bootstrap.bundle.min.js"></script>
