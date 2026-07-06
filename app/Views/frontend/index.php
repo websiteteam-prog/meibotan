@@ -2163,15 +2163,14 @@
        HOME CATEGORY ROWS : product carousels (DB)
        ============================================ -->
   <?php
-  // >>> APNI CATEGORY IDs YAHAN SET KARO (tb_category se) <<<
-  // 23 = Gummies | 12 = Skin Products | 19 = Kids Supplement | 20 = REPLACE with Protein category_id
-  $homeCatIds = [23, 12, 19, 20];
+  // only these categories are highlighted as home rows (in this order)
+  $homeCatSlugs = ['gummies', 'kids', 'skin-products', 'sachet', 'supplements'];
 
   $hc_db = \Config\Database::connect();
   $homeCatData = [];
-  foreach ($homeCatIds as $hc_id) {
+  foreach ($homeCatSlugs as $hc_slug) {
     $hc_cat = $hc_db->table('tb_category')
-      ->where('category_id', $hc_id)
+      ->where('category_slug', $hc_slug)
       ->where('category_status', 1)
       ->get()->getRow();
     if (!$hc_cat) {
@@ -2180,7 +2179,7 @@
 
     $hc_prods = $hc_db->table('tb_products')
       ->where('product_status', 1)
-      ->where("FIND_IN_SET(" . (int) $hc_id . ", product_category) >", 0)
+      ->where("FIND_IN_SET(" . (int) $hc_cat->category_id . ", product_category) >", 0)
       ->orderBy('product_id', 'DESC')
       ->limit(20)
       ->get()->getResult();
