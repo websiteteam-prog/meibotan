@@ -1961,7 +1961,7 @@
    ========================================= */
     .why-cta {
       position: relative;
-      background-image: linear-gradient(120deg, rgba(10, 46, 43, .92) 0%, rgba(15, 118, 110, .75) 55%, rgba(15, 118, 110, .35) 100%),
+      background-image: linear-gradient(90deg, rgba(10, 46, 43, .92) 0%, rgba(10, 46, 43, .88) 38%, rgba(10, 46, 43, .5) 52%, rgba(10, 46, 43, 0) 66%, rgba(10, 46, 43, 0) 100%),
         url('<?php echo base_url(); ?>/assets/frontend/images/Call-to-action-banner-Meibotan.jpg');
       background-size: cover;
       background-position: center;
@@ -2058,6 +2058,8 @@
       .why-cta {
         padding: 50px 0;
         text-align: center;
+        background-image: linear-gradient(180deg, rgba(10, 46, 43, .92) 0%, rgba(10, 46, 43, .88) 100%),
+          url('<?php echo base_url(); ?>/assets/frontend/images/Call-to-action-banner-Meibotan.jpg');
       }
 
       .why-cta-inner {
