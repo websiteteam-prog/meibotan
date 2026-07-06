@@ -501,7 +501,7 @@
     .py-5 {
       padding-top: 3rem !important;
       padding-bottom: 3rem !important;
-      margin-top: 30px;
+      margin: 30px;
     }
 
     .product-section {
@@ -617,82 +617,6 @@
     .carousel-control-next-icon {
       margin-left: 140px;
     }
-
-
-    /* .promo-section {
-      background: #29a3e2; Adjust to match exact shade
-      background-image: url('images/baneer-copy-1.png');
-      color: #fff;
-      padding: 50px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-    } */
-    .promo-section {
-      background-image: url('<?php echo base_url(); ?>/assets/frontend/images/Call-to-action-banner-Meibotan.jpg');
-      /* Replace with your actual image path */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 15px;
-      padding: 3rem 2rem;
-      color: black;
-      /* Optional: make text readable depending on image */
-      position: relative;
-      overflow: hidden;
-    }
-
-    .promo-text h2 {
-      font-weight: bold;
-    }
-
-    .promo-text p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .btn-shop {
-      background: #fff;
-      color: #2a9d8f;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 5px;
-      padding: 10px 20px;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s;
-    }
-
-    .btn-shop:hover {
-      background: #e6e6e6;
-      color: #007bbf;
-    }
-
-    .promo-image img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    @media (max-width: 768px) {
-      .promo-section {
-        /* flex-direction: column; */
-        text-align: left;
-        background-position: left;
-      }
-
-      .promo-image {
-        margin-top: 20px;
-
-
-      }
-
-      /* .promo-image img {
-      max-width: 100%;
-      height:100px;
-    }
-       */
-    }
-
 
 
     /* =========================================
@@ -834,18 +758,51 @@
       color: #fff;
     }
 
-    .sbc-prev { left: -10px; }
-    .sbc-next { right: -10px; }
+    .sbc-prev {
+      left: -10px;
+    }
+
+    .sbc-next {
+      right: -10px;
+    }
 
     @media(max-width:767px) {
-      .sbc-row { gap: 16px; }
-      .sbc-item { width: 100px; }
-      .sbc-img { width: 84px; height: 84px; margin-bottom: 9px; }
-      .sbc-name { font-size: 12px; }
-      .sbc-count { font-size: 10.5px; }
-      .sbc-arrow { width: 32px; height: 32px; font-size: 11px; top: 36px; }
-      .sbc-prev { left: -2px; }
-      .sbc-next { right: -2px; }
+      .sbc-row {
+        gap: 16px;
+      }
+
+      .sbc-item {
+        width: 100px;
+      }
+
+      .sbc-img {
+        width: 84px;
+        height: 84px;
+        margin-bottom: 9px;
+      }
+
+      .sbc-name {
+        font-size: 12px;
+      }
+
+      .sbc-count {
+        font-size: 10.5px;
+      }
+
+      .sbc-arrow {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+        top: 36px;
+      }
+
+      .sbc-prev {
+        left: -2px;
+      }
+
+      .sbc-next {
+        right: -2px;
+      }
     }
 
     .carousel-slider {
@@ -1024,7 +981,7 @@
 
     .testimonials {
       padding: 60px 0;
-      background-color: rgb(246, 249, 235);
+      background: linear-gradient(160deg, #ECFEFF 0%, #F8FAFC 50%, #E6F7F4 100%);
     }
 
     .testimonials h3 {
@@ -1172,10 +1129,6 @@
       transform: translateZ(0);
     }
 
-    .award-section {
-      background: linear-gradient(160deg, #F8FAFC 0%, #ECFEFF 100%);
-    }
-
     .award-card {
       position: relative;
       background: #fff;
@@ -1183,7 +1136,6 @@
       padding: 50px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
       overflow: hidden;
-      transition: .3s ease;
     }
 
     .award-card::before {
@@ -1194,10 +1146,6 @@
       right: 0;
       height: 5px;
       background: linear-gradient(90deg, #F59E0B, #14B8A6, #0F766E);
-    }
-
-    .award-card:hover {
-      transform: translateY(-5px);
     }
 
     .award-image {
@@ -1251,19 +1199,21 @@
 
     .award-btn {
       display: inline-block;
-      background: linear-gradient(135deg, #2a9d8f, #1d6fa5);
+      background: #F59E0B;
       color: #fff;
       padding: 14px 30px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: .3s ease;
+      font-size: 13px;
     }
 
     .award-btn:hover {
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(42, 157, 143, .3);
+      background: linear-gradient(135deg, #2a9d8f, #1d6fa5);
     }
 
     @media(max-width:768px) {
@@ -2005,6 +1955,281 @@
         max-height: 52px;
       }
     }
+
+    /* =========================================
+   WHY CHOOSE MEIBOTAN — image banner CTA
+   ========================================= */
+    .why-cta {
+      position: relative;
+      background-image: linear-gradient(120deg, rgba(10, 46, 43, .92) 0%, rgba(15, 118, 110, .75) 55%, rgba(15, 118, 110, .35) 100%),
+        url('<?php echo base_url(); ?>/assets/frontend/images/Call-to-action-banner-Meibotan.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 70px 0;
+      overflow: hidden;
+    }
+
+    .why-cta-inner {
+      max-width: 640px;
+    }
+
+    .why-cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, .16);
+      border: 1px solid rgba(245, 158, 11, .5);
+      color: #FBBF24;
+      padding: 7px 18px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .why-cta h2 {
+      font-size: 40px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .why-cta h2 span {
+      display: block;
+      font-size: 26px;
+      font-weight: 600;
+      color: #ECFEFF;
+      margin-top: 4px;
+    }
+
+    .why-cta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 26px 0 22px;
+    }
+
+    .why-cta-pills span {
+      display: inline-block;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .35);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-size: 13.5px;
+      font-weight: 600;
+      backdrop-filter: blur(2px);
+    }
+
+    .why-cta-note {
+      font-size: 11.5px;
+      color: rgba(236, 254, 255, .65);
+      line-height: 1.6;
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+
+    .why-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #F59E0B;
+      color: #fff !important;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none !important;
+      transition: all .3s ease;
+    }
+
+    .why-cta-btn:hover {
+      background: #fff;
+      color: #0F766E !important;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .3);
+    }
+
+    @media(max-width:767px) {
+      .why-cta {
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      .why-cta-inner {
+        max-width: 100%;
+      }
+
+      .why-cta h2 {
+        font-size: 28px;
+      }
+
+      .why-cta h2 span {
+        font-size: 19px;
+      }
+
+      .why-cta-pills {
+        justify-content: center;
+        margin: 20px 0 18px;
+      }
+
+      .why-cta-pills span {
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+
+      .why-cta-note {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* =========================================
+   TESTIMONIALS — redesigned
+   ========================================= */
+    .testimonials {
+      padding: 75px 0;
+      background: linear-gradient(160deg, #ECFEFF 0%, #F8FAFC 50%, #E6F7F4 100%);
+      text-align: center;
+    }
+
+    .tm-badge {
+      display: inline-block;
+      background: #fff;
+      color: #0F766E;
+      border: 1px solid rgba(20, 184, 166, .4);
+      padding: 7px 18px;
+      border-radius: 30px;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      margin-bottom: 16px;
+    }
+
+    .testimonials .section-heading {
+      margin-bottom: 46px;
+    }
+
+    .testimonial-box {
+      position: relative;
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 34px 26px 28px;
+      box-shadow: 0 10px 26px rgba(15, 118, 110, .08);
+      height: 100%;
+      transition: all .3s ease;
+    }
+
+    .testimonial-box:hover {
+      transform: translateY(-6px);
+      border-color: rgba(20, 184, 166, .5);
+      box-shadow: 0 18px 38px rgba(15, 118, 110, .16);
+    }
+
+    .testimonial-quote {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-size: 34px;
+      color: rgba(20, 184, 166, .18);
+      line-height: 1;
+    }
+
+    .testimonial-rating {
+      color: #F59E0B;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      color: #4B5563;
+      line-height: 1.75;
+      margin-bottom: 22px;
+      min-height: 96px;
+    }
+
+    .testimonial-person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid #EEF2F6;
+      width: 100%;
+    }
+
+    .testimonial-img {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px rgba(20, 184, 166, .4);
+    }
+
+    .testimonial-meta {
+      text-align: left;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      color: #1F2937;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .testimonial-role {
+      font-size: 11.5px;
+      color: #9CA3AF;
+    }
+
+    @media (max-width: 768px) {
+      .testimonials {
+        padding: 50px 0;
+      }
+
+      .testimonials .section-heading {
+        margin-bottom: 28px;
+      }
+
+      .testimonial-item {
+        flex: 0 0 100%;
+      }
+
+      .testimonial-box {
+        padding: 28px 22px 22px;
+      }
+
+      .testimonial-text {
+        min-height: 0;
+      }
+    }
+
+    .carousel-dots {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .carousel-dot {
+      display: inline-block;
+      width: 26px;
+      height: 4px;
+      border-radius: 3px;
+      background-color: #D1D5DB;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background-color 0.3s, width .3s;
+    }
+
+    .carousel-dot.active {
+      background-color: #0F766E;
+      width: 36px;
+    }
   </style>
 
 
@@ -2166,9 +2391,13 @@
         </button>
         <div class="sbc-row" id="sbcRow">
           <?php foreach ($sbc_cats as $sbc_cat) {
-            if ($sbc_cat->category_slug == '') { continue; }
+            if ($sbc_cat->category_slug == '') {
+              continue;
+            }
             $sbc_pcount = $sbc_counts[$sbc_cat->category_id] ?? 0;
-            if ($sbc_pcount <= 0) { continue; }
+            if ($sbc_pcount <= 0) {
+              continue;
+            }
             $sbc_img = (!empty($sbc_cat->category_thumbnail)) ? CUSTOM_UPLOAD_PATH . $sbc_cat->category_thumbnail : DEFAULT_PRODUCTIMG;
             ?>
             <a href="<?php echo site_url('product-category/' . $sbc_cat->category_slug); ?>" class="sbc-item">
@@ -2540,6 +2769,43 @@
       </div>
     </div>
   </section>
+
+  <section class="consumer-studies">
+    <div class="container">
+      <span class="cs-badge">Real Results</span>
+      <h2 class="section-heading">Consumer <span>Studies</span></h2>
+      <div class="row justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-seedling"></i></div>
+            <h5>Gut Health Improvement</h5>
+            <p>Maintains a healthy balance of gut bacteria with advanced probiotic blends designed for better digestion
+              and nutrient absorption.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-dumbbell"></i></div>
+            <h5>Muscle Recovery &amp; Strength</h5>
+            <p>Supports post-workout recovery and muscle building with high-quality whey protein, essential amino acids,
+              improved stamina, and faster muscle repair.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-heart"></i></div>
+            <h5>Immunity Boost Support</h5>
+            <p>A powerful mix of traditional herbs and modern nutrients that helps strengthen your body's natural
+              defenses, boost daily energy levels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="award-section py-5">
     <div class="container">
       <div class="award-card">
@@ -2579,74 +2845,53 @@
       </div>
     </div>
   </section>
-  <section class="consumer-studies">
-    <div class="container">
-      <span class="cs-badge">Real Results</span>
-      <h2 class="section-heading">Consumer <span>Studies</span></h2>
-      <div class="row justify-content-center">
-        <!-- Card 1 -->
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
-          <div class="cs-card">
-            <div class="cs-icon"><i class="fas fa-seedling"></i></div>
-            <h5>Gut Health Improvement</h5>
-            <p>Maintains a healthy balance of gut bacteria with advanced probiotic blends designed for better digestion
-              and nutrient absorption.</p>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
-          <div class="cs-card">
-            <div class="cs-icon"><i class="fas fa-dumbbell"></i></div>
-            <h5>Muscle Recovery &amp; Strength</h5>
-            <p>Supports post-workout recovery and muscle building with high-quality whey protein, essential amino acids,
-              improved stamina, and faster muscle repair.</p>
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="cs-card">
-            <div class="cs-icon"><i class="fas fa-shield-virus"></i></div>
-            <h5>Immunity Boost Support</h5>
-            <p>A powerful mix of traditional herbs and modern nutrients that helps strengthen your body's natural
-              defenses, boost daily energy levels.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section>
 
-    <div class="container my-5">
-      <div class="row promo-section">
-        <div class="col-lg-6 promo-text">
-          <p>Limited Time Offers</p>
-          <h2>25% Off All Products<br>Limited Time!</h2>
-          <p>Start your journey to a balanced and vibrant life today!</p>
-          <a href="https://www.meibotan.com/shop" class="btn-shop">Shop Now →</a>
+  <!-- WHY CHOOSE MEIBOTAN — full-width image CTA banner -->
+  <section class="why-cta">
+    <div class="container">
+      <div class="why-cta-inner">
+        <span class="why-cta-eyebrow"><i class="fas fa-check-circle"></i> Why Meibotan</span>
+        <h2>Why Choose <span>Meibotan Probiotics &amp; Nutraceuticals?</span></h2>
+        <div class="why-cta-pills">
+          <span>CSIR-IMTECH Backed</span>
+          <span>Clinically Studied</span>
+          <span>GMP &amp; FSSAI Certified</span>
+          <span>No Harmful Additives</span>
         </div>
-        <!-- <div class="col-lg-6 text-center promo-image">
-        <img src="images/product1-removebg-preview.png" alt="Product" style="height: 300px;">
-      </div> -->
+        <p class="why-cta-note">
+          *Formulated with scientifically studied probiotic strains, manufactured under ISO, GMP, HACCP and FSSAI
+          certified facilities. Free from harmful fillers and artificial additives.
+        </p>
+        <a href="https://www.meibotan.com/shop" class="why-cta-btn">
+          Shop Now <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
   </section>
 
   <section class="testimonials text-center">
     <div class="container">
-      <h3>WHAT OUR CUSTOMERS SAY</h3>
+      <span class="tm-badge">Customer Love</span>
+      <h3 class="section-heading">What Our <span>Customers Say</span></h3>
       <div class="testimonial-Slider">
         <div class="testimonial-track" id="testimonialTrack">
           <!-- Testimonial 1 -->
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Priya"
-                class="testimonial-img" />
-              <div class="testimonial-text">"I've been using MEIBOTAN's multivitamins for 3 months now, and I feel more
-                energized than ever. Love the quality!"</div>
-              <div class="testimonial-author">Priya Sharma</div>
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
               <div class="testimonial-rating">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                   class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              <div class="testimonial-text">"I've been using MEIBOTAN's multivitamins for 3 months now, and I feel more
+                energized than ever. Love the quality!"</div>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Priya Sharma"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Priya Sharma</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2654,70 +2899,100 @@
           <!-- Testimonial 2 -->
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul"
-                class="testimonial-img" />
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              </div>
               <div class="testimonial-text">"Finally found a supplement brand I can trust. Clean ingredients, no side
                 effects, and fast results!"</div>
-              <div class="testimonial-author">Rahul Verma</div>
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul Verma"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Rahul Verma</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul"
-                class="testimonial-img" />
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              </div>
               <div class="testimonial-text">"Their Vitamin D and Omega-3 combo has done wonders for my immunity. Highly
                 recommend!"</div>
-              <div class="testimonial-author">vikas</div>
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Vikas"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Vikas</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul"
-                class="testimonial-img" />
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              </div>
               <div class="testimonial-text">"Excellent packaging, fast shipping, and top-quality supplements. MEIBOTAN
                 has become my go-to!"</div>
-              <div class="testimonial-author">Aman</div>
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Aman"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Aman</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul"
-                class="testimonial-img" />
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              </div>
               <div class="testimonial-text">"I appreciate the transparency and natural ingredients. MEIBOTAN stands out
                 in a crowded market."</div>
-              <div class="testimonial-author">Neha</div>
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                  class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Neha"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Neha</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Rahul"
-                class="testimonial-img" />
-              <div class="testimonial-text">"The sleep support formula actually works! I wake up feeling refreshed
-                instead of groggy."</div>
-              <div class="testimonial-author">Raman</div>
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
               <div class="testimonial-rating">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                   class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+              </div>
+              <div class="testimonial-text">"The sleep support formula actually works! I wake up feeling refreshed
+                instead of groggy."</div>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Raman"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Raman</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2725,13 +3000,19 @@
           <!-- Testimonial 3 -->
           <div class="testimonial-item">
             <div class="testimonial-box">
-              <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Sneha"
-                class="testimonial-img" />
-              <div class="testimonial-text">"Best supplements ever! Helped me with my fitness goals in no time."</div>
-              <div class="testimonial-author">Sneha Kapoor</div>
+              <span class="testimonial-quote"><i class="fas fa-quote-right"></i></span>
               <div class="testimonial-rating">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                   class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <div class="testimonial-text">"Best supplements ever! Helped me with my fitness goals in no time."</div>
+              <div class="testimonial-person">
+                <img src="<?php echo base_url(); ?>/assets/frontend/images/user.webp" alt="Sneha Kapoor"
+                  class="testimonial-img" />
+                <div class="testimonial-meta">
+                  <div class="testimonial-author">Sneha Kapoor</div>
+                  <div class="testimonial-role">Verified Buyer</div>
+                </div>
               </div>
             </div>
           </div>
