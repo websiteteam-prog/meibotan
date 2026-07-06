@@ -388,82 +388,107 @@
       background-color: white;
     }
 
+    /* =========================================
+   CONSUMER STUDIES
+   ========================================= */
     .consumer-studies {
-      padding: 50px 0;
-      background-color: rgb(213, 223, 232);
-    }
-
-    .consumer-studies h2 {
+      padding: 70px 0;
+      background: #F8FAFC;
       text-align: center;
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 40px;
-      color: #333;
     }
 
-    .card {
-      border: none;
-      border-radius: 15px;
-      background-color: white;
-      padding: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 15px;
-      /* align:center; */
-    }
-
-    .card-title {
-      font-size: 16px;
+    .cs-badge {
+      display: inline-block;
+      background: #fff;
+      color: #0F766E;
+      border: 1px solid rgba(20, 184, 166, .4);
+      padding: 7px 18px;
+      border-radius: 30px;
+      font-size: 12.5px;
       font-weight: 600;
-      color: #333;
+      letter-spacing: .04em;
+      margin-bottom: 18px;
     }
 
-    .card-text {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 15px;
+    .consumer-studies .section-heading {
+      margin-bottom: 42px;
     }
 
-    .card-link {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 500;
+    .cs-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 38px 26px 30px;
+      height: 100%;
+      transition: all .3s ease;
     }
 
-    .card-link:hover {
-      text-decoration: underline;
+    .cs-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(20, 184, 166, .5);
+      box-shadow: 0 16px 34px rgba(15, 118, 110, .15);
+    }
+
+    .cs-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #14B8A6, #0F766E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      box-shadow: 0 8px 20px rgba(15, 118, 110, .3);
+      transition: transform .3s ease;
+    }
+
+    .cs-card:hover .cs-icon {
+      transform: scale(1.08);
+    }
+
+    .cs-icon i {
+      color: #fff;
+      font-size: 26px;
+    }
+
+    .cs-card h5 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-bottom: 12px;
+    }
+
+    .cs-card p {
+      font-size: 13.5px;
+      color: #6B7280;
+      line-height: 1.75;
+      margin: 0;
     }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .consumer-studies h2 {
-        font-size: 3rem;
-        /*padding: 0 15px;*/
-        padding-top: 20px;
-      }
-
       .consumer-studies {
-        padding: 0 15px;
+        padding: 45px 0;
       }
 
-      .card {
+      .consumer-studies .section-heading {
+        margin-bottom: 28px;
+      }
+
+      .cs-card {
         margin-bottom: 20px;
-        padding: 20px 20px;
+        padding: 32px 20px 26px;
       }
 
-      .mb-4 {
-        margin-bottom: 1.5rem !important;
-        font-size: 24px;
+      .cs-icon {
+        width: 58px;
+        height: 58px;
+        margin-bottom: 16px;
       }
 
+      .cs-icon i {
+        font-size: 22px;
+      }
     }
 
     .carousel-item img {
@@ -1148,16 +1173,27 @@
     }
 
     .award-section {
-      background: #f5f7fa;
+      background: linear-gradient(160deg, #F8FAFC 0%, #ECFEFF 100%);
     }
 
     .award-card {
+      position: relative;
       background: #fff;
       border-radius: 20px;
       padding: 50px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       transition: .3s ease;
+    }
+
+    .award-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #F59E0B, #14B8A6, #0F766E);
     }
 
     .award-card:hover {
@@ -1180,14 +1216,22 @@
     }
 
     .award-badge {
-      display: inline-block;
-      background: #e8f8f5;
-      color: #0f766e;
-      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, .12);
+      border: 1px solid rgba(245, 158, 11, .4);
+      color: #B45309;
+      padding: 8px 18px;
       border-radius: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 15px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      margin-bottom: 18px;
+    }
+
+    .award-badge i {
+      color: #F59E0B;
     }
 
     .award-content h3 {
@@ -2512,7 +2556,7 @@
           <!-- Right Content -->
           <div class="col-lg-7">
             <div class="award-content">
-              <!--<span class="award-badge">🏆 Award 2026</span>-->
+              <span class="award-badge"><i class="fas fa-trophy"></i> Award 2026</span>
 
               <h3>
                 Probiotics Company of the Year 2026
@@ -2526,7 +2570,7 @@
 
               <a href="<?php echo base_url(); ?>/assets/frontend/images/Company of the Year - June - 2026 - siliconindia Magazine.pdf"
                 target="_blank" class="award-btn">
-                View Detail →
+                View Detail <i class="fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -2537,40 +2581,34 @@
   </section>
   <section class="consumer-studies">
     <div class="container">
-      <h2>Consumer Studies</h2>
-      <div class="row">
+      <span class="cs-badge">Real Results</span>
+      <h2 class="section-heading">Consumer <span>Studies</span></h2>
+      <div class="row justify-content-center">
         <!-- Card 1 -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="card">
-            <img src="<?php echo base_url(); ?>/assets/frontend/images/health.jpg" alt="Icon">
-            <h5 class="card-title">Gut Health Improvement</h5>
-            <p class="card-text">
-              Maintains a healthy balance of gut bacteria with advanced probiotic blends designed for better digestion
-              and nutrient absorption.
-              <!-- <a href="#" class="card-link">Read More</a> -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-seedling"></i></div>
+            <h5>Gut Health Improvement</h5>
+            <p>Maintains a healthy balance of gut bacteria with advanced probiotic blends designed for better digestion
+              and nutrient absorption.</p>
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="card">
-            <img src="<?php echo base_url(); ?>/assets/frontend/images/muscle.jpg" alt="Icon">
-            <h5 class="card-title">Muscle Recovery & Strength</h5>
-            <p class="card-text">
-              Supports post-workout recovery and muscle building with high-quality whey protein, essential amino acids,
-              improved stamina, and faster muscle repair.
-              <!-- <a href="#" class="card-link">Read More</a> -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mb-lg-0">
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-dumbbell"></i></div>
+            <h5>Muscle Recovery &amp; Strength</h5>
+            <p>Supports post-workout recovery and muscle building with high-quality whey protein, essential amino acids,
+              improved stamina, and faster muscle repair.</p>
           </div>
         </div>
         <!-- Card 3 -->
         <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="card">
-            <img src="<?php echo base_url(); ?>/assets/frontend/images/immunity.jpg" alt="Icon">
-            <h5 class="card-title">Immunity Boost Support</h5>
-            <p class="card-text">
-              A powerful mix of traditional herbs and modern nutrients that helps strengthen your body's natural
-              defenses, boost daily energy levels.
-            </p>
-            <!-- <a href="#" class="card-link">Read More</a> -->
+          <div class="cs-card">
+            <div class="cs-icon"><i class="fas fa-shield-virus"></i></div>
+            <h5>Immunity Boost Support</h5>
+            <p>A powerful mix of traditional herbs and modern nutrients that helps strengthen your body's natural
+              defenses, boost daily energy levels.</p>
           </div>
         </div>
       </div>
