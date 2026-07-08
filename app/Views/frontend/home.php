@@ -480,7 +480,7 @@
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .consumer-studies {
-        padding: 45px 0;
+        padding: 45px 14px;
       }
 
       .consumer-studies .section-heading {
@@ -489,6 +489,8 @@
 
       .cs-card {
         margin-bottom: 20px;
+        margin-left: 6px;
+        margin-right: 6px;
         padding: 32px 20px 26px;
       }
 
@@ -1511,6 +1513,13 @@
         margin-left: 0;
       }
 
+      /* let the text fill the row so the icon always pins to the same left
+         edge in BOTH feature columns (fixes the staggered/indented look) */
+      .dose-text {
+        flex: 1;
+        min-width: 0;
+      }
+
       .dose-visual {
         width: 260px;
         height: 330px;
@@ -1555,9 +1564,13 @@
         bottom: -8px;
       }
 
+      /* give the visual enough in-flow bottom space so the hand/product
+         (which is absolutely positioned and hangs below) is never clipped
+         or overlapped by the features that follow */
       .dose-visual {
-        width: 220px;
-        height: 280px;
+        width: 240px;
+        height: 300px;
+        margin-bottom: 80px;
       }
 
       .dose-circle {
@@ -1566,8 +1579,14 @@
       }
 
       .dose-product {
-        width: 240px;
-        margin-bottom: 45px;
+        width: 230px;
+        bottom: -30px;
+      }
+
+      /* uniform, left-aligned feature rows on mobile */
+      .dose-item {
+        align-items: center;
+        margin-bottom: 20px;
       }
 
       .dose-icon {
@@ -1880,12 +1899,13 @@
       }
 
       .hc-card {
-        flex: 0 0 74%;
+        /* show 2 cards per view with a small peek of the next */
+        flex: 0 0 calc(50% - 22px);
         min-width: 0;
       }
 
       .hc-img {
-        height: 160px;
+        height: 140px;
       }
 
       .hc-block {
