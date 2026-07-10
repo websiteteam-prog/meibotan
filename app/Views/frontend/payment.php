@@ -214,19 +214,18 @@
       margin: 0 0 4px;
     }
 
-    .sechead::before {
-      content: "";
+    .sechead i {
+      flex: 0 0 34px;
       width: 34px;
       height: 34px;
       border-radius: 10px;
-      flex: 0 0 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #fff;
       background: linear-gradient(135deg, var(--co-teal-2), var(--co-teal));
       box-shadow: 0 8px 16px rgba(15, 118, 110, .22);
-    }
-
-    .deladdress_box .sechead.addr::before {
-      background: linear-gradient(135deg, var(--co-teal-2), var(--co-teal))
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 384 512'><path d='M215.7 499.2C267 435 384 279.4 384 192 384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2 12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z'/></svg>") center/16px no-repeat;
     }
 
     /* Change button */
@@ -409,6 +408,15 @@
       transform: translateY(-2px);
       box-shadow: 0 18px 38px rgba(15, 118, 110, .38);
       color: #fff;
+    }
+
+    /* icon spacing (Bootstrap-version independent) */
+    .checkout .btn-login i {
+      margin-right: 7px;
+    }
+
+    .checkout .co-discount .co-label i {
+      margin-right: 5px;
     }
 
     .notepay {
@@ -825,7 +833,7 @@
                   <div class="deladdress_box">
                     <div class="row align-items-center">
                       <div class="col-8">
-                        <h4 class="sechead addr">Delivery Address</h4>
+                        <h4 class="sechead"><i class="fas fa-map-marker-alt"></i> Delivery Address</h4>
                       </div>
                       <div class="col-4 text-right">
                         <a href="<?php echo site_url("checkout"); ?>" class="change_btn"><i
@@ -875,7 +883,7 @@
 
                 <div class="checkout_left">
                   <div class="deladdress_box">
-                    <h4 class="sechead">Payment Method</h4>
+                    <h4 class="sechead"><i class="far fa-credit-card"></i> Payment Method</h4>
 
                     <div class="pay-options">
                       <?php foreach ($paymethoddata as $paymethodrow) { ?>

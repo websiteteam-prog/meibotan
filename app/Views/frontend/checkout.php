@@ -345,6 +345,15 @@
       color: #fff;
     }
 
+    /* icon spacing (Bootstrap-version independent) */
+    .checkout .btn-login i {
+      margin-right: 7px;
+    }
+
+    .checkout .co-discount .co-label i {
+      margin-right: 5px;
+    }
+
     /*==================================
       Order Summary card
     ===================================*/
@@ -1227,7 +1236,7 @@
                         $pro_slug = $prodata->product_slug;
 
                         // Product thumbnail — same source as the cart page.
-                        $product_image = $cartrow->product_thumb;
+                        $product_image = $cartrow->product_thumb ?? '';
                         $co_prodimg = ($product_image != "")
                           ? CUSTOM_UPLOAD_PATH . $product_image
                           : DEFAULT_PRODUCTIMG;
