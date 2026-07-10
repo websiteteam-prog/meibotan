@@ -234,7 +234,7 @@
             background: #fff;
             border-radius: 18px;
             padding: 26px;
-            box-shadow: 0 12px 32px rgba(15, 118, 110, .08);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, .05);
         }
 
         .table-cart {
@@ -454,7 +454,7 @@
             background: #fff;
             border-radius: 18px;
             padding: 30px 26px;
-            box-shadow: 0 12px 32px rgba(15, 118, 110, .08);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, .05);
             overflow: hidden;
         }
 
@@ -587,7 +587,7 @@
             background: #fff;
             border-radius: 20px;
             padding: 70px 30px;
-            box-shadow: 0 12px 32px rgba(15, 118, 110, .08);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, .05);
         }
 
         .cart-empty-page .icon-shopping-cart {
