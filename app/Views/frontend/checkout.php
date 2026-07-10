@@ -105,6 +105,12 @@
       background: linear-gradient(90deg, var(--co-teal-2), var(--co-teal));
     }
 
+    /* hide any inherited theme (Porto) chevron connectors */
+    .checkout-progress-bar li::before {
+      content: none !important;
+      display: none !important;
+    }
+
     .step-circle {
       width: 56px;
       height: 56px;
@@ -636,20 +642,38 @@
     }
 
     @media (max-width: 768px) {
+      /* keep the stepper horizontal but compact on mobile */
       .checkout-progress-bar {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-        padding: 30px 0 20px;
+        padding: 26px 0 16px;
       }
 
       .checkout-progress-bar li {
-        width: 100%;
-        max-width: 100%;
+        max-width: none;
+      }
+
+      .step-circle {
+        width: 44px;
+        height: 44px;
+      }
+
+      .step-circle i {
+        font-size: 15px;
+      }
+
+      .step-title {
+        margin-top: 10px;
+        font-size: 11px;
+      }
+
+      .checkout-progress-bar li.current .step-circle {
+        box-shadow: 0 0 0 6px rgba(20, 184, 166, .12);
       }
 
       .checkout-progress-bar li:not(:last-child)::after {
-        display: none;
+        top: 21px;
+        left: calc(50% + 26px);
+        width: calc(100% - 52px);
+        height: 3px;
       }
 
       .checkout_left {
@@ -658,6 +682,28 @@
 
       .checkout_right {
         padding: 22px 18px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .step-circle {
+        width: 40px;
+        height: 40px;
+      }
+
+      .step-circle i {
+        font-size: 13px;
+      }
+
+      .step-title {
+        font-size: 10px;
+        letter-spacing: -.01em;
+      }
+
+      .checkout-progress-bar li:not(:last-child)::after {
+        top: 19px;
+        left: calc(50% + 23px);
+        width: calc(100% - 46px);
       }
     }
   </style>
