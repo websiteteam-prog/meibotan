@@ -57,7 +57,8 @@
 
     .main.checkout {
       background: linear-gradient(170deg, #ECFEFF 0%, #F8FAFC 42%, #F5F8FB 100%);
-      padding-bottom: 70px;
+      padding: 30px 0px 50px;
+
     }
 
     .main.checkout .container {
@@ -93,7 +94,7 @@
       content: "";
       position: absolute;
       top: 27px;
-      left: calc(50% + 34px);
+      left: calc(50% + 50px);
       width: calc(100% - 68px);
       height: 4px;
       background: var(--co-line);
@@ -621,12 +622,25 @@
       margin-top: 2px;
     }
 
+    /* Continue to Payment button (below order summary) */
+    .co-cta {
+      margin-top: 18px;
+    }
+
+    .co-cta .btn-login {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
     .co-trust {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 18px;
+      margin-top: 16px;
       font-size: 12px;
       color: #667085;
     }
@@ -651,6 +665,7 @@
     }
 
     @media (max-width: 768px) {
+
       /* keep the stepper horizontal but compact on mobile */
       .checkout-progress-bar {
         padding: 26px 0 16px;
@@ -680,7 +695,7 @@
 
       .checkout-progress-bar li:not(:last-child)::after {
         top: 21px;
-        left: calc(50% + 26px);
+        left: calc(50% + 50px);
         width: calc(100% - 52px);
         height: 3px;
       }
@@ -1195,19 +1210,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="deladdress">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <button type="submit"
-                              class="btn btn-primary rounded-pill btn-login btn_round mb-2">
-                              <i class="fas fa-lock me-2"></i> Continue to Payment</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <?php echo form_close(); ?>
 
                 </div>
@@ -1270,7 +1272,8 @@
                       </form>
                       <?php if ((session()->get('coupon_discount') ?? 0) > 0) { ?>
                         <div class="co-coupon-applied">
-                          <i class="fas fa-check-circle"></i> Coupon applied — you saved ₹<?php echo session()->get('coupon_discount'); ?>
+                          <i class="fas fa-check-circle"></i> Coupon applied — you saved
+                          ₹<?php echo session()->get('coupon_discount'); ?>
                         </div>
                       <?php } ?>
                     </div>
@@ -1305,6 +1308,12 @@
                         <b class="total-price"><span>₹<?php echo $final_total; ?></span></b>
                         <span class="includes_tax">(includes ₹<?php echo $gstinc; ?> GST)</span>
                       </div>
+                    </div>
+
+                    <div class="co-cta">
+                      <button type="submit" form="loginform"
+                        class="btn btn-primary rounded-pill btn-login btn_round">
+                        <i class="fas fa-lock"></i> Continue to Payment</button>
                     </div>
 
                     <div class="co-trust">
