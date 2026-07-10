@@ -269,15 +269,27 @@
     .checkout .custom-control {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       background: #F6FBFA;
       border: 1px dashed rgba(15, 118, 110, .30);
       border-radius: 12px;
-      padding: 13px 16px;
+      padding: 14px 16px;
       margin-top: 6px;
+      min-height: auto;
+    }
+
+    /* neutralise the theme's custom checkbox pseudo-box so the real box aligns */
+    .checkout .custom-control .custom-control-label::before,
+    .checkout .custom-control .custom-control-label::after {
+      display: none !important;
     }
 
     .checkout .custom-control .custom-control-input {
+      position: static;
+      z-index: auto;
+      opacity: 1;
+      pointer-events: auto;
+      flex: 0 0 auto;
       width: 18px;
       height: 18px;
       accent-color: var(--co-teal);
@@ -291,6 +303,7 @@
       color: #334155;
       cursor: pointer;
       margin: 0;
+      padding-left: 0;
     }
 
     #collapseFour .deladdress {
@@ -367,19 +380,20 @@
 
     .co-thumb {
       position: relative;
-      flex: 0 0 62px;
-      width: 62px;
-      height: 62px;
+      flex: 0 0 64px;
+      width: 64px;
+      height: 64px;
       border-radius: 12px;
       overflow: hidden;
-      background: #F1F5F9;
-      border: 1px solid #EAEFF5;
+      background: #fff;
+      border: 1px solid #E2E8F0;
     }
 
     .co-thumb img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      padding: 5px;
       display: block;
     }
 
@@ -1079,16 +1093,17 @@
                         $prodata = $commfrontfunc->getPerProduct($cart_productid);
                         $pro_slug = $prodata->product_slug;
 
-                        // Product thumbnail — adjust field/path here if your cart uses a different source.
-                        $co_prodimg = ! empty($prodata->product_image)
-                          ? base_url() . '/assets/uploads/product/' . $prodata->product_image
-                          : base_url() . '/assets/frontend/images/favicon.png';
+                        // Product thumbnail — same source as the cart page.
+                        $product_image = $cartrow->product_thumb;
+                        $co_prodimg = ($product_image != "")
+                          ? CUSTOM_UPLOAD_PATH . $product_image
+                          : DEFAULT_PRODUCTIMG;
                         ?>
                         <div class="co-item">
                           <div class="co-thumb">
                             <a href="<?php echo site_url("product/$pro_slug"); ?>" target="_blank">
                               <img src="<?php echo $co_prodimg; ?>" alt="<?php echo esc($cartrow->product_name); ?>"
-                                onerror="this.onerror=null;this.src='<?php echo base_url(); ?>/assets/frontend/images/favicon.png';">
+                                onerror="this.onerror=null;this.src='<?php echo DEFAULT_PRODUCTIMG; ?>';">
                             </a>
                             <span class="co-qty-badge"><?php echo $cartrow->cart_qty; ?></span>
                           </div>
