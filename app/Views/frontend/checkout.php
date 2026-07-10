@@ -459,6 +459,83 @@
       white-space: nowrap;
     }
 
+    /* Coupon box */
+    .co-coupon {
+      margin-top: 18px;
+      background: #F8FAFC;
+      border: 1px solid #E7EDF3;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .co-coupon h4 {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--co-ink);
+      margin: 0 0 12px;
+    }
+
+    .co-coupon h4 i {
+      color: var(--co-amber);
+    }
+
+    .co-coupon .input-group {
+      display: flex;
+    }
+
+    .co-coupon .form-control {
+      flex: 1;
+      min-width: 0;
+      height: auto;
+      padding: 11px 16px;
+      font-size: 13px;
+      color: var(--co-ink);
+      border: 1.5px solid #E4E9F1;
+      border-right: none;
+      border-radius: 30px 0 0 30px;
+      background: #fff;
+    }
+
+    .co-coupon .form-control:focus {
+      border-color: var(--co-teal-2);
+      box-shadow: none;
+      outline: none;
+    }
+
+    .co-coupon .btn-apply {
+      border: none;
+      border-radius: 0 30px 30px 0;
+      padding: 0 22px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(135deg, var(--co-teal-2), var(--co-teal));
+      transition: background .25s ease;
+      white-space: nowrap;
+    }
+
+    .co-coupon .btn-apply:hover {
+      background: var(--co-amber);
+      color: #fff;
+    }
+
+    .co-coupon-applied {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 11px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #059669;
+    }
+
     /* Totals */
     .co-totals {
       margin-top: 18px;
@@ -1123,6 +1200,22 @@
                             <div class="co-meta">Qty: <?php echo $cartrow->cart_qty; ?></div>
                           </div>
                           <div class="co-line-price">₹<?php echo $cartrow->cart_pricetotal; ?></div>
+                        </div>
+                      <?php } ?>
+                    </div>
+
+                    <div class="co-coupon">
+                      <h4><i class="fas fa-tag"></i> Apply Coupon</h4>
+                      <form method="post" action="<?php echo site_url('cart/apply_coupon'); ?>">
+                        <div class="input-group">
+                          <input type="text" name="coupon_code" class="form-control" placeholder="Enter Coupon Code"
+                            required>
+                          <button type="submit" class="btn-apply">Apply</button>
+                        </div>
+                      </form>
+                      <?php if ((session()->get('coupon_discount') ?? 0) > 0) { ?>
+                        <div class="co-coupon-applied">
+                          <i class="fas fa-check-circle"></i> Coupon applied — you saved ₹<?php echo session()->get('coupon_discount'); ?>
                         </div>
                       <?php } ?>
                     </div>
