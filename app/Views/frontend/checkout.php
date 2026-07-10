@@ -1310,14 +1310,10 @@
                       </div>
                     </div>
 
-                    <div class="co-cta">
-                      <button type="submit" form="loginform"
-                        class="btn btn-primary rounded-pill btn-login btn_round">
-                        <i class="fas fa-lock"></i> Continue to Payment</button>
-                    </div>
-
-                    <div class="co-trust">
-                      <i class="fas fa-shield-alt"></i> Secure &amp; encrypted checkout
+                    <div class="text-center mt-4">
+                      <button type="submit" form="loginform" class="btn btn-primary rounded-pill btn-login w-100">
+                        <i class="fas fa-lock me-2"></i> Continue to Payment
+                      </button>
                     </div>
                   </div>
                 </div>
