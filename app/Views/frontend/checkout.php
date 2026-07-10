@@ -384,9 +384,17 @@
       width: 64px;
       height: 64px;
       border-radius: 12px;
-      overflow: hidden;
       background: #fff;
       border: 1px solid #E2E8F0;
+    }
+
+    /* keep the image rounded here so the badge (outside the box) isn't clipped */
+    .co-thumb a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 11px;
+      overflow: hidden;
     }
 
     .co-thumb img {
@@ -399,16 +407,18 @@
 
     .co-qty-badge {
       position: absolute;
-      top: -8px;
-      right: -8px;
-      min-width: 22px;
-      height: 22px;
+      top: -9px;
+      right: -9px;
+      z-index: 3;
+      min-width: 23px;
+      height: 23px;
       padding: 0 6px;
-      border-radius: 22px;
+      border-radius: 23px;
       background: linear-gradient(135deg, var(--co-teal-2), var(--co-teal));
       color: #fff;
       font-size: 11.5px;
       font-weight: 700;
+      line-height: 1;
       display: flex;
       align-items: center;
       justify-content: center;
