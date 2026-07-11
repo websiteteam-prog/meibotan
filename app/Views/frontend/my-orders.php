@@ -586,7 +586,7 @@
 
     </div>
 
-	<?= $this->include('frontend/partials/mobile-menu') ?>
+	<?php if (is_file(APPPATH . 'Views/frontend/partials/mobile-menu.php')) { echo $this->include('frontend/partials/mobile-menu'); } ?>
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
     <script src="<?php echo base_url(); ?>/assets/frontend/js/jquery.min.js"></script>

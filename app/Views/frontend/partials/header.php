@@ -329,7 +329,7 @@ if (!isset($hparentcatdata)) {
   </nav>
 </aside>
 
-<?php include(APPPATH . 'Views/frontend/mobile-search.php'); ?>
+<?php if (is_file(APPPATH . 'Views/frontend/mobile-search.php')) { include(APPPATH . 'Views/frontend/mobile-search.php'); } ?>
 
 <!-- ===================== -->
 <!-- LIVE SEARCH CSS -->
