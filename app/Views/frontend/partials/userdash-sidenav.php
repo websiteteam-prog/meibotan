@@ -77,26 +77,30 @@
     padding: 10px;
   }
 
+  .dash_sidebar .nav-tabs {
+    border: none !important;
+    margin: 0;
+  }
+
   .dash_sidebar .nav-item {
     border: none;
     margin: 0;
   }
 
-  .dash_sidebar .nav-tabs {
-    border: none;
-  }
-
+  /* base link — force even padding & kill theme borders/margins */
+  .dash_sidebar .nav-tabs .nav-link,
   .dash_sidebar .nav-link {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 14px;
-    margin: 2px 0;
-    border: none;
-    border-radius: 10px;
+    padding: 12px 15px !important;
+    margin: 3px 0 !important;
+    border: none !important;
+    border-radius: 10px !important;
     font-family: 'Poppins', sans-serif;
     font-size: 13.5px;
     font-weight: 600;
+    line-height: 1.3;
     color: #475467;
     text-decoration: none !important;
     transition: all .2s ease;
@@ -110,8 +114,10 @@
     transition: color .2s ease;
   }
 
+  /* hover — soft light teal background */
+  .dash_sidebar .nav-tabs .nav-link:hover,
   .dash_sidebar .nav-link:hover {
-    background: #F6FBFA;
+    background: #E6F7F4 !important;
     color: #0F766E;
   }
 
@@ -119,9 +125,13 @@
     color: #0F766E;
   }
 
+  /* active — filled teal pill, same padding as the rest */
+  .dash_sidebar .nav-tabs .nav-link.active,
   .dash_sidebar .nav-link.active {
-    background: linear-gradient(135deg, #14B8A6, #0F766E);
-    color: #fff;
+    background: linear-gradient(135deg, #14B8A6, #0F766E) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 12px 15px !important;
     box-shadow: 0 8px 18px rgba(15, 118, 110, .22);
   }
 
@@ -138,7 +148,7 @@
   }
 
   .dash_sidebar .nav-link.dash-logout-link:hover {
-    background: #FEF2F2;
+    background: #FEF2F2 !important;
     color: #DC2626;
   }
 
