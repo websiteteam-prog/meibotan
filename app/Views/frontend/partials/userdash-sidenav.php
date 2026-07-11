@@ -28,7 +28,8 @@
                 href="<?php echo site_url("wishlist"); ?>" title="Wishlist"><i class="fas fa-heart"></i> My Wishlist</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo site_url("my-orders"); ?>" title="My Address"><i
+              <a class="nav-link <?= $dash_cur == 'my-address' ? 'active' : ''; ?>"
+                href="<?php echo site_url("my-address"); ?>" title="My Address"><i
                   class="fas fa-map-marker-alt"></i> My Address</a>
             </li>
             <li class="nav-item">
