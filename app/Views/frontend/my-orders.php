@@ -71,6 +71,105 @@
         margin: 4px 0 20px;
       }
 
+      /* Welcome bar (same as dashboard) */
+      .dash-welcome {
+        position: sticky;
+        top: 90px;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 18px 20px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #ECFDF5, #E6F7F4);
+        border: 1px solid rgba(15, 118, 110, .16);
+        box-shadow: 0 6px 18px rgba(15, 118, 110, .10);
+        margin: 4px 0 20px;
+      }
+
+      .dash-welcome-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .dash-welcome-avatar {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        flex: 0 0 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #fff;
+        background: linear-gradient(135deg, #14B8A6, #0F766E);
+        box-shadow: 0 8px 18px rgba(15, 118, 110, .25);
+      }
+
+      .dash-welcome-text span {
+        display: block;
+        font-size: 12.5px;
+        color: #6B7280;
+        letter-spacing: .02em;
+      }
+
+      .dash-welcome-text h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 19px;
+        font-weight: 600;
+        color: #1F2937;
+        margin: 2px 0 0;
+        text-transform: capitalize;
+      }
+
+      .dash-logout-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: #0F766E;
+        background: #fff;
+        border: 1.5px solid rgba(15, 118, 110, .3);
+        padding: 9px 20px;
+        border-radius: 30px;
+        text-decoration: none !important;
+        transition: all .25s ease;
+      }
+
+      .dash-logout-btn:hover {
+        background: #0F766E;
+        color: #fff;
+        border-color: #0F766E;
+      }
+
+      @media (max-width: 991px) {
+        .dash-welcome {
+          top: 70px;
+        }
+      }
+
+      @media (max-width: 575px) {
+        .dash-welcome {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .dash-welcome-left {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .dash-logout-btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
       /* Orders card + table */
       .order-card {
         background: #fff;
@@ -361,6 +460,18 @@
                       <li class="breadcrumb-item active" aria-current="page">My Orders</li>
                     </ol>
                   </nav>
+
+                  <?php $dash_uname = (isset($userdata->user_name) && $userdata->user_name != '') ? $userdata->user_name : 'Customer'; ?>
+                  <div class="dash-welcome">
+                    <div class="dash-welcome-left">
+                      <div class="dash-welcome-avatar"><i class="fas fa-user"></i></div>
+                      <div class="dash-welcome-text">
+                        <span>Welcome back,</span>
+                        <h3><?php echo $dash_uname; ?></h3>
+                      </div>
+                    </div>
+                    <a href="<?php echo site_url("logout"); ?>" class="dash-logout-btn"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                  </div>
 
                   <h1 class="orders-title">My Orders</h1>
 
