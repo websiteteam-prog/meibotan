@@ -43,10 +43,12 @@
     background: linear-gradient(170deg, #ECFEFF 0%, #F8FAFC 40%, #F5F8FB 100%);
   }
 
-  /* Page header */
+  /* Page header — remove theme's blue banner image */
   .main .page-header {
-    background: transparent;
-    padding: 34px 0 6px;
+    background: transparent !important;
+    background-image: none !important;
+    padding: 34px 0 10px;
+    min-height: 0;
   }
 
   .main .page-header h1 {
@@ -93,8 +95,11 @@
     padding: 26px 26px 30px;
   }
 
-  /* Welcome bar */
+  /* Welcome bar — sticky so it stays pinned on scroll */
   .dash-welcome {
+    position: sticky;
+    top: 90px;
+    z-index: 6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -104,7 +109,14 @@
     border-radius: 14px;
     background: linear-gradient(135deg, #ECFDF5, #E6F7F4);
     border: 1px solid rgba(15, 118, 110, .16);
+    box-shadow: 0 6px 18px rgba(15, 118, 110, .10);
     margin-bottom: 26px;
+  }
+
+  @media (max-width: 991px) {
+    .dash-welcome {
+      top: 70px;
+    }
   }
 
   .dash-welcome-left {
