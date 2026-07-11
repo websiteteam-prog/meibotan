@@ -315,17 +315,10 @@ if (!isset($hparentcatdata)) {
           } ?>
         </div>
       </li>
-      <li><a href="<?php echo site_url('blog'); ?>"><i class="fas fa-blog"></i> Blogs</a></li>
       <li><a href="<?php echo site_url('bulk-order'); ?>"><i class="fas fa-box-open"></i> Bulk Order</a></li>
+      <li><a href="<?php echo site_url('blog'); ?>"><i class="fas fa-blog"></i> Blogs</a></li>
       <li><a href="<?php echo site_url('contact-us'); ?>"><i class="fas fa-envelope"></i> Contact Us</a></li>
     </ul>
-    <div class="m-nav-foot">
-      <a href="<?php echo isset($_SESSION['userid']) ? site_url('dashboard') : site_url('login'); ?>"
-        class="m-nav-account">
-        <i class="icon-user-2"></i> <?php echo isset($_SESSION['userid']) ? 'My Account' : 'Log In'; ?>
-      </a>
-      <a href="tel:+917009057196" class="m-nav-call"><i class="fas fa-phone-alt"></i> +91-7009057196</a>
-    </div>
   </nav>
 </aside>
 
@@ -1221,6 +1214,16 @@ PREMIUM HEADER POLISH
   /* ====================================
      MOBILE NAV DRAWER (custom)
      ==================================== */
+
+  /* Hide the theme's built-in (Porto) mobile menu — we use our own drawer */
+  .mobile-menu-overlay,
+  .mobile-menu-container,
+  .mobile-menu-wrapper,
+  .mmenu-anchor,
+  .mobile-menu-close {
+    display: none !important;
+  }
+
   .mobile-nav-toggler {
     display: none;
     background: transparent;
@@ -1692,6 +1695,10 @@ PREMIUM HEADER POLISH
 <!-- ===================== -->
 <script>
   (function () {
+    // Remove the theme's built-in (Porto) mobile menu so only our drawer shows
+    document.querySelectorAll('.mobile-menu-overlay, .mobile-menu-container, .mmenu-anchor')
+      .forEach(function (el) { el.remove(); });
+
     const toggler = document.getElementById('mobileNavToggler');
     const nav = document.getElementById('mNav');
     const overlay = document.getElementById('mNavOverlay');
