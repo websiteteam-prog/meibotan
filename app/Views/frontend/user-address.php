@@ -268,40 +268,6 @@
               echo form_open('my-address', $attributes);
               ?>
               <div class="row">
-                <div class="col-lg-6">
-                  <div class="mb-3">
-                    <label class="form-label">Name <span class="req">*</span></label>
-                    <?php echo form_input(array(
-                      'name' => 'user_shipname',
-                      'id' => 'user_shipname',
-                      'type' => 'text',
-                      'maxlength' => 400,
-                      'class' => "form-control",
-                      'value' => set_value('user_shipname', $userdata->user_shipname)
-                    )); ?>
-                    <?php if (isset($validation['user_shipname'])) { ?>
-                      <div class="error"><?php echo $validation['user_shipname']; ?></div>
-                    <?php } ?>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="mb-3">
-                    <label class="form-label">Company Name</label>
-                    <?php echo form_input(array(
-                      'name' => 'user_shipcompname',
-                      'id' => 'user_shipcompname',
-                      'type' => 'text',
-                      'maxlength' => 400,
-                      'class' => "form-control",
-                      'value' => set_value('user_shipcompname', $userdata->user_shipcompname)
-                    )); ?>
-                    <?php if (isset($validation['user_shipcompname'])) { ?>
-                      <div class="error"><?php echo $validation['user_shipcompname']; ?></div>
-                    <?php } ?>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-12">
                   <div class="mb-3">
                     <label class="form-label">Street Address <span class="req">*</span></label>
@@ -386,22 +352,6 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
-                  <div class="mb-3">
-                    <label class="form-label">Mobile No. <span class="req">*</span></label>
-                    <?php echo form_input(array(
-                      'name' => 'user_shipmobile',
-                      'id' => 'user_shipmobile',
-                      'type' => 'text',
-                      'maxlength' => 10,
-                      'class' => "form-control",
-                      'value' => set_value('user_shipmobile', $userdata->user_shipmobile)
-                    )); ?>
-                    <?php if (isset($validation['user_shipmobile'])) { ?>
-                      <div class="error"><?php echo $validation['user_shipmobile']; ?></div>
-                    <?php } ?>
-                  </div>
-                </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
                     <label class="form-label">GSTIN Number</label>
