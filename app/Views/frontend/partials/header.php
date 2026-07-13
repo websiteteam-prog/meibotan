@@ -838,6 +838,11 @@ MODERN MEGA MENU — Meibotan UI v2
     padding: 40px 0;
   }
 
+  /* if a product gets added (even via AJAX), hide the empty message */
+  .cart-dropdown .dropdownmenu-wrapper:has(.product) .cart-empty-mini {
+    display: none !important;
+  }
+
   .cart-dropdown .cart-empty-mini i {
     font-size: 40px;
     color: #CBD5E1;
@@ -1687,6 +1692,19 @@ PREMIUM HEADER POLISH
       if (!dd.classList.contains('open')) return;
       if (!dd.contains(e.target)) closeCart(e);
     });
+
+    // JS fallback: hide the "empty" message whenever a product exists in the
+    // mini-cart (covers AJAX add-to-cart on browsers without CSS :has()).
+    var wrapper = dd.querySelector('.dropdownmenu-wrapper');
+    if (wrapper) {
+      var syncEmpty = function () {
+        var empty = wrapper.querySelector('.cart-empty-mini');
+        if (!empty) return;
+        empty.style.display = wrapper.querySelector('.product') ? 'none' : '';
+      };
+      syncEmpty();
+      new MutationObserver(syncEmpty).observe(wrapper, { childList: true, subtree: true });
+    }
   })();
 </script>
 
