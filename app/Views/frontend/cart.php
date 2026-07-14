@@ -315,12 +315,19 @@
             border-color: #DC2626;
         }
 
+        .table-cart .product-title,
         .product-title {
-            font-size: 14px;
+            font-size: 14px !important;
             font-weight: 700;
             color: #1F2937;
             margin: 0;
+            line-height: 1.5 !important;
+            text-align: left !important;
             word-break: break-word;
+        }
+
+        .table-cart td.product-col {
+            text-align: left !important;
         }
 
         .subtotal-price {
@@ -329,19 +336,49 @@
             font-size: 15px;
         }
 
+        .product-single-qty {
+            margin: 0;
+        }
+
         .product-single-qty .input-group {
             border: 1px solid #E2E8F0;
             border-radius: 30px;
             overflow: hidden;
-            max-width: 110px;
+            max-width: 128px;
+            width: 128px;
+            flex-wrap: nowrap;
+            align-items: center;
+            background: #fff;
         }
 
+        /* keep the theme's injected touchspin (- / +) buttons compact */
+        .product-single-qty .input-group .btn,
+        .product-single-qty .input-group button {
+            width: 34px !important;
+            min-width: 34px !important;
+            height: 34px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            color: #0F766E !important;
+            font-size: 13px !important;
+            line-height: 34px !important;
+            box-shadow: none !important;
+        }
+
+        .product-single-qty .horizontal-quantity,
         .horizontal-quantity {
+            width: 44px !important;
+            height: 34px !important;
+            padding: 0 !important;
             text-align: center;
             border: none !important;
             font-weight: 600;
-            font-size: 13.5px;
+            font-size: 13.5px !important;
             box-shadow: none !important;
+            background: #fff;
         }
 
         .btn-update-cart {
@@ -390,8 +427,8 @@
 
             .table-cart tbody tr.product-row td {
                 border: none !important;
-                padding: 3px 0;
-                text-align: left;
+                padding: 3px 0 !important;
+                text-align: left !important;
             }
 
             /* image cell pinned to the left of the card */
@@ -400,7 +437,7 @@
                 left: 16px;
                 top: 16px;
                 width: 76px;
-                padding: 0;
+                padding: 0 !important;
             }
 
             .table-cart tbody tr.product-row td.product-col {
@@ -412,6 +449,8 @@
                 content: attr(data-label);
                 display: inline-block;
                 min-width: 74px;
+                margin-right: 6px;
+                vertical-align: middle;
                 font-weight: 700;
                 font-size: 11px;
                 text-transform: uppercase;
@@ -419,8 +458,10 @@
                 color: #6B7280;
             }
 
+            /* beat Bootstrap's .text-right { !important } so the
+               Subtotal chip + value sit on one left-aligned line */
             .table-cart tbody tr.product-row td.text-right {
-                text-align: left;
+                text-align: left !important;
             }
 
             .product-single-qty {
@@ -429,7 +470,8 @@
             }
 
             .product-single-qty .input-group {
-                max-width: 120px;
+                max-width: 128px;
+                width: 128px;
             }
 
             /* tfoot */
@@ -481,7 +523,19 @@
             }
 
             .product-single-qty .input-group {
-                max-width: 104px;
+                max-width: 112px;
+                width: 112px;
+            }
+
+            .product-single-qty .input-group .btn,
+            .product-single-qty .input-group button {
+                width: 30px !important;
+                min-width: 30px !important;
+            }
+
+            .product-single-qty .horizontal-quantity,
+            .horizontal-quantity {
+                width: 40px !important;
             }
         }
 
