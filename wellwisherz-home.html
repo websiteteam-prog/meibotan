@@ -52,6 +52,24 @@
 /* ---------- Layout helpers ---------- */
 .ww-wrap{max-width:var(--container);margin:0 auto;padding:0 24px;}
 .ww-sec{padding:clamp(60px,8.5vw,112px) 0;}
+
+/* ---------- FULL-BLEED: make every band span the full page width ----------
+   GoDaddy puts the embed inside a narrow centered column, which leaves
+   black bars on the sides. This breaks each section out to full viewport
+   width while keeping the inner .ww-wrap content centered. */
+.ww-site > .ww-topbar,
+.ww-site > .ww-hero,
+.ww-site > .ww-sec,
+.ww-site > .ww-quote,
+.ww-site > .ww-footer{
+  width:100vw;
+  max-width:100vw;
+  position:relative;
+  left:50%;
+  right:50%;
+  margin-left:-50vw;
+  margin-right:-50vw;
+}
 .ww-eyebrow{
   display:inline-flex;align-items:center;gap:12px;
   font-family:var(--sans);font-size:.72rem;font-weight:600;
