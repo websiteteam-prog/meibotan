@@ -1,0 +1,321 @@
+<!--
+  WELLWISHERZ — ABOUT US PAGE  |  Paste-ready for GoDaddy
+  - Same style as the homepage (teal-blue + green, full-width, responsive)
+  - IMAGES: search REPLACE-PHOTO and paste your image URL
+  - NOTE: phone shown as +91 98765 43210 (matches About page). Confirm the
+    correct number and I'll update everywhere.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<div class="ww-site">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+.ww-site{
+  --teal:#0E8C99; --teal-bright:#19B0BC; --teal-deep:#0A6B75;
+  --green:#2CA24E; --green-bright:#46C06C; --green-deep:#1E8A43;
+  --ink:#0E3339; --ink-2:#0A272C;
+  --text:#26383C; --muted:#5D7175;
+  --cream:#F4F0E7; --cream-2:#FBF8F1; --paper:#FFFFFF;
+  --line:rgba(14,51,57,.12);
+  --on-dark:#EAF5F4; --on-dark-muted:rgba(234,245,244,.74);
+  --wa:#25D366;
+  --grad:linear-gradient(125deg,#0E8C99 0%,#19B0BC 45%,#2CA24E 100%);
+  --grad-soft:linear-gradient(135deg,#E4F5F3,#E8F6EC);
+  --shadow-sm:0 10px 26px rgba(14,51,57,.08);
+  --shadow-md:0 22px 50px rgba(14,51,57,.15);
+  --serif:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --container:1280px;
+  font-family:var(--sans); color:var(--text); background:var(--paper);
+  line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.ww-site *{box-sizing:border-box;}
+.ww-site img{max-width:100%;display:block;}
+.ww-site p{margin:0 0 1em;}
+.ww-site h1,.ww-site h2,.ww-site h3,.ww-site h4{margin:0;font-family:var(--serif);font-weight:600;color:var(--ink);line-height:1.14;text-wrap:balance;}
+.ww-site a{color:inherit;text-decoration:none;}
+
+.ww-wrap{max-width:var(--container);margin:0 auto;padding:0 24px;}
+.ww-sec{padding:clamp(64px,8.5vw,116px) 0;}
+
+.ww-site > .ww-topbar,
+.ww-site > .ww-hero,
+.ww-site > .ww-sec,
+.ww-site > .ww-footer{
+  width:100vw;max-width:100vw;position:relative;left:50%;right:50%;
+  margin-left:-50vw;margin-right:-50vw;
+}
+
+.ww-eyebrow{display:inline-flex;align-items:center;gap:11px;font-family:var(--sans);
+  font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;}
+.ww-eyebrow::before{content:"";width:26px;height:3px;border-radius:3px;background:var(--grad);}
+.ww-eyebrow.on-dark{color:var(--teal-bright);}
+.ww-eyebrow.center{margin-left:auto;margin-right:auto;}
+.ww-h2{font-size:clamp(2rem,3.7vw,3.05rem);letter-spacing:-.015em;}
+.ww-grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;}
+.ww-lead{font-size:1.08rem;color:var(--muted);max-width:60ch;line-height:1.8;}
+
+.ww-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:600;font-size:.95rem;
+  padding:14px 28px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease,border-color .25s ease;}
+.ww-btn svg{width:19px;height:19px;flex:0 0 auto;}
+.ww-btn-wa{background:var(--wa);color:#04351f;}
+.ww-btn-wa:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(37,211,102,.4);}
+.ww-btn-teal{background:var(--grad);color:#fff;}
+.ww-btn-teal:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(14,140,153,.4);}
+.ww-btn-ghost{border-color:rgba(255,255,255,.55);color:#fff;background:transparent;}
+.ww-btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-2px);}
+
+.ww-topbar{background:var(--ink-2);color:var(--on-dark);text-align:center;font-size:.85rem;letter-spacing:.02em;padding:11px 16px;}
+.ww-topbar b{color:var(--teal-bright);font-weight:700;}
+.ww-topbar .leaf{color:var(--green-bright);opacity:.9;margin:0 10px;}
+
+/* ---------- Page hero ---------- */
+.ww-hero{position:relative;overflow:hidden;color:#fff;text-align:center;background:linear-gradient(155deg,#0C3A40 0%,#0A2C31 55%,#0C3A34 100%);}
+.ww-hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;top:-180px;right:-120px;background:radial-gradient(circle,rgba(25,176,188,.4),transparent 65%);}
+.ww-hero::after{content:"";position:absolute;width:460px;height:460px;border-radius:50%;bottom:-200px;left:-140px;background:radial-gradient(circle,rgba(46,162,78,.3),transparent 65%);}
+.ww-hero .ww-wrap{position:relative;z-index:2;padding-top:clamp(64px,8vw,100px);padding-bottom:clamp(96px,11vw,140px);}
+.ww-hero .ww-eyebrow{color:var(--teal-bright);}
+.ww-hero h1{color:#fff;font-size:clamp(2.3rem,5vw,3.6rem);font-weight:600;line-height:1.06;letter-spacing:-.02em;max-width:20ch;margin:0 auto 18px;}
+.ww-hero h1 em{font-style:italic;background:linear-gradient(100deg,var(--teal-bright),var(--green-bright));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ww-hero .sub{font-size:1.14rem;color:rgba(255,255,255,.9);max-width:56ch;margin:0 auto;line-height:1.75;}
+
+.ww-wave{position:absolute;left:0;bottom:-1px;width:100%;line-height:0;z-index:2;}
+.ww-wave svg{width:100%;height:64px;display:block;}
+
+/* ---------- Photo placeholder ---------- */
+.ww-photo{position:relative;min-height:340px;background:linear-gradient(150deg,#dbeeeb,#e6f2ea);display:flex;align-items:center;justify-content:center;}
+.ww-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ww-photo .ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--teal);text-align:center;padding:24px;}
+.ww-photo .ph svg{width:44px;height:44px;}
+.ww-photo .ph span{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.ww-photo.round{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-md);}
+.ww-photo.arch{border-radius:200px 200px 24px 24px;overflow:hidden;box-shadow:var(--shadow-md);}
+
+/* ---------- Story ---------- */
+.ww-story{background:var(--cream-2);}
+.ww-story-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,64px);align-items:start;}
+.ww-story .lead-line{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:20px;}
+.ww-story p{font-size:1rem;color:var(--muted);line-height:1.82;}
+.ww-pullquote{margin:26px 0;padding:20px 26px;border-left:4px solid var(--teal);background:var(--paper);border-radius:0 14px 14px 0;box-shadow:var(--shadow-sm);
+  font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.4;color:var(--ink);}
+.ww-story .media{position:relative;}
+.ww-story .price-badge{position:absolute;right:-10px;bottom:-16px;display:flex;align-items:center;gap:12px;background:#fff;padding:13px 20px 13px 14px;border-radius:16px;box-shadow:var(--shadow-md);}
+.ww-story .price-badge .ic{width:44px;height:44px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:#fff;font-family:var(--serif);font-weight:700;font-size:1.1rem;}
+.ww-story .price-badge b{display:block;color:var(--ink);font-size:1rem;font-weight:700;line-height:1.1;}
+.ww-story .price-badge span{color:var(--muted);font-size:.78rem;}
+
+/* ---------- Trust (dark) ---------- */
+.ww-trust{background:linear-gradient(155deg,#0E3339 0%,#0A272C 100%);color:var(--on-dark);position:relative;overflow:hidden;text-align:center;}
+.ww-trust::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;top:-180px;left:-120px;background:radial-gradient(circle,rgba(25,176,188,.2),transparent 65%);}
+.ww-trust .ww-wrap{position:relative;z-index:1;}
+.ww-trust h2{color:#fff;}
+.ww-trust .ww-lead{color:var(--on-dark-muted);margin:14px auto 0;text-align:center;}
+.ww-tgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:clamp(42px,6vw,64px);}
+.ww-tcard{flex:1 1 300px;max-width:360px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;text-align:left;transition:transform .3s,background .3s,border-color .3s;}
+.ww-tcard:hover{transform:translateY(-6px);background:rgba(255,255,255,.07);border-color:rgba(25,176,188,.5);}
+.ww-tcard .ww-photo{min-height:186px;background:linear-gradient(150deg,#123c40,#0e3035);}
+.ww-tcard .ww-photo .ph{color:var(--teal-bright);}
+.ww-tcard .ww-photo .ph span{color:var(--on-dark-muted);}
+.ww-tcard .body{padding:22px 24px 26px;}
+.ww-tcard h3{color:#fff;font-family:var(--sans);font-size:1.12rem;font-weight:700;margin-bottom:9px;}
+.ww-tcard p{color:var(--on-dark-muted);font-size:.93rem;margin:0;line-height:1.62;}
+
+/* ---------- Commitment / Services ---------- */
+.ww-about-svc{background:var(--cream);text-align:center;}
+.ww-about-svc .ww-lead{margin:14px auto 0;}
+.ww-svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:clamp(42px,6vw,64px);}
+.ww-svc{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow-sm);text-align:center;transition:transform .3s,box-shadow .3s;}
+.ww-svc:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.ww-svc .ww-photo{min-height:270px;}
+.ww-svc .body{padding:30px 32px 34px;}
+.ww-svc h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.ww-svc h3 span{color:var(--teal);}
+.ww-svc p{font-size:.97rem;color:var(--muted);margin:0;line-height:1.75;}
+
+/* ---------- Contact ---------- */
+.ww-contact{background:linear-gradient(155deg,#0C3A40,#0A2529);color:var(--on-dark);text-align:center;position:relative;overflow:hidden;}
+.ww-contact::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;bottom:-220px;right:-140px;background:radial-gradient(circle,rgba(46,162,78,.28),transparent 65%);}
+.ww-contact .ww-wrap{position:relative;z-index:1;}
+.ww-contact h2{color:#fff;max-width:22ch;margin:0 auto 16px;}
+.ww-contact .ww-lead{color:var(--on-dark-muted);margin:0 auto 30px;text-align:center;}
+.ww-cta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:30px;}
+.ww-contact-details{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;color:var(--on-dark-muted);font-size:.95rem;}
+.ww-contact-details a,.ww-contact-details span{display:inline-flex;align-items:center;gap:9px;color:var(--on-dark);}
+.ww-contact-details a:hover{color:var(--teal-bright);}
+.ww-contact-details svg{width:17px;height:17px;color:var(--teal-bright);}
+
+/* ---------- Footer ---------- */
+.ww-footer{background:var(--ink-2);color:rgba(234,245,244,.6);text-align:center;padding:44px 24px;}
+.ww-logo{font-family:var(--serif);font-weight:700;font-size:1.6rem;color:#fff;margin-bottom:6px;}
+.ww-logo b{color:var(--green-bright);}
+.ww-footer .tag{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:16px;}
+.ww-footer .copy{font-size:.82rem;margin:0;}
+
+/* ---------- Reveal ---------- */
+.ww-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.ww-reveal.in{opacity:1;transform:none;}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .ww-story-grid{grid-template-columns:1fr;}
+  .ww-story .media{max-width:520px;margin:0 auto;}
+  .ww-svc-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .ww-tcard{flex:1 1 100%;max-width:100%;}
+  .ww-cta-row{flex-direction:column;align-items:stretch;}
+  .ww-btn{justify-content:center;}
+  .ww-story .price-badge{right:auto;left:14px;bottom:12px;}
+}
+@media(prefers-reduced-motion:reduce){ .ww-reveal{opacity:1;transform:none;transition:none;} }
+</style>
+
+<!-- ===== ANNOUNCEMENT ===== -->
+<div class="ww-topbar">
+  <span class="leaf">&#10047;</span><b>First visit at just &#8377;99</b> &mdash; try before you commit to any plan<span class="leaf">&#10047;</span>
+</div>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="ww-hero">
+  <div class="ww-wrap ww-reveal">
+    <span class="ww-eyebrow center">About WellWisherz</span>
+    <h1>We are the well-wisher your parents <em>deserve.</em></h1>
+    <p class="sub">Not a hospital. Not a nursing home. Just trained, trusted, warm human companions who show up &mdash; on time, in uniform, with care.</p>
+  </div>
+  <div class="ww-wave"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="#FBF8F1" d="M0,32 C240,72 480,8 720,24 C960,40 1200,72 1440,36 L1440,64 L0,64 Z"></path></svg></div>
+</section>
+
+<!-- ===== OUR STORY ===== -->
+<section class="ww-sec ww-story">
+  <div class="ww-wrap">
+    <div class="ww-story-grid ww-reveal">
+      <div>
+        <span class="ww-eyebrow">Our Story</span>
+        <p class="lead-line">WellWisherz is the first dedicated senior companionship service serving Chandigarh and Panchkula &mdash; a trained squad of care professionals who spend meaningful time with your parents so they never feel alone, forgotten, or stuck.</p>
+        <p>Our companions are background-verified, soft-skills trained, and uniformed &mdash; so your family knows exactly who is walking through that door. Every visit is tracked, reported, and followed up on WhatsApp so you&rsquo;re always in the loop.</p>
+        <p>We handle the mundane and the meaningful: the prescription run, the morning walk, the temple visit, the phone call that takes 20 minutes to navigate, the evening chess game. Everything a well-wisher does.</p>
+        <div class="ww-pullquote">Your parents don&rsquo;t need pity &mdash; they need company.</div>
+        <p>They need someone who listens to stories from 40 years ago with genuine interest. Someone who helps them feel capable, engaged, and valued.</p>
+        <p>We&rsquo;ve designed every touchpoint &mdash; the booking, the visit, the follow-up &mdash; around what families like yours actually need: reliability, transparency, and the peace of knowing someone is there.</p>
+        <p>Starting at just &#8377;1,600 per month for a Basic plan, WellWisherz is affordable enough to sustain, meaningful enough to transform a senior&rsquo;s daily life.</p>
+      </div>
+      <div class="media">
+        <div class="ww-photo arch">
+          <!-- REPLACE-PHOTO: <img src="YOUR-IMAGE-URL" alt="A companion sharing tea with a senior"> -->
+          <div class="ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-3.5 7-8 10z"/></svg>
+            <span>Your photo here</span>
+          </div>
+        </div>
+        <div class="price-badge">
+          <div class="ic">&#8377;</div>
+          <div><b>From &#8377;1,600/mo</b><span>Basic plan</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST ===== -->
+<section class="ww-sec ww-trust">
+  <div class="ww-wrap">
+    <div class="ww-reveal">
+      <span class="ww-eyebrow on-dark center">Why families choose us</span>
+      <h2 class="ww-h2">Trust isn&rsquo;t assumed. <span class="ww-grad-text">It&rsquo;s earned.</span></h2>
+      <p class="ww-lead">Every detail is built around one thing &mdash; a family&rsquo;s complete peace of mind.</p>
+    </div>
+    <div class="ww-tgrid ww-reveal">
+      <div class="ww-tcard">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 8-4-1.5-7-4-7-8V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><span>Photo</span></div></div>
+        <div class="body"><h3>Trained Companions</h3><p>Every companion undergoes soft-skills training, elder care orientation, and background verification before their first visit.</p></div>
+      </div>
+      <div class="ww-tcard">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Photo</span></div></div>
+        <div class="body"><h3>Safe &amp; Transparent</h3><p>Photo ID verified, GPS check-in at arrival and departure. You always know who is with your parent and for how long.</p></div>
+      </div>
+      <div class="ww-tcard">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-3.5 7-8 10z"/></svg><span>Photo</span></div></div>
+        <div class="body"><h3>Personalized Care</h3><p>We listen to your parent&rsquo;s preferences, routines, and personality before matching them with the right companion.</p></div>
+      </div>
+      <div class="ww-tcard">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M12 4v16M8 8h6a2 2 0 010 4H8m0 0h7"/></svg><span>Photo</span></div></div>
+        <div class="body"><h3>Affordable Plans</h3><p>Quality elder companionship starting at &#8377;1,600 per month &mdash; less than the cost of a single restaurant dinner per visit.</p></div>
+      </div>
+      <div class="ww-tcard">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6M6 10v9h12v-9"/></svg><span>Photo</span></div></div>
+        <div class="body"><h3>At-Home Convenience</h3><p>Your parent never needs to go anywhere. We come to them &mdash; in their comfort zone, in their own home, on their schedule.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMITMENT / SERVICES ===== -->
+<section class="ww-sec ww-about-svc">
+  <div class="ww-wrap">
+    <div class="ww-reveal">
+      <span class="ww-eyebrow center">What we stand for</span>
+      <h2 class="ww-h2">Our commitment &amp; <span class="ww-grad-text">our services.</span></h2>
+      <p class="ww-lead">A holistic approach, built around the physical, emotional, and social wellbeing of every senior we serve.</p>
+    </div>
+    <div class="ww-svc-grid ww-reveal">
+      <div class="ww-svc">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-3.5 7-8 10z"/></svg><span>Your photo here</span></div></div>
+        <div class="body">
+          <h3>Our <span>Commitment</span></h3>
+          <p>At WellWisherz, we are committed to providing high-quality senior citizen services that promote independence, dignity, and a higher quality of life. We understand the challenges that come with aging and are dedicated to helping our clients navigate them with ease.</p>
+        </div>
+      </div>
+      <div class="ww-svc">
+        <div class="ww-photo"><!-- REPLACE-PHOTO --><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="12" cy="7" r="3"/></svg><span>Your photo here</span></div></div>
+        <div class="body">
+          <h3>Our <span>Services</span></h3>
+          <p>We offer a range of services that include home care, transportation, meal preparation, and medication management. Our services are designed to meet the unique needs of each client and are provided by a team of compassionate and experienced professionals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="ww-sec ww-contact" id="ww-contact">
+  <div class="ww-wrap ww-reveal">
+    <span class="ww-eyebrow on-dark center">Get in touch</span>
+    <h2 class="ww-h2">Let&rsquo;s bring a well-wisher to your door.</h2>
+    <p class="ww-lead">Tell us a little about your parents. We&rsquo;ll take it from there &mdash; warmly, and without any pressure.</p>
+    <div class="ww-cta-row">
+      <a class="ww-btn ww-btn-wa" href="https://wa.me/919876543210" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.6 0-3.1-.43-4.4-1.18l-.32-.19-3.12.82.83-3.04-.2-.33A8.16 8.16 0 013.8 12 8.2 8.2 0 1112 20.2z"/></svg>
+        Message us on WhatsApp
+      </a>
+      <a class="ww-btn ww-btn-ghost" href="tel:+919876543210">Call +91 98765 43210</a>
+    </div>
+    <div class="ww-contact-details">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Panchkula, Haryana, India</span>
+      <a href="mailto:care@wellwisherz.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>care@wellwisherz.com</a>
+      <a href="tel:+919876543210"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg>+91 98765 43210</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="ww-footer">
+  <div class="ww-logo">Well<b>Wisherz</b></div>
+  <div class="tag">Caring for those who cared for us</div>
+  <p class="copy">Copyright &copy; 2026 WellWisherz &nbsp;|&nbsp; All Rights Reserved</p>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.ww-site .ww-reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+})();
+</script>
+</div>
