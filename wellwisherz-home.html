@@ -1,0 +1,497 @@
+<!--
+  ============================================================
+  WELLWISHERZ — HOMEPAGE (redesign)  |  Paste-ready for GoDaddy
+  ------------------------------------------------------------
+  HOW TO USE ON GODADDY:
+   1. In your GoDaddy Website Builder, add an "HTML / Custom Code" section.
+   2. Paste this ENTIRE block into it, then Save + Publish.
+   3. Everything is scoped under ".ww-site" so it won't fight GoDaddy's theme.
+   4. IMAGES: search for  REPLACE-PHOTO  below. Upload your photo in GoDaddy
+      (or any host), copy its URL, and paste it where marked.
+   5. WhatsApp / phone / email are already wired to your details.
+  Colours follow the WellWisherz logo (teal + green). Gold is a light accent.
+  ============================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<div class="ww-site">
+<style>
+/* Premium fonts (loads live on GoDaddy; preview falls back to Georgia) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ---------- Tokens (scoped to WellWisherz block) ---------- */
+.ww-site{
+  --ink:#14312B; --ink-2:#0E2622;
+  --teal:#0E766E; --teal-bright:#1AA79A;
+  --green:#2FA363; --green-deep:#1F8A4C;
+  --gold:#B98A34; --gold-soft:#D8B25A;
+  --cream:#F5EFE3; --cream-2:#FBF7EF; --paper:#FFFFFF;
+  --text:#22322E; --muted:#5E6E68;
+  --line:rgba(20,49,43,.12);
+  --on-dark:#EAF3EF; --on-dark-muted:rgba(234,243,239,.74);
+  --wa:#25D366;
+  --shadow-sm:0 8px 24px rgba(20,49,43,.08);
+  --shadow-md:0 18px 44px rgba(20,49,43,.14);
+  --serif:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --container:1160px;
+  font-family:var(--sans);
+  color:var(--text);
+  background:var(--paper);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.ww-site *{box-sizing:border-box;}
+.ww-site img{max-width:100%;display:block;}
+.ww-site p{margin:0 0 1em;}
+.ww-site h1,.ww-site h2,.ww-site h3,.ww-site h4{margin:0;font-family:var(--serif);font-weight:600;color:var(--ink);line-height:1.14;text-wrap:balance;}
+.ww-site a{color:inherit;text-decoration:none;}
+
+/* ---------- Layout helpers ---------- */
+.ww-wrap{max-width:var(--container);margin:0 auto;padding:0 24px;}
+.ww-sec{padding:clamp(60px,8.5vw,112px) 0;}
+.ww-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-size:.72rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;
+}
+.ww-eyebrow::before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block;border-radius:2px;}
+.ww-eyebrow.on-dark{color:var(--gold-soft);}
+.ww-h2{font-size:clamp(1.9rem,3.6vw,3rem);letter-spacing:-.01em;}
+.ww-h2 em{font-style:normal;color:var(--teal);}
+.ww-lead{font-size:1.075rem;color:var(--muted);max-width:60ch;line-height:1.8;}
+
+/* ---------- Buttons ---------- */
+.ww-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--sans);font-weight:600;font-size:.95rem;
+  padding:14px 26px;border-radius:999px;border:1.5px solid transparent;
+  cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease;
+}
+.ww-btn svg{width:19px;height:19px;flex:0 0 auto;}
+.ww-btn-wa{background:var(--wa);color:#04351f;}
+.ww-btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(37,211,102,.35);}
+.ww-btn-teal{background:var(--teal);color:#fff;}
+.ww-btn-teal:hover{transform:translateY(-2px);background:var(--ink);box-shadow:var(--shadow-md);}
+.ww-btn-gold{background:var(--gold-soft);color:var(--ink-2);}
+.ww-btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(184,138,52,.3);}
+.ww-btn-ghost{border-color:rgba(255,255,255,.5);color:#fff;background:transparent;}
+.ww-btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px);}
+.ww-btn-outline{border-color:var(--teal);color:var(--teal);background:transparent;}
+.ww-btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px);}
+
+/* ---------- Announcement bar (optional — delete if GoDaddy already shows one) ---------- */
+.ww-topbar{background:var(--ink-2);color:var(--on-dark);text-align:center;font-size:.85rem;letter-spacing:.02em;padding:11px 16px;}
+.ww-topbar b{color:var(--gold-soft);font-weight:600;}
+.ww-topbar .leaf{color:var(--green);opacity:.85;margin:0 10px;}
+
+/* ---------- HERO ---------- */
+.ww-hero{
+  position:relative;overflow:hidden;color:#fff;
+  /* REPLACE-PHOTO (hero): add your image url in url(...) below, before the gradients */
+  background:
+    linear-gradient(180deg, rgba(10,38,34,.55), rgba(10,38,34,.82)),
+    radial-gradient(120% 120% at 80% 0%, rgba(26,167,154,.55), transparent 55%),
+    linear-gradient(150deg,#123c34 0%, #0d2b27 55%, #0a231f 100%);
+  background-size:cover;background-position:center;
+}
+.ww-hero .ww-wrap{position:relative;z-index:2;padding-top:clamp(72px,11vw,140px);padding-bottom:clamp(72px,11vw,140px);}
+.ww-hero .ww-eyebrow{color:var(--gold-soft);}
+.ww-hero .ww-eyebrow::before{background:var(--gold-soft);}
+.ww-hero h1{
+  color:#fff;font-size:clamp(2.5rem,6.4vw,4.6rem);font-weight:600;
+  line-height:1.02;letter-spacing:-.015em;max-width:15ch;margin-bottom:22px;
+}
+.ww-hero h1 em{font-style:italic;color:var(--gold-soft);}
+.ww-hero .sub{font-size:1.14rem;color:rgba(255,255,255,.9);max-width:52ch;line-height:1.75;margin-bottom:30px;}
+.ww-cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px;}
+.ww-chips{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:6px;border-top:1px solid rgba(255,255,255,.16);max-width:640px;}
+.ww-chip{display:inline-flex;align-items:center;gap:9px;font-size:.9rem;color:rgba(255,255,255,.9);padding-top:18px;}
+.ww-chip svg{width:18px;height:18px;color:var(--gold-soft);flex:0 0 auto;}
+
+/* ---------- Photo placeholder styling ---------- */
+.ww-photo{
+  position:relative;border-radius:20px;overflow:hidden;min-height:340px;
+  background:linear-gradient(150deg,#e7ddc8,#efe8d8);
+  box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;
+}
+.ww-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ww-photo .ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--teal);opacity:.85;text-align:center;padding:24px;}
+.ww-photo .ph svg{width:46px;height:46px;}
+.ww-photo .ph span{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+/* ---------- Split / grid utilities ---------- */
+.ww-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;}
+.ww-split.narrow-first{grid-template-columns:.9fr 1.1fr;}
+
+/* ---------- Family / intro pillars ---------- */
+.ww-family{background:var(--cream-2);}
+.ww-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:clamp(40px,6vw,72px);}
+.ww-pillar{padding:26px 24px;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s;}
+.ww-pillar:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);}
+.ww-ic{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e6f4ef,#dcefe6);color:var(--teal);margin-bottom:16px;}
+.ww-ic svg{width:24px;height:24px;}
+.ww-pillar h3{font-family:var(--sans);font-size:1.12rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ww-pillar p{font-size:.95rem;color:var(--muted);margin:0;line-height:1.65;}
+
+/* ---------- Services grid ---------- */
+.ww-services{background:var(--cream);text-align:center;}
+.ww-services .head{max-width:620px;margin:0 auto;}
+.ww-services .ww-lead{margin:14px auto 0;}
+.ww-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:clamp(40px,6vw,64px);text-align:left;}
+.ww-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  padding:30px 26px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.ww-card::before{content:"";position:absolute;left:0;top:0;height:3px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--teal-bright),var(--green));transition:transform .35s ease;}
+.ww-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.ww-card:hover::before{transform:scaleX(1);}
+.ww-card .ww-ic{width:56px;height:56px;background:linear-gradient(135deg,var(--teal),var(--teal-bright));color:#fff;border-radius:15px;margin-bottom:18px;}
+.ww-card .ww-ic svg{width:26px;height:26px;}
+.ww-card h3{font-family:var(--sans);font-size:1.14rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.ww-card p{font-size:.95rem;color:var(--muted);margin:0;line-height:1.68;}
+
+/* ---------- Trusted presence (dark) ---------- */
+.ww-trust{background:linear-gradient(160deg,#14312B,#0d2622);color:var(--on-dark);}
+.ww-trust .ww-split{align-items:center;}
+.ww-trust h2{color:#fff;}
+.ww-trust .ww-lead{color:var(--on-dark-muted);}
+.ww-quad{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;}
+.ww-quad .q{padding:30px 28px;border-right:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);}
+.ww-quad .q:nth-child(2n){border-right:none;}
+.ww-quad .q:nth-child(n+3){border-bottom:none;}
+.ww-quad .q .bar{width:30px;height:3px;background:var(--gold-soft);border-radius:3px;margin-bottom:16px;}
+.ww-quad .q h3{color:#fff;font-family:var(--sans);font-size:1.08rem;font-weight:700;margin-bottom:9px;}
+.ww-quad .q p{color:var(--on-dark-muted);font-size:.92rem;margin:0;line-height:1.62;}
+
+/* ---------- Quote banner ---------- */
+.ww-quote{
+  position:relative;text-align:center;color:#fff;overflow:hidden;
+  /* REPLACE-PHOTO (quote): add image url in url(...) before the gradients */
+  background:
+    linear-gradient(180deg,rgba(20,49,43,.5),rgba(20,49,43,.72)),
+    linear-gradient(120deg,#c98a3f,#a9642f 55%,#7a4b28);
+  background-size:cover;background-position:center;
+}
+.ww-quote .ww-wrap{position:relative;z-index:2;padding-top:clamp(72px,10vw,120px);padding-bottom:clamp(72px,10vw,120px);}
+.ww-quote .mark{font-family:var(--serif);font-size:4rem;line-height:.5;color:var(--gold-soft);opacity:.9;}
+.ww-quote blockquote{margin:14px auto 18px;max-width:20ch;font-family:var(--serif);font-weight:600;font-style:italic;font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.2;color:#fff;}
+.ww-quote cite{font-style:normal;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);}
+
+/* ---------- Crisis + stats ---------- */
+.ww-crisis{background:var(--cream-2);}
+.ww-crisis .ww-split{align-items:start;}
+.ww-crisis .body p{font-size:1rem;color:var(--muted);line-height:1.82;}
+.ww-crisis .body .kicker{color:var(--ink);font-weight:600;}
+.ww-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:clamp(44px,6vw,68px);}
+.ww-stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 24px;box-shadow:var(--shadow-sm);}
+.ww-stat .num{font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,4.5vw,3rem);line-height:1;color:var(--teal);letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+.ww-stat p{margin:12px 0 0;font-size:.94rem;color:var(--muted);line-height:1.6;}
+
+/* ---------- How it works ---------- */
+.ww-how{background:var(--cream);}
+.ww-how .head{max-width:640px;margin-bottom:clamp(36px,5vw,56px);}
+.ww-steps{display:grid;gap:0;}
+.ww-step{
+  display:grid;grid-template-columns:88px 1fr;gap:8px;align-items:start;
+  padding:26px 24px;border-top:1px solid var(--line);transition:background .3s;
+}
+.ww-step:last-child{border-bottom:1px solid var(--line);}
+.ww-step:hover{background:var(--cream-2);}
+.ww-step .no{font-family:var(--serif);font-size:1.9rem;font-weight:600;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums;}
+.ww-step h3{font-family:var(--sans);font-size:1.18rem;font-weight:700;color:var(--ink);margin-bottom:7px;}
+.ww-step p{font-size:.97rem;color:var(--muted);margin:0;max-width:66ch;line-height:1.7;}
+
+/* ---------- Contact / CTA ---------- */
+.ww-contact{background:linear-gradient(160deg,#123c34,#0b201d);color:var(--on-dark);text-align:center;}
+.ww-contact h2{color:#fff;max-width:20ch;margin:0 auto 16px;}
+.ww-contact .ww-lead{color:var(--on-dark-muted);margin:0 auto 30px;text-align:center;}
+.ww-contact .ww-cta-row{justify-content:center;margin-bottom:30px;}
+.ww-contact-details{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;color:var(--on-dark-muted);font-size:.95rem;}
+.ww-contact-details a{display:inline-flex;align-items:center;gap:9px;color:var(--on-dark);}
+.ww-contact-details a:hover{color:var(--gold-soft);}
+.ww-contact-details svg{width:17px;height:17px;color:var(--gold-soft);}
+
+/* ---------- Footer ---------- */
+.ww-footer{background:var(--ink-2);color:rgba(234,243,239,.6);text-align:center;padding:40px 24px;}
+.ww-logo{font-family:var(--serif);font-weight:700;font-size:1.5rem;color:#fff;margin-bottom:6px;}
+.ww-logo b{color:var(--green);}
+.ww-footer .tag{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px;}
+.ww-footer .copy{font-size:.82rem;margin:0;}
+
+/* ---------- Reveal animation ---------- */
+.ww-reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.ww-reveal.in{opacity:1;transform:none;}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .ww-split,.ww-split.narrow-first{grid-template-columns:1fr;}
+  .ww-pillars{grid-template-columns:1fr;}
+  .ww-cards{grid-template-columns:1fr 1fr;}
+  .ww-stats{grid-template-columns:1fr;}
+  .ww-trust .ww-photo,.ww-crisis .ww-photo{order:-1;}
+}
+@media(max-width:620px){
+  .ww-cards{grid-template-columns:1fr;}
+  .ww-quad{grid-template-columns:1fr;}
+  .ww-quad .q{border-right:none;}
+  .ww-quad .q:nth-child(3){border-bottom:1px solid rgba(255,255,255,.14);}
+  .ww-step{grid-template-columns:56px 1fr;padding:22px 6px;}
+  .ww-cta-row{flex-direction:column;align-items:stretch;}
+  .ww-btn{justify-content:center;}
+}
+@media(prefers-reduced-motion:reduce){
+  .ww-reveal{opacity:1;transform:none;transition:none;}
+  .ww-site *{scroll-behavior:auto!important;}
+}
+</style>
+
+<!-- ===== ANNOUNCEMENT BAR (optional) ===== -->
+<div class="ww-topbar">
+  <span class="leaf">&#10047;</span><b>First visit at just &#8377;99</b> &mdash; try before you commit to any plan<span class="leaf">&#10047;</span>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="ww-hero">
+  <div class="ww-wrap">
+    <div class="ww-reveal">
+      <span class="ww-eyebrow">Senior Companionship &bull; Chandigarh &amp; Panchkula</span>
+      <h1>A well-wisher, right at your parents&rsquo; <em>door.</em></h1>
+      <p class="sub">Trained, background-verified, uniformed companions who show up &mdash; on time, in uniform, with genuine warmth &mdash; so your parents never feel alone, forgotten, or stuck.</p>
+      <div class="ww-cta-row">
+        <a class="ww-btn ww-btn-wa" href="https://wa.me/917986404040" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.6 0-3.1-.43-4.4-1.18l-.32-.19-3.12.82.83-3.04-.2-.33A8.16 8.16 0 013.8 12 8.2 8.2 0 1112 20.2z"/></svg>
+          Message us on WhatsApp
+        </a>
+        <a class="ww-btn ww-btn-ghost" href="#ww-services">Explore our services</a>
+      </div>
+      <div class="ww-chips">
+        <span class="ww-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 8-4-1.5-7-4-7-8V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Background-verified</span>
+        <span class="ww-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21v-2a4 4 0 014-4h0a4 4 0 014 4v2"/><circle cx="10" cy="7" r="3"/><path d="M17 11l2 2 3-3"/></svg>Uniformed &amp; trained</span>
+        <span class="ww-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 3V5z"/></svg>WhatsApp updates</span>
+        <span class="ww-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M12 4v16M8 8h6a2 2 0 010 4H8m0 0h7"/></svg>Plans from &#8377;1,600/mo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CARE THAT FEELS LIKE FAMILY ===== -->
+<section class="ww-sec ww-family">
+  <div class="ww-wrap">
+    <div class="ww-split ww-reveal">
+      <div class="ww-photo">
+        <!-- REPLACE-PHOTO: <img src="YOUR-IMAGE-URL" alt="A companion sharing tea with a senior"> -->
+        <div class="ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-3.5 7-8 10z"/></svg>
+          <span>Your photo here</span>
+        </div>
+      </div>
+      <div>
+        <span class="ww-eyebrow">Who we are</span>
+        <h2 class="ww-h2">Care that feels <em>like family.</em></h2>
+        <p class="ww-lead">From everyday companionship to essential errands and appointments, our Well-Wishers are there to support your loved ones with care, respect, and warmth &mdash; because your parents don&rsquo;t need pity, they need company.</p>
+        <div class="ww-cta-row" style="margin-top:8px;">
+          <a class="ww-btn ww-btn-teal" href="https://wa.me/917986404040" target="_blank" rel="noopener">Get in touch</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ww-pillars ww-reveal">
+      <div class="ww-pillar">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a2 2 0 012 2v5a2 2 0 01-2 2H9l-4 3V5z"/><path d="M9 9h5M9 11h3"/></svg></div>
+        <h3>Companionship</h3>
+        <p>A friendly presence for conversations, walks, outings, and meaningful moments.</p>
+      </div>
+      <div class="ww-pillar">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg></div>
+        <h3>Everyday Assistance</h3>
+        <p>Support with doctor visits, shopping, errands, and other day-to-day needs.</p>
+      </div>
+      <div class="ww-pillar">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 8-4-1.5-7-4-7-8V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Trusted Support</h3>
+        <p>Reliable Well-Wishers who treat your loved ones with patience, dignity, and care.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="ww-sec ww-services" id="ww-services">
+  <div class="ww-wrap">
+    <div class="head ww-reveal">
+      <span class="ww-eyebrow" style="margin-left:auto;margin-right:auto;">Our Services</span>
+      <h2 class="ww-h2">Everything a <em>well-wisher</em> does.</h2>
+      <p class="ww-lead">We handle the mundane and the meaningful &mdash; the prescription run, the morning walk, the temple visit, the evening chess game.</p>
+    </div>
+    <div class="ww-cards ww-reveal">
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h9a2 2 0 012 2v4a2 2 0 01-2 2H8l-4 3V5z"/><path d="M16 9h3a2 2 0 012 2v4a2 2 0 01-2 2h0v3l-3-3"/></svg></div>
+        <h3>Daily Companionship &amp; Conversation</h3>
+        <p>Meaningful time spent together &mdash; sharing stories, discussing the news, playing cards. Because connection is medicine.</p>
+      </div>
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div>
+        <h3>Hospital Visits &amp; Doctor Assistance</h3>
+        <p>Pick-up, drop, appointment booking, prescription collection, and helping your parent understand what the doctor said.</p>
+      </div>
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.8"/><path d="M12 8l-2 5 3 2 1 5M12 9l3 2 3-1M10 13l-2 6"/></svg></div>
+        <h3>Walking &amp; Light Activity</h3>
+        <p>Morning walks, stretches, light exercise routines &mdash; keeping seniors physically active and mentally sharp.</p>
+      </div>
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l2 11h9l2-7H7"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg></div>
+        <h3>Grocery &amp; Essential Shopping</h3>
+        <p>Running errands, picking up groceries, visiting the chemist &mdash; so your parent never has to manage alone.</p>
+      </div>
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.4-5-1.4-7 0v12c2-1.4 5-1.4 7 0 2-1.4 5-1.4 7 0V6c-2-1.4-5-1.4-7 0z"/><path d="M12 6v12"/></svg></div>
+        <h3>Reading, Newspapers &amp; Spiritual Support</h3>
+        <p>Reading aloud, helping with prayers, accompanying to the temple or gurdwara. Honoring what matters to them.</p>
+      </div>
+      <div class="ww-card">
+        <div class="ww-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg></div>
+        <h3>Safe Outdoor Visits &amp; Social Engagement</h3>
+        <p>Parks, cultural events, community gatherings, society meetings &mdash; safe outings that keep seniors socially engaged.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUSTED PRESENCE (dark) ===== -->
+<section class="ww-sec ww-trust">
+  <div class="ww-wrap">
+    <div class="ww-split narrow-first ww-reveal">
+      <div>
+        <span class="ww-eyebrow on-dark">Why families trust us</span>
+        <h2 class="ww-h2">More than help &mdash;<br>a presence you can trust.</h2>
+        <p class="ww-lead">You can&rsquo;t be there every single day. We make sure someone dependable is &mdash; verified, warm, and always accountable to you and your family.</p>
+        <div class="ww-cta-row" style="margin-top:8px;">
+          <a class="ww-btn ww-btn-gold" href="#ww-how">How it works &rarr;</a>
+        </div>
+      </div>
+      <div class="ww-quad">
+        <div class="q"><div class="bar"></div><h3>Verified &amp; uniformed</h3><p>Every companion is background-verified, soft-skills trained, and in uniform. You always know exactly who is at the door.</p></div>
+        <div class="q"><div class="bar"></div><h3>Pick-up &amp; safe drop-back</h3><p>On time, every visit &mdash; punctuality your parents can set their clock to, from the door and back again.</p></div>
+        <div class="q"><div class="bar"></div><h3>WhatsApp updates, always</h3><p>Photos, notes and check-ins reach your family throughout every visit &mdash; you stay in the loop, at no extra cost.</p></div>
+        <div class="q"><div class="bar"></div><h3>Honest, affordable plans</h3><p>Plans from &#8377;1,600/month, and a first visit at just &#8377;99. Try it before you commit to anything.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUOTE ===== -->
+<section class="ww-quote">
+  <!-- REPLACE-PHOTO (quote): set a background image on .ww-quote in the CSS above -->
+  <div class="ww-wrap ww-reveal">
+    <div class="mark">&ldquo;</div>
+    <blockquote>Age is no barrier. It&rsquo;s a limitation you put on your mind.</blockquote>
+    <cite>&mdash; Jackie Joyner-Kersee</cite>
+  </div>
+</section>
+
+<!-- ===== THE QUIET CRISIS + STATS ===== -->
+<section class="ww-sec ww-crisis">
+  <div class="ww-wrap">
+    <div class="ww-split ww-reveal">
+      <div>
+        <span class="ww-eyebrow">Why it matters</span>
+        <h2 class="ww-h2">The quiet crisis <em>in our homes.</em></h2>
+      </div>
+      <div class="body">
+        <p>Children move to different cities and countries. Nuclear families shrink. And the parents who spent decades building lives around their children now find themselves spending entire days without a single meaningful conversation.</p>
+        <p>Loneliness in seniors isn&rsquo;t just an emotional problem &mdash; research links it to cognitive decline, depression, poor medication compliance, and a dramatically higher risk of hospitalisation. <span class="kicker">A caring companion isn&rsquo;t a luxury. It&rsquo;s healthcare.</span></p>
+        <p>WellWisherz exists because someone should be there &mdash; for the doctor visit you couldn&rsquo;t attend, for the conversation over evening tea, for the errand that needed running. We do everything a well-wisher would do.</p>
+      </div>
+    </div>
+    <div class="ww-stats ww-reveal">
+      <div class="ww-stat"><div class="num" data-target="7.5" data-decimals="1" data-suffix=" Cr">0</div><p>Indian seniors live alone or with an aging spouse, with limited daily support.</p></div>
+      <div class="ww-stat"><div class="num" data-target="68" data-suffix="%">0</div><p>Of adult children worry about their parents&rsquo; daily wellbeing but cannot always be present.</p></div>
+      <div class="ww-stat"><div class="num" data-target="2" data-suffix="&times;">0</div><p>Higher risk of depression in isolated seniors compared to those with regular social contact.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="ww-sec ww-how" id="ww-how">
+  <div class="ww-wrap">
+    <div class="head ww-reveal">
+      <span class="ww-eyebrow">How it works</span>
+      <h2 class="ww-h2">One conversation. <em>That&rsquo;s all it takes.</em></h2>
+      <p class="ww-lead">Everything begins with a single WhatsApp message or call. No apps to download, nothing to pay upfront.</p>
+    </div>
+    <div class="ww-steps ww-reveal">
+      <div class="ww-step"><div class="no">01</div><div><h3>Tell us what you need</h3><p>Send a WhatsApp or call us with the date, time, and what your parent needs. It takes two minutes &mdash; and asking costs nothing.</p></div></div>
+      <div class="ww-step"><div class="no">02</div><div><h3>We match a companion</h3><p>A real person &mdash; never a bot &mdash; assigns the right verified, uniformed companion and confirms every detail with you first.</p></div></div>
+      <div class="ww-step"><div class="no">03</div><div><h3>We show up, fully briefed</h3><p>Home pick-up, on time and briefed on your parent&rsquo;s needs, so they&rsquo;re cared for from the very first minute and never left waiting.</p></div></div>
+      <div class="ww-step"><div class="no">04</div><div><h3>You stay in the loop</h3><p>Photos and check-ins reach your WhatsApp through the visit, right up to a safe drop back home. Always included.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT / CTA ===== -->
+<section class="ww-sec ww-contact" id="ww-contact">
+  <div class="ww-wrap ww-reveal">
+    <span class="ww-eyebrow on-dark" style="margin-left:auto;margin-right:auto;">Get in touch</span>
+    <h2 class="ww-h2">Let&rsquo;s bring a well-wisher to your door.</h2>
+    <p class="ww-lead">Tell us a little about your parents. We&rsquo;ll take it from there &mdash; warmly, and without any pressure.</p>
+    <div class="ww-cta-row">
+      <a class="ww-btn ww-btn-wa" href="https://wa.me/917986404040" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.6 0-3.1-.43-4.4-1.18l-.32-.19-3.12.82.83-3.04-.2-.33A8.16 8.16 0 013.8 12 8.2 8.2 0 1112 20.2z"/></svg>
+        Message us on WhatsApp
+      </a>
+      <a class="ww-btn ww-btn-ghost" href="tel:+917986404040">Call +91 79864 04040</a>
+    </div>
+    <div class="ww-contact-details">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Panchkula, Haryana, India</span>
+      <a href="mailto:care@wellwisherz.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>care@wellwisherz.com</a>
+      <a href="tel:+917986404040"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg>+91 79864 04040</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="ww-footer">
+  <div class="ww-logo">Well<b>Wisherz</b></div>
+  <div class="tag">Caring for those who cared for us</div>
+  <p class="copy">Copyright &copy; 2026 WellWisherz &nbsp;|&nbsp; All Rights Reserved</p>
+</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.ww-site .ww-reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.14});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  function animate(el){
+    var target = parseFloat(el.getAttribute('data-target'))||0;
+    var dec = parseInt(el.getAttribute('data-decimals'))||0;
+    var suf = el.getAttribute('data-suffix')||'';
+    var pre = el.getAttribute('data-prefix')||'';
+    var start=null, dur=1500;
+    function step(ts){
+      if(!start) start=ts;
+      var p=Math.min((ts-start)/dur,1), eased=1-Math.pow(1-p,3);
+      el.innerHTML = pre + (eased*target).toFixed(dec) + suf;
+      if(p<1) requestAnimationFrame(step); else el.innerHTML = pre + target.toFixed(dec) + suf;
+    }
+    requestAnimationFrame(step);
+  }
+  var nums = document.querySelectorAll('.ww-site .num[data-target]');
+  if('IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ animate(e.target); io2.unobserve(e.target);} });
+    },{threshold:.5});
+    nums.forEach(function(el){ io2.observe(el); });
+  } else { nums.forEach(animate); }
+})();
+</script>
+</div>
