@@ -1208,23 +1208,15 @@ section {
 }
 
 /* =========================================================
-   11b. CTA IMAGE BANNER (image only — no text)
+   11b. CTA IMAGE BANNER (full-width — image only, no text)
 ========================================================= */
 .cta-image-section {
-   padding-top: 0;
+   padding: 60px 0;
 }
 
 .cta-image {
    display: block;
-   border-radius: var(--radius-l);
-   overflow: hidden;
-   box-shadow: var(--shadow-card);
-   transition: transform .35s ease, box-shadow .35s ease;
-}
-
-.cta-image:hover {
-   transform: translateY(-4px);
-   box-shadow: var(--shadow-md);
+   width: 100%;
 }
 
 .cta-image img {
@@ -1234,8 +1226,8 @@ section {
 }
 
 @media (max-width:768px) {
-   .cta-image {
-      border-radius: var(--radius-m);
+   .cta-image-section {
+      padding: 40px 0;
    }
 }
 
