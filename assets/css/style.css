@@ -949,23 +949,24 @@ section {
 
 
 /* =========================================================
-   8. WE OFFER — overlay cards
+   8. WE OFFER — image cards with hover reveal (heading always,
+      description slides up from bottom on hover)
 ========================================================= */
 .offer-grid {
    display: grid;
-   grid-template-columns: repeat(4, 1fr);
-   gap: 20px;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 24px;
 }
 
 .offer-card {
    position: relative;
+   display: block;
+   aspect-ratio: 3/4;
    border-radius: var(--radius-m);
    overflow: hidden;
-   aspect-ratio: 3/4;
-   display: flex;
-   align-items: flex-end;
-   padding: 22px;
-   transition: .35s ease;
+   background: var(--gradient-brand);
+   box-shadow: var(--shadow-card);
+   transition: box-shadow .35s ease, transform .35s ease;
 }
 
 .offer-card:hover {
@@ -973,78 +974,73 @@ section {
    box-shadow: var(--shadow-md);
 }
 
-.offer-card::before {
-   content: "";
+.offer-card > img {
    position: absolute;
    inset: 0;
-   opacity: .92;
-}
-
-.offer-card::after {
-   content: "";
-   position: absolute;
-   inset: 0;
-   background: linear-gradient(0deg, rgba(0, 0, 0, .62) 0%, rgba(0, 0, 0, 0) 55%);
-}
-
-.offer-1::before {
-   background: linear-gradient(155deg, #2f8f4e, #173a1f);
-}
-
-.offer-2::before {
-   background: linear-gradient(155deg, #2e3192, #141634);
-}
-
-.offer-3::before {
-   background: linear-gradient(155deg, #38739a, #12253a);
-}
-
-.offer-4::before {
-   background: linear-gradient(155deg, #4CAF50, #2e3192);
-}
-
-.offer-icon {
-   position: absolute;
-   top: 20px;
-   left: 22px;
-   z-index: 2;
-   color: rgba(255, 255, 255, .85);
-   font-size: 30px;
-}
-
-.offer-content {
-   position: relative;
-   z-index: 2;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
    width: 100%;
-   gap: 12px;
+   height: 100%;
+   object-fit: cover;
+   transition: transform .6s ease;
 }
 
-.offer-content h3 {
+.offer-card:hover > img {
+   transform: scale(1.07);
+}
+
+.offer-panel {
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   z-index: 2;
+   padding: 22px 22px 24px;
    color: #fff;
-   font-size: 16.5px;
+   background: linear-gradient(0deg, rgba(20, 21, 26, .95) 0%, rgba(20, 21, 26, .72) 52%, rgba(20, 21, 26, 0) 100%);
+}
+
+.offer-panel h3 {
+   color: #fff;
+   font-size: 17.5px;
+   line-height: 1.25;
    margin: 0;
 }
 
-.offer-arrow {
-   width: 34px;
-   height: 34px;
-   border-radius: 50%;
-   background: rgba(255, 255, 255, .18);
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   color: #fff;
-   flex: none;
-   transition: .3s ease;
+.offer-reveal {
+   max-height: 0;
+   opacity: 0;
+   overflow: hidden;
+   transition: max-height .45s ease, opacity .4s ease, margin-top .45s ease;
 }
 
-.offer-card:hover .offer-arrow {
-   background: #fff;
-   color: var(--ink);
-   transform: rotate(45deg);
+.offer-card:hover .offer-reveal {
+   max-height: 260px;
+   opacity: 1;
+   margin-top: 12px;
+}
+
+.offer-reveal p {
+   color: rgba(255, 255, 255, .88);
+   font-size: 14px;
+   line-height: 1.55;
+   margin: 0 0 14px;
+}
+
+.offer-link {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   font-family: var(--font-display);
+   font-weight: 600;
+   font-size: 13.5px;
+   color: #fff;
+   background: var(--gradient-brand);
+   padding: 9px 18px;
+   border-radius: 999px;
+   transition: gap .2s ease;
+}
+
+.offer-card:hover .offer-link {
+   gap: 12px;
 }
 
 /* =========================================================
@@ -1495,10 +1491,6 @@ textarea {
       grid-template-columns: repeat(2, 1fr);
    }
 
-   .offer-grid {
-      grid-template-columns: repeat(2, 1fr);
-   }
-
    .steps {
       grid-template-columns: repeat(3, 1fr);
    }
@@ -1631,7 +1623,14 @@ textarea {
    }
 
    .offer-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
+   }
+
+   /* touch devices: hover nahi hota, isliye description hamesha dikhao */
+   .offer-reveal {
+      max-height: 260px;
+      opacity: 1;
+      margin-top: 12px;
    }
 
    .counters-grid {

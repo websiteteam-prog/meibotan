@@ -30,12 +30,11 @@ $concerns = [
     ['fa-mortar-pestle', 'Extracts', 'concern-7', 'extracts', ''],
 ];
 
-/* Signature "We Offer" */
+/* Signature "We Offer" — [image, link, title, description] */
 $offers = [
-    ['fa-circle-nodes', 'Liposomal Nutraceutical Ingredients', 'offer-1'],
-    ['fa-shield-heart', 'Palmitoylethanolamide (PEA)', 'offer-2'],
-    ['fa-sun', 'Veg (Lichen) Sourced Vitamin D3', 'offer-3'],
-    ['fa-seedling', 'Plant-Based Bioactive Molecules', 'offer-4'],
+    ['liposomal.jpg', 'exclusive-products.php#liposomal', 'Liposomal Nutraceutical Ingredients', 'Liposomal is an innovative nutrient delivery system to enhance nutrient absorption, stability and efficacy.'],
+    ['pea.jpg', 'exclusive-products.php#pea', 'Palmitoylethanolamide (PEA)', 'PEA is carefully selected based on formulation compatibility, absorption, and performance.'],
+    ['vitamin-d3.jpg', 'exclusive-products.php#vitamin-d3', 'Veg (Lichen) Sourced Vitamin D3', 'Vitamin D3 is an essential nutrient that plays a role in numerous functions including calcium absorption.'],
 ];
 
 $steps = [
@@ -161,11 +160,14 @@ $counters = [
         </div>
         <div class="offer-grid">
             <?php foreach ($offers as $o): ?>
-                <a href="exclusive-products.php" class="offer-card <?php echo $o[2]; ?>">
-                    <i class="fa-solid <?php echo $o[0]; ?> offer-icon"></i>
-                    <div class="offer-content">
-                        <h3><?php echo $o[1]; ?></h3>
-                        <span class="offer-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <a href="<?php echo $o[1]; ?>" class="offer-card">
+                    <img src="assets/images/offers/<?php echo $o[0]; ?>" alt="<?php echo $o[2]; ?>" onerror="this.style.display='none'">
+                    <div class="offer-panel">
+                        <h3><?php echo $o[2]; ?></h3>
+                        <div class="offer-reveal">
+                            <p><?php echo $o[3]; ?></p>
+                            <span class="offer-link">Know More <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </a>
             <?php endforeach; ?>
