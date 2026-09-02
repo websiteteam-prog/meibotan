@@ -127,13 +127,11 @@ $counters = [
     </div>
 </div>
 
-<!-- ==================== CTA IMAGE BANNER (image only — no text) ==================== -->
+<!-- ==================== CTA IMAGE BANNER (full-width, image only — no text) ==================== -->
 <section class="cta-image-section">
-    <div class="container">
-        <a href="contact.php" class="cta-image">
-            <img src="assets/images/cta-banner.png" alt="Kenu Biopharma" onerror="this.style.display='none'">
-        </a>
-    </div>
+    <a href="contact.php" class="cta-image">
+        <img src="assets/images/cta-banner.png" alt="Kenu Biopharma">
+    </a>
 </section>
 
 <!-- ========================= QUICK-INFO BOXES ========================= -->
