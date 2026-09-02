@@ -961,7 +961,7 @@ section {
 .offer-card {
    position: relative;
    display: block;
-   aspect-ratio: 3/4;
+   height: 300px;
    border-radius: var(--radius-m);
    overflow: hidden;
    background: var(--gradient-brand);

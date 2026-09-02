@@ -154,7 +154,7 @@ $counters = [
 <section>
     <div class="container">
         <div class="section-head center">
-            <span class="eyebrow">We Offer</span>
+            <span class="eyebrow">What We Offer</span>
             <h2>Signature <span class="accent">Products</span></h2>
             <p>Our most requested ingredients — trusted by innovators, delivered with accountability.</p>
         </div>
