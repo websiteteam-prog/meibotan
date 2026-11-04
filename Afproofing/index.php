@@ -13,8 +13,8 @@ include ROOT_PATH . '/includes/header.php';
 ?>
 
 <section class="hero">
-  <div class="hero__bg"><img src="<?= e(asset('assets/img/Rooftop Restoration at Golden Hour.png')) ?>" alt=""
-      <?= img_size('assets/img/s.jpg') ?> fetchpriority="high"></div>
+  <div class="hero__bg"><img src="<?= e(asset('assets/img/services/banner-roof-restoration.png')) ?>" alt=""
+      <?= img_size('assets/img/services/banner-roof-restoration.png') ?> fetchpriority="high"></div>
   <div class="container">
     <div class="hero__content">
       <p class="eyebrow">Adelaide's tiled roof specialists</p>
@@ -69,7 +69,8 @@ include ROOT_PATH . '/includes/header.php';
         customer service. We believe every roof deserves the right care, using quality materials and proven
         restoration techniques to achieve a clean, refreshed and long-lasting finish.</p>
       <p>Whether your roof needs a few repairs or a complete restoration, our team is here to help.</p>
-      <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong></p>
+      <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong>
+      </p>
       <div class="about__actions">
         <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Get a Free Quote
           <?= icon('arrow-right', 'icon-shift') ?></a>
@@ -93,7 +94,77 @@ include ROOT_PATH . '/includes/header.php';
       <a class="btn btn--outline" href="<?= e(url('services')) ?>">All services
         <?= icon('arrow-right', 'icon-shift') ?></a>
     </div>
-    <?php partial('service-cards'); ?>
+    <?php
+    // Services showcase: a large featured service, a photo card for each other service
+    // (a swipeable row on phones) and a free-inspection strip. Photos come from each
+    // service's 'image' in includes/data/services.php.
+    $svcFeaturedSlug = array_key_first($services);
+    $svcFeatured = $services[$svcFeaturedSlug];
+    $svcOthers = array_slice($services, 1, null, true);
+    $svcNum = 1;
+    ?>
+    <div class="svc">
+      <article class="svc-card svc-card--featured" data-reveal>
+        <a class="svc-card__media" href="<?= e(service_url($svcFeaturedSlug)) ?>" tabindex="-1" aria-hidden="true">
+          <img src="<?= e(asset($svcFeatured['image'])) ?>" alt="" <?= img_size($svcFeatured['image']) ?> loading="lazy"
+            decoding="async">
+          <span class="svc-card__num">01</span>
+          <span class="svc-card__tag"><?= icon('award') ?>Complete package</span>
+        </a>
+        <div class="svc-card__body">
+          <span class="svc-card__icon"><?= icon($svcFeatured['icon']) ?></span>
+          <h3><a href="<?= e(service_url($svcFeaturedSlug)) ?>"><?= e($svcFeatured['name']) ?></a></h3>
+          <p><?= e($svcFeatured['excerpt']) ?></p>
+          <ul class="checklist">
+            <?php foreach (array_slice($svcFeatured['includes'] ?? [], 0, 3) as $svcInclude): ?>
+              <li><?= icon('check') ?><?= e($svcInclude) ?></li>
+            <?php endforeach; ?>
+          </ul>
+          <div class="svc-card__actions">
+            <a class="btn btn--dark" href="<?= e(service_url($svcFeaturedSlug)) ?>">Learn more<span
+                class="visually-hidden"> about <?= e($svcFeatured['name']) ?></span>
+              <?= icon('arrow-right', 'icon-shift') ?></a>
+            <a class="link-arrow" href="<?= e(url('free-quote')) ?>">Free quote <?= icon('arrow-right') ?></a>
+          </div>
+        </div>
+      </article>
+
+      <p class="svc-hint" aria-hidden="true">Swipe to see all services <?= icon('arrow-right') ?></p>
+
+      <div class="svc-list">
+        <?php foreach ($svcOthers as $svcSlug => $svcItem):
+          $svcNum++; ?>
+          <a class="svc-card" href="<?= e(service_url($svcSlug)) ?>" data-reveal>
+            <span class="svc-card__media">
+              <img src="<?= e(asset($svcItem['image'])) ?>" alt="" <?= img_size($svcItem['image']) ?> loading="lazy"
+                decoding="async">
+              <span class="svc-card__num"><?= sprintf('%02d', $svcNum) ?></span>
+            </span>
+            <span class="svc-card__icon"><?= icon($svcItem['icon']) ?></span>
+            <span class="svc-card__body">
+              <h3><?= e($svcItem['name']) ?></h3>
+              <p><?= e($svcItem['excerpt']) ?></p>
+              <span class="svc-card__more">Learn more <?= icon('arrow-right') ?></span>
+            </span>
+          </a>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="svc-cta" data-reveal>
+        <span class="svc-cta__icon"><?= icon('clipboard') ?></span>
+        <div>
+          <h3>Not sure what your roof needs?</h3>
+          <p>Book a free, no-obligation inspection. We'll check your roof and give you honest advice and a clear quote.
+          </p>
+        </div>
+        <div class="svc-cta__actions">
+          <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Book a free inspection
+            <?= icon('arrow-right', 'icon-shift') ?></a>
+          <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
+            <?= e(config('phone')) ?></a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -175,7 +246,8 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
-<section class="section section--ink section--photo" style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
+<section class="section section--ink section--photo"
+  style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">Why choose us?</p>
@@ -211,9 +283,12 @@ include ROOT_PATH . '/includes/header.php';
       <h2>Proudly servicing <span class="hl">Adelaide</span> &amp; regional SA</h2>
       <p class="areas-split__text">We work right across metropolitan Adelaide and regional areas up to
         <?= e(config('service_radius_km')) ?>km from the city, including the Adelaide Hills, Barossa, Fleurieu
-        Peninsula and Murraylands. Not sure if we cover your area? Just ask.</p>
-      <p class="radius-badge"><span class="radius-badge__num"><?= e(config('service_radius_km')) ?><small>km</small></span>
-        <span>service radius from the Adelaide CBD</span></p>
+        Peninsula and Murraylands. Not sure if we cover your area? Just ask.
+      </p>
+      <p class="radius-badge"><span
+          class="radius-badge__num"><?= e(config('service_radius_km')) ?><small>km</small></span>
+        <span>service radius from the Adelaide CBD</span>
+      </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="<?= e(url('service-areas')) ?>">View service areas
           <?= icon('arrow-right', 'icon-shift') ?></a>
