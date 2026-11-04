@@ -44,7 +44,7 @@ $schema = [
   <meta name="geo.region" content="AU-SA">
   <meta name="geo.placename" content="Adelaide">
   <meta name="geo.position" content="<?= e(config('geo.lat') . ';' . config('geo.lng')) ?>">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#12393e">
   <?php if (config('google_site_verification')): ?>
     <meta name="google-site-verification" content="<?= e(config('google_site_verification')) ?>">
   <?php endif; ?>
@@ -89,7 +89,7 @@ $schema = [
         <ul class="main-nav__list">
           <li><a href="<?= e(url()) ?>" <?= nav_attrs('') ?>>Home</a></li>
           <li class="has-sub">
-            <a href="<?= e(url('services')) ?>" <?= nav_attrs('services', true) ?>>Gallery</a>
+            <a href="<?= e(url('services')) ?>" <?= nav_attrs('services', true) ?>>Services</a>
             <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="services-menu">
               <span class="visually-hidden">Show services</span><?= icon('chevron-down') ?>
             </button>

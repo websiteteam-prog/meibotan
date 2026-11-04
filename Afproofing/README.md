@@ -80,6 +80,7 @@ The images in `assets/img/` are illustrations so the site looks finished from da
 | `assets/img/services/*.jpg` | One per service page | 1200 × 800 |
 | `assets/img/gallery/project-N-before.jpg` / `-after.jpg` | Before & after sliders: take both from the **same angle** | 1200 × 900 (4:3) |
 | `assets/img/og-image.jpg` | Preview image when the site is shared on Facebook, SMS etc. | 1200 × 630 |
+| `assets/img/services/Concrete Tile Restoration.jpg` | Background photo behind the homepage "Why choose us" section (set in `index.php`, shown under a teal overlay) | 1920 × 1080 |
 
 ### Logo files
 
@@ -106,7 +107,7 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
 | Suburbs, towns & regions (metro and regional) | `includes/data/areas.php` |
 | Service radius (currently 100km) | `service_radius_km` in `includes/config.php` |
 | Homepage FAQs | `includes/data/faqs.php` |
-| Colours & fonts | Top of `assets/css/style.css` (`:root`) |
+| Colours & fonts | Top of `assets/css/style.css` (`:root`). Theme: brand teal `#12393e` (`--teal`) and yellow `#ffc20e` (`--yellow`) |
 
 ## What's built in
 

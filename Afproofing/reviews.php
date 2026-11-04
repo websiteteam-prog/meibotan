@@ -14,7 +14,7 @@ partial('page-hero', [
     'lead'    => 'Our reputation is built one roof at a time. Here is what our customers say about working with us.',
     'eyebrow' => 'Testimonials',
     'crumbs'  => [['Reviews', 'reviews']],
-    'image'   => 'assets/img/gallery/project-1-after.jpg',
+    'image'   => 'assets/img/gallery/project-1-after.jpeg',
 ]);
 ?>
 

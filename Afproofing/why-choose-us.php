@@ -14,7 +14,7 @@ partial('page-hero', [
   'lead' => 'We built our business on doing roofs properly: quality workmanship, attention to detail, reliable service and customers who are genuinely happy with the result.',
   'eyebrow' => 'About us',
   'crumbs' => [['Why Choose Us', 'why-choose-us']],
-  'image' => 'assets/img/about.jpg',
+  'image' => 'assets/img/services/Full Roof Restoration.jpg',
 ]);
 ?>
 

@@ -81,7 +81,7 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
-<section class="section section--dark" id="services">
+<section class="section section--dark section--tiles" id="services">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
@@ -175,7 +175,7 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
-<section class="section section--ink">
+<section class="section section--ink section--photo" style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">Why choose us?</p>
