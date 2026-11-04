@@ -1,0 +1,2 @@
+# Enquiry logs and the form secret live here. Never serve them.
+Require all denied

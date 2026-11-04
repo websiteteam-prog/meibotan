@@ -1,0 +1,90 @@
+# AF Prestige Roofing: Apache configuration (works on most cPanel / shared hosting).
+
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+ErrorDocument 404 /404.php
+ErrorDocument 403 /404.php
+
+AddType font/woff2 .woff2
+AddType application/manifest+json .webmanifest
+AddDefaultCharset UTF-8
+
+# Keep development and private files off the web.
+<FilesMatch "^(router\.php|README\.md|\.form-secret)$|\.(log|md|json|ini|sh|sql)$">
+  Require all denied
+</FilesMatch>
+<Files "site.webmanifest">
+  Require all granted
+</Files>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www -> non-www (canonical domain)
+  RewriteCond %{HTTP_HOST} ^www\.afproofing\.com\.au$ [NC]
+  RewriteRule ^ https://afproofing.com.au%{REQUEST_URI} [L,R=301]
+
+  # http -> https (only on the live domain, so local testing still works)
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteCond %{HTTP_HOST} ^afproofing\.com\.au$ [NC]
+  RewriteRule ^ https://afproofing.com.au%{REQUEST_URI} [L,R=301]
+
+  # Block private folders
+  RewriteRule ^(includes|storage)(/|$) - [F,L]
+
+  # /index.php -> /   and   /page.php -> /page  (GET requests only)
+  RewriteCond %{THE_REQUEST} ^GET\ /index\.php[\s?] [NC]
+  RewriteRule ^index\.php$ / [R=301,L]
+  RewriteCond %{THE_REQUEST} ^GET\ /([a-z0-9-]+)\.php[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Remove trailing slashes from page URLs
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # Pretty URLs
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+  RewriteRule ^services/([a-z0-9-]+)$ service.php?slug=$1 [L,QSA]
+
+  # /contact -> contact.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([a-z0-9-]+)$ $1.php [L]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# Browser caching. CSS, JS and images are versioned (?v=...) so they can be cached for a year.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  # Turn on once HTTPS is confirmed working on the live site:
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  <FilesMatch "\.(woff2|css|js|jpg|jpeg|png|webp|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

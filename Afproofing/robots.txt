@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /enquiry.php
+Disallow: /includes/
+Disallow: /storage/
+
+Sitemap: https://afproofing.com.au/sitemap.xml
