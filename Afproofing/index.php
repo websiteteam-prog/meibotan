@@ -14,7 +14,7 @@ include ROOT_PATH . '/includes/header.php';
 
 <section class="hero">
   <div class="hero__bg"><img src="<?= e(asset('assets/img/Rooftop Restoration at Golden Hour.png')) ?>" alt=""
-      <?= img_size('assets/img/hero.jpg') ?> fetchpriority="high"></div>
+      <?= img_size('assets/img/s.jpg') ?> fetchpriority="high"></div>
   <div class="container">
     <div class="hero__content">
       <p class="eyebrow">Adelaide's tiled roof specialists</p>
@@ -167,7 +167,7 @@ include ROOT_PATH . '/includes/header.php';
 <section class="section section--paper">
   <div class="container">
     <div class="section-head section-head--center">
-      <p class="eyebrow">How it works</p>
+      <p class="eyebrow">How it works?</p>
       <h2>Our roof restoration <span class="hl-mark">process</span></h2>
       <p>A proven, step-by-step process that delivers a beautiful, long-lasting result.</p>
     </div>
@@ -178,7 +178,7 @@ include ROOT_PATH . '/includes/header.php';
 <section class="section section--ink">
   <div class="container">
     <div class="section-head section-head--center">
-      <p class="eyebrow">Why choose us</p>
+      <p class="eyebrow">Why choose us?</p>
       <h2>The AF Prestige <span class="hl">difference</span></h2>
       <p>Premium results come from doing the basics brilliantly, every single time.</p>
     </div>

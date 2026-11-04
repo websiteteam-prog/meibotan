@@ -89,7 +89,7 @@ $schema = [
         <ul class="main-nav__list">
           <li><a href="<?= e(url()) ?>" <?= nav_attrs('') ?>>Home</a></li>
           <li class="has-sub">
-            <a href="<?= e(url('services')) ?>" <?= nav_attrs('services', true) ?>>Services</a>
+            <a href="<?= e(url('services')) ?>" <?= nav_attrs('services', true) ?>>Gallery</a>
             <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="services-menu">
               <span class="visually-hidden">Show services</span><?= icon('chevron-down') ?>
             </button>
@@ -99,7 +99,7 @@ $schema = [
               <?php endforeach; ?>
             </ul>
           </li>
-          <li><a href="<?= e(url('gallery')) ?>" <?= nav_attrs('gallery') ?>>Projects</a></li>
+          <li><a href="<?= e(url('gallery')) ?>" <?= nav_attrs('gallery') ?>>Gallery</a></li>
           <li><a href="<?= e(url('why-choose-us')) ?>" <?= nav_attrs('why-choose-us') ?>>Why Choose Us?</a></li>
 
           <li><a href="<?= e(url('service-areas')) ?>" <?= nav_attrs('service-areas') ?>>Service Areas</a></li>

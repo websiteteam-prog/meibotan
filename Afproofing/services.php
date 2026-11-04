@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
   'title' => 'Roofing Services Adelaide | Roof Restoration & Repairs',
-  'description' => 'Roof restoration, roof painting, roof cleaning, ridge capping, tile replacement and tiled roof repairs across Adelaide. Terracotta & concrete specialists.',
+ 'description' => 'Roof restoration, roof painting, roof cleaning, ridge capping, tile replacement and tiled roof repairs across Adelaide. Terracotta & concrete specialists.',
   'path' => 'services',
   'schema' => [breadcrumb_schema([['Services', 'services']])],
 ];
@@ -30,7 +30,7 @@ partial('page-hero', [
           </a>
         </div>
         <div class="split__content" data-reveal>
-          <span class="service-row__num"><?= sprintf('%02d', $n) ?></span>
+        
           <h2><a class="plain-link" href="<?= e(service_url($slug)) ?>"><?= e($service['name']) ?></a></h2>
           <p><?= e($service['lead']) ?></p>
           <ul class="checklist">
