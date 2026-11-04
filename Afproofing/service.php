@@ -31,7 +31,7 @@ $page = [
             'url'         => absolute_url($path),
             'image'       => absolute_url($service['image']),
             'provider'    => ['@id' => absolute_url('#business')],
-            'areaServed'  => ['@type' => 'City', 'name' => 'Adelaide'],
+            'areaServed'  => [['@type' => 'City', 'name' => 'Adelaide'], service_area_schema()],
         ],
         faq_schema($service['faqs']),
     ],

@@ -32,7 +32,7 @@ partial('page-hero', [
     <div class="split__content" data-reveal>
       <p class="eyebrow">Who we are</p>
       <h2>Adelaide roof restoration, <span class="hl-mark">done properly</span></h2>
-      <p>AF Prestige Roofing is a roof restoration company servicing Adelaide and surrounding suburbs. We specialise in tiled roofs, terracotta and concrete, and focus on one thing: restoring roofs to a standard we're proud to put our name to.</p>
+      <p>AF Prestige Roofing is a locally owned and operated roofing company servicing Adelaide and regional areas within <?= e(config('service_radius_km')) ?>km. We specialise in tiled roofs, terracotta and concrete, and focus on one thing: restoring roofs to a standard we're proud to put our name to.</p>
       <p>Your roof protects everything underneath it, so we never cut corners. Every job starts with an honest inspection and a clear quote, and finishes with a walk-through to make sure you're completely satisfied.</p>
       <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Book a free inspection <?= icon('arrow-right', 'icon-shift') ?></a>
     </div>

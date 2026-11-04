@@ -34,7 +34,7 @@ partial('page-hero', [
       </li>
       <li class="contact-item">
         <span class="contact-item__icon"><?= icon('pin') ?></span>
-        <div><h2>Service area</h2><strong>Adelaide &amp; surrounding suburbs</strong><p>North, south, east, west, inner Adelaide and the Adelaide Hills. <a class="plain-link" href="<?= e(url('service-areas')) ?>">See all areas</a></p></div>
+        <div><h2>Service area</h2><strong>Adelaide &amp; regional areas within <?= e(config('service_radius_km')) ?>km</strong><p>All of metropolitan Adelaide, plus the Adelaide Hills, Barossa, Fleurieu Peninsula, Murraylands and Adelaide Plains. <a class="plain-link" href="<?= e(url('service-areas')) ?>">See all areas</a></p></div>
       </li>
       <li class="contact-item">
         <span class="contact-item__icon"><?= icon('clock') ?></span>
@@ -62,7 +62,7 @@ partial('page-hero', [
 <section class="section section--tight">
   <div class="container">
     <div class="map-embed map-embed--wide">
-      <iframe src="https://www.google.com/maps?q=Adelaide%20SA&amp;z=9&amp;output=embed" title="Map of Adelaide, our service area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps?q=Adelaide%20SA&amp;z=8&amp;output=embed" title="Map of Adelaide, our service area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </section>

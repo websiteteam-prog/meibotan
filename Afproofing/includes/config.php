@@ -40,6 +40,10 @@ return [
     ],
     'geo' => ['lat' => -34.9285, 'lng' => 138.6007],
 
+    // How far from the Adelaide CBD you travel for work (in km). Used in the
+    // service-area wording across the site and in the Google schema markup.
+    'service_radius_km' => 100,
+
     // TODO: confirm your opening hours (used on the contact page and in schema).
     'hours' => [
         ['label' => 'Monday – Friday', 'days' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], 'open' => '07:00', 'close' => '17:00'],

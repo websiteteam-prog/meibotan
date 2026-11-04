@@ -14,8 +14,8 @@ $socialLabels = ['facebook' => 'Facebook', 'instagram' => 'Instagram', 'google' 
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div>
-      <?php partial('brand'); ?>
-      <p class="site-footer__about">Premium roof restoration for terracotta and concrete tiled roofs across Adelaide and surrounding suburbs. Quality workmanship, honest advice and free quotes.</p>
+      <?php partial('brand', ['light' => true]); ?>
+      <p class="site-footer__about">Locally owned and operated roof restoration and maintenance across Adelaide and regional areas within <?= e(config('service_radius_km')) ?>km.<strong class="site-footer__slogan">Restoring Roofs. Protecting Homes.</strong></p>
       <?php if ($social): ?>
         <ul class="social-links">
           <?php foreach ($social as $network => $link): ?>
@@ -52,7 +52,7 @@ $socialLabels = ['facebook' => 'Facebook', 'instagram' => 'Instagram', 'google' 
       <ul class="footer-contact">
         <li><?= icon('phone') ?><a href="<?= e(phone_href()) ?>"><strong><?= e(config('phone')) ?></strong></a></li>
         <li><?= icon('mail') ?><a href="<?= e(email_href()) ?>"><?= e(config('email')) ?></a></li>
-        <li><?= icon('pin') ?><span>Servicing Adelaide &amp; surrounding suburbs, including the Adelaide Hills</span></li>
+        <li><?= icon('pin') ?><span>Servicing all of Adelaide &amp; regional areas within <?= e(config('service_radius_km')) ?>km of the city</span></li>
         <?php foreach (config('hours', []) as $row): ?>
           <li><?= icon('clock') ?><span><?= e($row['label']) ?>: <?= e(format_hours($row['open'], $row['close'])) ?></span></li>
         <?php endforeach; ?>

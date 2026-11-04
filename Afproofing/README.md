@@ -1,6 +1,6 @@
 # AF Prestige Roofing: afproofing.com.au
 
-The website for AF Prestige Roofing, a roof restoration company servicing Adelaide and surrounding suburbs. It's built with plain HTML, CSS and PHP, with no frameworks, database or build step, so it runs on any standard cPanel / shared hosting plan.
+The website for AF Prestige Roofing, a locally owned and operated roof restoration company servicing Adelaide and regional South Australia within 100km of the city. It's built with plain HTML, CSS and PHP, with no frameworks, database or build step, so it runs on any standard cPanel / shared hosting plan.
 
 ## Pages
 
@@ -81,6 +81,18 @@ The images in `assets/img/` are illustrations so the site looks finished from da
 | `assets/img/gallery/project-N-before.jpg` / `-after.jpg` | Before & after sliders: take both from the **same angle** | 1200 × 900 (4:3) |
 | `assets/img/og-image.jpg` | Preview image when the site is shared on Facebook, SMS etc. | 1200 × 630 |
 
+### Logo files
+
+The logo is stored as sharp vector (SVG) files traced from the master artwork, `assets/img/logo-original.png`.
+
+| File | Used for |
+| --- | --- |
+| `assets/img/logo-horizontal.svg` | Website header (dark teal on white) |
+| `assets/img/logo-horizontal-light.svg` | Website footer (yellow house mark, white lettering for dark backgrounds) |
+| `assets/img/logo.svg` / `logo-light.svg` | Stacked logo, as designed, on a transparent background (for print, signage, documents) |
+| `assets/img/logo.png` | Stacked logo on brand yellow. Used as the logo in Google's business details |
+| `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `assets/img/icon-192.png`, `assets/img/icon-512.png` | Browser tab and home-screen icons |
+
 Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pages load fast on mobile. To add more gallery projects, copy a block in `includes/data/gallery.php`.
 
 ## Editing content
@@ -91,7 +103,8 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
 | Service pages (text, lists, FAQs) | `includes/data/services.php` |
 | Gallery projects | `includes/data/gallery.php` |
 | Reviews | `includes/data/reviews.php` |
-| Suburbs & regions | `includes/data/areas.php` |
+| Suburbs, towns & regions (metro and regional) | `includes/data/areas.php` |
+| Service radius (currently 100km) | `service_radius_km` in `includes/config.php` |
 | Homepage FAQs | `includes/data/faqs.php` |
 | Colours & fonts | Top of `assets/css/style.css` (`:root`) |
 
@@ -102,7 +115,7 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
 - **Local SEO.**
   - Unique title and description on every page.
   - Keyword-focused service pages: "roof restoration Adelaide", "roof painting Adelaide", "roof cleaning Adelaide", "ridge capping Adelaide" and more.
-  - A service-areas page listing suburbs.
+  - A service-areas page listing metropolitan suburbs and regional towns within the 100km service radius.
   - Clean URLs, canonical tags and an automatic sitemap.
   - Google structured data: `RoofingContractor` business details with areas served and hours, `Service`, `BreadcrumbList` and `FAQPage`.
 - **Enquiry form.**

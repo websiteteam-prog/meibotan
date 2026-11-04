@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
   'title' => 'Roof Restoration Adelaide | AF Prestige Roofing',
-  'description' => 'Premium roof restoration in Adelaide for terracotta and concrete tiled roofs. Roof cleaning, ridge capping, tile repairs and roof painting. Get a free quote.',
+  'description' => 'Locally owned roof restoration in Adelaide and regional SA within ' . config('service_radius_km') . 'km. Roof cleaning, tile replacement, ridge capping, repairs and roof painting. Free quotes.',
   'path' => '',
   'body_class' => 'page-home',
   'preload_image' => 'assets/img/hero.jpg',
@@ -35,39 +35,48 @@ include ROOT_PATH . '/includes/header.php';
 
 <?php partial('trust-strip'); ?>
 
-<section class="section">
-  <div class="container about">
+<section class="section" id="about">
+  <div class="container about about--intro">
     <div class="about__media" data-reveal>
       <img src="<?= e(asset('assets/img/about-roof restoration.jpg')) ?>"
-        alt="Restored terracotta tiled roof with freshly pointed ridge capping in Adelaide"
+        alt="Tiled roof half cleaned and restored, showing the difference a roof restoration makes"
         <?= img_size('assets/img/about-roof restoration.jpg') ?> loading="lazy" decoding="async">
       <div class="about__badge">
         <span class="about__badge-icon"><?= icon('shield') ?></span>
-        <div><strong>Free Roof Inspections</strong><span>Honest advice, no pressure</span></div>
+        <div><strong>Locally Owned &amp; Operated</strong><span>Free, no-obligation quotes</span></div>
       </div>
     </div>
     <div class="about__content" data-reveal>
       <p class="eyebrow">About us</p>
-      <h2 style="font-size: 3.1rem;">Bring your roof back to life and <span class="hl-mark">protect your home</span>
-      </h2>
-      <p>AF Prestige Roofing is a roof restoration company servicing Adelaide and surrounding suburbs. We specialise in
-        tiled roofs, both terracotta and concrete, and we take pride in work that looks outstanding and lasts.</p>
-      <div class="about-points">
-        <div class="about-point">
-          <h3>Our mission</h3>
-          <p>Make every roof look great and protect your home for years.</p>
-        </div>
-        <div class="about-point">
-          <h3>Our promise</h3>
-          <p>Honest advice and a clear quote upfront.</p>
-        </div>
-      </div>
+      <h2 class="about__title">Welcome to <span class="hl-mark">AF Prestige Roofing</span></h2>
+      <p class="about__tagline">Quality Roofing. Reliable Service. Lasting Protection.</p>
+      <p>AF Prestige Roofing is a locally owned and operated roofing company proudly servicing Adelaide and
+        surrounding areas across South Australia.</p>
+      <p>We specialise in professional roof restoration and maintenance, helping homeowners protect, restore and
+        enhance the appearance of their properties. From pressure cleaning and tile replacement to ridge capping,
+        re-bedding, pointing and roof painting, we provide complete roofing solutions tailored to your roof&rsquo;s
+        needs.</p>
+      <h3 class="about__subhead">Our services include:</h3>
+      <ul class="checklist checklist--2col about__services">
+        <li><?= icon('check') ?>High-pressure roof cleaning and washing</li>
+        <li><?= icon('check') ?>Broken and damaged roof tile replacement</li>
+        <li><?= icon('check') ?>Ridge cap re-bedding and repointing</li>
+        <li><?= icon('check') ?>Roof repairs and maintenance</li>
+        <li><?= icon('check') ?>Roof priming and professional spray painting</li>
+        <li><?= icon('check') ?>Complete tiled roof restoration</li>
+      </ul>
+      <p>At AF Prestige Roofing, we take pride in delivering quality workmanship, attention to detail and reliable
+        customer service. We believe every roof deserves the right care, using quality materials and proven
+        restoration techniques to achieve a clean, refreshed and long-lasting finish.</p>
+      <p>Whether your roof needs a few repairs or a complete restoration, our team is here to help.</p>
+      <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong></p>
       <div class="about__actions">
         <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Get a Free Quote
           <?= icon('arrow-right', 'icon-shift') ?></a>
         <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
           <?= e(config('phone')) ?></a>
       </div>
+      <p class="about__signoff"><strong>AF Prestige Roofing</strong> &ndash; Restoring Roofs. Protecting Homes.</p>
     </div>
   </div>
 </section>
@@ -199,9 +208,12 @@ include ROOT_PATH . '/includes/header.php';
   <div class="container areas-split">
     <div>
       <p class="eyebrow">Service areas</p>
-      <h2>Proudly servicing <span class="hl">Adelaide</span> &amp; surrounds</h2>
-      <p class="areas-split__text">From the beaches to the Hills, we restore tiled roofs right across metropolitan
-        Adelaide. Not sure if we cover your suburb? Just ask.</p>
+      <h2>Proudly servicing <span class="hl">Adelaide</span> &amp; regional SA</h2>
+      <p class="areas-split__text">We work right across metropolitan Adelaide and regional areas up to
+        <?= e(config('service_radius_km')) ?>km from the city, including the Adelaide Hills, Barossa, Fleurieu
+        Peninsula and Murraylands. Not sure if we cover your area? Just ask.</p>
+      <p class="radius-badge"><span class="radius-badge__num"><?= e(config('service_radius_km')) ?><small>km</small></span>
+        <span>service radius from the Adelaide CBD</span></p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="<?= e(url('service-areas')) ?>">View service areas
           <?= icon('arrow-right', 'icon-shift') ?></a>

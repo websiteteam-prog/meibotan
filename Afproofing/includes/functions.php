@@ -132,6 +132,16 @@ function json_ld(array $data): string
     return '<script type="application/ld+json">' . $json . '</script>' . "\n";
 }
 
+/** Schema.org circle describing the service radius around Adelaide. */
+function service_area_schema(): array
+{
+    return [
+        '@type'       => 'GeoCircle',
+        'geoMidpoint' => ['@type' => 'GeoCoordinates', 'latitude' => config('geo.lat'), 'longitude' => config('geo.lng')],
+        'geoRadius'   => (int) config('service_radius_km', 100) * 1000, // metres
+    ];
+}
+
 function business_schema(): array
 {
     $address = array_filter([
@@ -143,7 +153,7 @@ function business_schema(): array
         'addressCountry'  => config('address.country'),
     ]);
 
-    $areas = [['@type' => 'City', 'name' => 'Adelaide']];
+    $areas = [['@type' => 'City', 'name' => 'Adelaide'], service_area_schema()];
     foreach ($GLOBALS['areas'] as $region) {
         foreach ($region['suburbs'] as $suburb) {
             $areas[] = ['@type' => 'Place', 'name' => $suburb . ' SA'];
@@ -172,7 +182,7 @@ function business_schema(): array
         '@type'                     => 'RoofingContractor',
         '@id'                       => absolute_url('#business'),
         'name'                      => config('site_name'),
-        'description'               => 'Roof restoration specialists for terracotta and concrete tiled roofs across Adelaide and surrounding suburbs.',
+        'description'               => 'Locally owned and operated roof restoration and maintenance company servicing Adelaide and regional South Australia within ' . config('service_radius_km', 100) . 'km of the city.',
         'url'                       => absolute_url(),
         'telephone'                 => phone_international(),
         'email'                     => config('email'),

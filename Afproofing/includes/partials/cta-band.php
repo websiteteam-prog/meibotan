@@ -1,7 +1,7 @@
 <?php
 defined('ROOT_PATH') || exit;
 $title = $title ?? 'Ready for a roof that looks brand new?';
-$text = $text ?? 'Book your free, no-obligation roof inspection and quote today. We service Adelaide and surrounding suburbs.';
+$text = $text ?? 'Book your free, no-obligation roof inspection and quote today. We service Adelaide and regional areas within ' . config('service_radius_km') . 'km.';
 ?>
 <section class="cta-band" aria-labelledby="cta-band-title">
   <div class="container cta-band__inner">
