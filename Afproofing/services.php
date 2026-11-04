@@ -2,29 +2,31 @@
 require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
-    'title'       => 'Roofing Services Adelaide | Roof Restoration & Repairs',
-    'description' => 'Roof restoration, roof painting, roof cleaning, ridge capping, tile replacement and tiled roof repairs across Adelaide. Terracotta & concrete specialists.',
-    'path'        => 'services',
-    'schema'      => [breadcrumb_schema([['Services', 'services']])],
+  'title' => 'Roofing Services Adelaide | Roof Restoration & Repairs',
+  'description' => 'Roof restoration, roof painting, roof cleaning, ridge capping, tile replacement and tiled roof repairs across Adelaide. Terracotta & concrete specialists.',
+  'path' => 'services',
+  'schema' => [breadcrumb_schema([['Services', 'services']])],
 ];
 include ROOT_PATH . '/includes/header.php';
 
 partial('page-hero', [
-    'title'   => 'Our Roof Restoration Services',
-    'lead'    => 'Specialist services for terracotta and concrete tiled roofs across Adelaide, from a single broken tile to a complete, start-to-finish restoration.',
-    'eyebrow' => 'Services',
-    'crumbs'  => [['Services', 'services']],
-    'image'   => 'assets/img/services/roof-restoration.jpg',
+  'title' => 'Our Roof Restoration Services',
+  'lead' => 'Specialist services for terracotta and concrete tiled roofs across Adelaide, from a single broken tile to a complete, start-to-finish restoration.',
+  'eyebrow' => 'Services',
+  'image' => 'assets/img/services/roof-restoration.png',
 ]);
 ?>
 
 <section class="section">
   <div class="container service-rows">
-    <?php $n = 0; foreach ($services as $slug => $service): $n++; ?>
+    <?php $n = 0;
+    foreach ($services as $slug => $service):
+      $n++; ?>
       <article class="split<?= $n % 2 === 0 ? ' split--reverse' : '' ?> service-row" id="<?= e($slug) ?>">
         <div class="split__media" data-reveal>
           <a class="media-frame" href="<?= e(service_url($slug)) ?>" tabindex="-1" aria-hidden="true">
-            <img src="<?= e(asset($service['image'])) ?>" alt="" <?= img_size($service['image']) ?> loading="lazy" decoding="async">
+            <img src="<?= e(asset($service['image'])) ?>" alt="" <?= img_size($service['image']) ?> loading="lazy"
+              decoding="async">
           </a>
         </div>
         <div class="split__content" data-reveal>
@@ -37,7 +39,8 @@ partial('page-hero', [
             <?php endforeach; ?>
           </ul>
           <div class="service-row__actions">
-            <a class="btn btn--dark" href="<?= e(service_url($slug)) ?>">Learn more <span class="visually-hidden">about <?= e($service['name']) ?></span><?= icon('arrow-right', 'icon-shift') ?></a>
+            <a class="btn btn--dark" href="<?= e(service_url($slug)) ?>">Learn more <span class="visually-hidden">about
+                <?= e($service['name']) ?></span><?= icon('arrow-right', 'icon-shift') ?></a>
             <a class="btn btn--outline-dark" href="<?= e(url('free-quote')) ?>">Free quote</a>
           </div>
         </div>
