@@ -5,6 +5,8 @@ $page = [
     'title'       => 'Contact Us | AF Prestige Roofing Adelaide',
     'description' => 'Contact AF Prestige Roofing for a free roof restoration quote in Adelaide. Call ' . config('phone') . ', email us or send an enquiry online.',
     'path'        => 'contact',
+    'body_class'  => 'page-contact',
+    'preload_image' => 'assets/img/Rooftop Restoration at Golden Hour.png',
     'schema'      => [
         breadcrumb_schema([['Contact', 'contact']]),
         ['@type' => 'ContactPage', 'url' => absolute_url('contact'), 'name' => 'Contact AF Prestige Roofing', 'about' => ['@id' => absolute_url('#business')]],
@@ -17,6 +19,7 @@ partial('page-hero', [
     'lead'    => "Have a question or ready for your free roof restoration quote? Call, email or send us a message and we'll be in touch.",
     'eyebrow' => 'Get in touch',
     'crumbs'  => [['Contact', 'contact']],
+    'image'   => 'assets/img/Rooftop Restoration at Golden Hour.png',
     'actions' => false,
 ]);
 ?>
