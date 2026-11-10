@@ -15,7 +15,7 @@ partial('page-hero', [
     'lead'    => 'We restore, repair and paint tiled roofs throughout metropolitan Adelaide and regional areas up to ' . config('service_radius_km') . 'km from the city. Find your area below, or call us to check.',
     'eyebrow' => 'Service areas',
     'crumbs'  => [['Service Areas', 'service-areas']],
-    'image'   => 'assets/img/services/roof-repairs.jpg',
+    'image'   => 'assets/img/services/service-area-hero-banner.png',
 ]);
 
 // ---------------------------------------------------------------------------
