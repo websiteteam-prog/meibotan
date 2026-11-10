@@ -2,20 +2,20 @@
 require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
-    'title'       => 'Service Areas | Roofing Across Adelaide & Regional SA',
-    'description' => 'AF Prestige Roofing services all of Adelaide and regional areas within ' . config('service_radius_km') . 'km: the Adelaide Hills, Barossa, Fleurieu Peninsula, Murray Bridge and Adelaide Plains. Free quotes.',
-    'path'        => 'service-areas',
-    'body_class'  => 'page-areas',
-    'schema'      => [breadcrumb_schema([['Service Areas', 'service-areas']])],
+  'title' => 'Service Areas | Roofing Across Adelaide & Regional SA',
+  'description' => 'AF Prestige Roofing services all of Adelaide and regional areas within ' . config('service_radius_km') . 'km: the Adelaide Hills, Barossa, Fleurieu Peninsula, Murray Bridge and Adelaide Plains. Free quotes.',
+  'path' => 'service-areas',
+  'body_class' => 'page-areas',
+  'schema' => [breadcrumb_schema([['Service Areas', 'service-areas']])],
 ];
 include ROOT_PATH . '/includes/header.php';
 
 partial('page-hero', [
-    'title'   => 'Roofing Across Adelaide & Regional SA',
-    'lead'    => 'We restore, repair and paint tiled roofs throughout metropolitan Adelaide and regional areas up to ' . config('service_radius_km') . 'km from the city. Find your area below, or call us to check.',
-    'eyebrow' => 'Service areas',
-    'crumbs'  => [['Service Areas', 'service-areas']],
-    'image'   => 'assets/img/services/service-area-hero-banner.png',
+  'title' => 'Roofing Across Adelaide & Regional SA',
+  'lead' => 'We restore, repair and paint tiled roofs throughout metropolitan Adelaide and regional areas up to ' . config('service_radius_km') . 'km from the city. Find your area below, or call us to check.',
+  'eyebrow' => 'Service areas',
+  'crumbs' => [['Service Areas', 'service-areas']],
+  'image' => 'assets/img/services/service-area-hero-banner.png',
 ]);
 
 // ---------------------------------------------------------------------------
@@ -25,47 +25,47 @@ $radius = (int) config('service_radius_km');
 
 // Approximate driving distance of each region from the Adelaide CBD.
 $regionDistance = [
-    'Inner Adelaide'              => '0–6 km',
-    'Northern Suburbs'            => '10–35 km',
-    'Southern Suburbs'            => '10–35 km',
-    'Eastern Suburbs'             => '4–12 km',
-    'Western Suburbs'             => '8–16 km',
-    'Adelaide Hills'              => '15–55 km',
-    'Gawler & Barossa'            => '40–80 km',
-    'Fleurieu Peninsula'          => '40–85 km',
-    'Murray Bridge & Murraylands' => '55–85 km',
-    'Adelaide Plains'             => '30–60 km',
+  'Inner Adelaide' => '0–6 km',
+  'Northern Suburbs' => '10–35 km',
+  'Southern Suburbs' => '10–35 km',
+  'Eastern Suburbs' => '4–12 km',
+  'Western Suburbs' => '8–16 km',
+  'Adelaide Hills' => '15–55 km',
+  'Gawler & Barossa' => '40–80 km',
+  'Fleurieu Peninsula' => '40–85 km',
+  'Murray Bridge & Murraylands' => '55–85 km',
+  'Adelaide Plains' => '30–60 km',
 ];
 $areaId = fn(string $name): string => 'area-' . trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($name)), '-');
 
 $placeCount = 0;
 $finderList = [];
 foreach ($areas as $region) {
-    $placeCount += count($region['suburbs']);
-    foreach ($region['suburbs'] as $suburb) {
-        $finderList[] = ['n' => $suburb, 'r' => $region['name'], 'id' => $areaId($region['name'])];
-    }
+  $placeCount += count($region['suburbs']);
+  foreach ($region['suburbs'] as $suburb) {
+    $finderList[] = ['n' => $suburb, 'r' => $region['name'], 'id' => $areaId($region['name'])];
+  }
 }
 
 // Coverage diagram: where each regional area sits from the CBD (km and compass bearing).
 // A schematic, not to scale: 100km = 220px from the centre of a 520px square.
 $mapScale = 220 / max($radius, 1);
 $mapPoints = [
-    ['name' => 'Gawler & Barossa',            'label' => 'Gawler & Barossa', 'km' => 60, 'deg' => 20,  'dx' => 12,  'dy' => -10, 'anchor' => 'start'],
-    ['name' => 'Adelaide Plains',             'label' => 'Adelaide Plains',  'km' => 45, 'deg' => 335, 'dx' => -12, 'dy' => -10, 'anchor' => 'end'],
-    ['name' => 'Adelaide Hills',              'label' => 'Adelaide Hills',   'km' => 32, 'deg' => 120, 'dx' => 12,  'dy' => 18,  'anchor' => 'start'],
-    ['name' => 'Murray Bridge & Murraylands', 'label' => 'Murray Bridge',    'km' => 75, 'deg' => 100, 'dx' => 0,   'dy' => -16, 'anchor' => 'middle'],
-    ['name' => 'Fleurieu Peninsula',          'label' => 'Fleurieu',         'km' => 70, 'deg' => 200, 'dx' => 12,  'dy' => 20,  'anchor' => 'start'],
+  ['name' => 'Gawler & Barossa', 'label' => 'Gawler & Barossa', 'km' => 60, 'deg' => 20, 'dx' => 12, 'dy' => -10, 'anchor' => 'start'],
+  ['name' => 'Adelaide Plains', 'label' => 'Adelaide Plains', 'km' => 45, 'deg' => 335, 'dx' => -12, 'dy' => -10, 'anchor' => 'end'],
+  ['name' => 'Adelaide Hills', 'label' => 'Adelaide Hills', 'km' => 32, 'deg' => 120, 'dx' => 12, 'dy' => 18, 'anchor' => 'start'],
+  ['name' => 'Murray Bridge & Murraylands', 'label' => 'Murray Bridge', 'km' => 75, 'deg' => 100, 'dx' => 0, 'dy' => -16, 'anchor' => 'middle'],
+  ['name' => 'Fleurieu Peninsula', 'label' => 'Fleurieu', 'km' => 70, 'deg' => 200, 'dx' => 12, 'dy' => 20, 'anchor' => 'start'],
 ];
 $mapXY = function (float $km, float $deg) use ($mapScale): array {
-    $rad = deg2rad($deg);
-    return [round(260 + sin($rad) * $km * $mapScale, 1), round(260 - cos($rad) * $km * $mapScale, 1)];
+  $rad = deg2rad($deg);
+  return [round(260 + sin($rad) * $km * $mapScale, 1), round(260 - cos($rad) * $km * $mapScale, 1)];
 };
 
 $conditions = [
-    ['icon' => 'drop', 'title' => 'Coast & river towns', 'text' => 'Salt air and strong winds are hard on mortar and coatings, from Glenelg and Semaphore to Victor Harbor and Murray Bridge.'],
-    ['icon' => 'leaf', 'title' => 'Hills & valleys', 'text' => 'More rain, leaf litter, moss and lichen in the Adelaide Hills and the Barossa, so cleaning and gutters matter.'],
-    ['icon' => 'sun',  'title' => 'Suburbs & plains', 'text' => 'Long, hot summers and strong UV fade tiles and dry out pointing right across the city and the Adelaide Plains.'],
+  ['icon' => 'drop', 'title' => 'Coast & river towns', 'text' => 'Salt air and strong winds are hard on mortar and coatings, from Glenelg and Semaphore to Victor Harbor and Murray Bridge.'],
+  ['icon' => 'leaf', 'title' => 'Hills & valleys', 'text' => 'More rain, leaf litter, moss and lichen in the Adelaide Hills and the Barossa, so cleaning and gutters matter.'],
+  ['icon' => 'sun', 'title' => 'Suburbs & plains', 'text' => 'Long, hot summers and strong UV fade tiles and dry out pointing right across the city and the Adelaide Plains.'],
 ];
 ?>
 
@@ -80,11 +80,13 @@ $conditions = [
           <label class="visually-hidden" for="area-finder-input">Your suburb or town</label>
           <span class="areas-finder__field">
             <?= icon('search') ?>
-            <input id="area-finder-input" type="text" list="area-finder-list" placeholder="Type your suburb, e.g. Glenelg" maxlength="60">
+            <input id="area-finder-input" type="text" list="area-finder-list"
+              placeholder="Type your suburb, e.g. Glenelg" maxlength="60">
           </span>
           <button class="btn btn--primary" type="submit">Check</button>
           <datalist id="area-finder-list">
-            <?php foreach ($finderList as $place): ?><option value="<?= e($place['n']) ?>"><?php endforeach; ?>
+            <?php foreach ($finderList as $place): ?>
+              <option value="<?= e($place['n']) ?>"><?php endforeach; ?>
           </datalist>
         </form>
         <p class="areas-finder__try"><span>Try:</span>
@@ -93,7 +95,10 @@ $conditions = [
           <?php endforeach; ?>
         </p>
         <div class="areas-finder__result" id="area-finder-result" aria-live="polite" hidden></div>
-        <noscript><p class="areas-finder__hint">See the full list of suburbs and towns below, or call us on <?= e(config('phone')) ?>.</p></noscript>
+        <noscript>
+          <p class="areas-finder__hint">See the full list of suburbs and towns below, or call us on
+            <?= e(config('phone')) ?>.</p>
+        </noscript>
       </div>
       <ul class="areas-stats">
         <li><strong><?= e($radius) ?><small>km</small></strong><span>Service radius from the Adelaide CBD</span></li>
@@ -111,45 +116,62 @@ $conditions = [
     <div class="areas-coverage__text" data-reveal>
       <p class="eyebrow">How far we travel</p>
       <h2>Adelaide &amp; <span class="hl"><?= e($radius) ?>km around it</span></h2>
-      <p>We service every suburb of metropolitan Adelaide, plus regional towns up to <?= e($radius) ?>km from the CBD. Whether you're in the city, up in the Hills, on the Fleurieu coast or out in the Barossa, you get the same free inspection, honest advice and quality finish.</p>
+      <p>We service every suburb of metropolitan Adelaide, plus regional towns up to <?= e($radius) ?>km from the CBD.
+        Whether you're in the city, up in the Hills, on the Fleurieu coast or out in the Barossa, you get the same free
+        inspection, honest advice and quality finish.</p>
       <ul class="coverage-legend">
-        <?php foreach ($areas as $region): if (($region['group'] ?? 'metro') !== 'regional') continue; ?>
-          <li><a href="#<?= e($areaId($region['name'])) ?>"><span class="coverage-legend__dot"></span><?= e($region['name']) ?><small><?= e($regionDistance[$region['name']] ?? '') ?></small></a></li>
+        <?php foreach ($areas as $region):
+          if (($region['group'] ?? 'metro') !== 'regional')
+            continue; ?>
+          <li><a href="#<?= e($areaId($region['name'])) ?>"><span
+                class="coverage-legend__dot"></span><?= e($region['name']) ?><small><?= e($regionDistance[$region['name']] ?? '') ?></small></a>
+          </li>
         <?php endforeach; ?>
-        <li><a href="#area-group-metro"><span class="coverage-legend__dot coverage-legend__dot--metro"></span>Metropolitan Adelaide<small>All suburbs</small></a></li>
+        <li><a href="#area-group-metro"><span
+              class="coverage-legend__dot coverage-legend__dot--metro"></span>Metropolitan Adelaide<small>All
+              suburbs</small></a></li>
       </ul>
     </div>
 
     <figure class="coverage-map" data-reveal>
       <svg viewBox="0 0 520 520" role="img" aria-labelledby="coverage-map-title">
-        <title id="coverage-map-title">Diagram of our service area: metropolitan Adelaide and regional areas up to <?= e($radius) ?>km from the CBD</title>
+        <title id="coverage-map-title">Diagram of our service area: metropolitan Adelaide and regional areas up to
+          <?= e($radius) ?>km from the CBD</title>
         <defs>
           <radialGradient id="coverage-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffc20e" stop-opacity=".22"/>
-            <stop offset="100%" stop-color="#ffc20e" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#ffc20e" stop-opacity=".22" />
+            <stop offset="100%" stop-color="#ffc20e" stop-opacity="0" />
           </radialGradient>
         </defs>
-        <circle cx="260" cy="260" r="220" class="coverage-map__area"/>
-        <?php foreach ([25, 50, 75, 100] as $ring): if ($ring > $radius) continue; $r = round($ring * $mapScale, 1); ?>
-          <circle cx="260" cy="260" r="<?= $r ?>" class="coverage-map__ring<?= $ring === $radius ? ' coverage-map__ring--edge' : '' ?>"/>
+        <circle cx="260" cy="260" r="220" class="coverage-map__area" />
+        <?php foreach ([25, 50, 75, 100] as $ring):
+          if ($ring > $radius)
+            continue;
+          $r = round($ring * $mapScale, 1); ?>
+          <circle cx="260" cy="260" r="<?= $r ?>"
+            class="coverage-map__ring<?= $ring === $radius ? ' coverage-map__ring--edge' : '' ?>" />
           <text x="260" y="<?= round(260 - $r - 7, 1) ?>" class="coverage-map__ring-label"><?= $ring ?>km</text>
         <?php endforeach; ?>
-        <line x1="260" y1="30" x2="260" y2="490" class="coverage-map__axis"/>
-        <line x1="30" y1="260" x2="490" y2="260" class="coverage-map__axis"/>
-        <g class="coverage-map__north" transform="translate(492 40)" aria-hidden="true"><path d="M0 -16 L8 6 L0 1 L-8 6 Z"/><text y="24">N</text></g>
+        <line x1="260" y1="30" x2="260" y2="490" class="coverage-map__axis" />
+        <line x1="30" y1="260" x2="490" y2="260" class="coverage-map__axis" />
+        <g class="coverage-map__north" transform="translate(492 40)" aria-hidden="true">
+          <path d="M0 -16 L8 6 L0 1 L-8 6 Z" /><text y="24">N</text>
+        </g>
 
-        <circle cx="260" cy="260" r="<?= round(24 * $mapScale, 1) ?>" fill="url(#coverage-glow)"/>
+        <circle cx="260" cy="260" r="<?= round(24 * $mapScale, 1) ?>" fill="url(#coverage-glow)" />
         <a href="#area-group-metro">
-          <circle cx="260" cy="260" r="<?= round(18 * $mapScale, 1) ?>" class="coverage-map__metro"/>
+          <circle cx="260" cy="260" r="<?= round(18 * $mapScale, 1) ?>" class="coverage-map__metro" />
           <text x="260" y="256" class="coverage-map__metro-label">Metro</text>
           <text x="260" y="272" class="coverage-map__metro-label">Adelaide</text>
         </a>
 
-        <?php foreach ($mapPoints as $point): [$x, $y] = $mapXY($point['km'], $point['deg']); ?>
+        <?php foreach ($mapPoints as $point):
+          [$x, $y] = $mapXY($point['km'], $point['deg']); ?>
           <a href="#<?= e($areaId($point['name'])) ?>" class="coverage-map__point">
-            <circle cx="<?= $x ?>" cy="<?= $y ?>" r="16" class="coverage-map__pulse"/>
-            <circle cx="<?= $x ?>" cy="<?= $y ?>" r="8" class="coverage-map__dot"/>
-            <text x="<?= $x + $point['dx'] ?>" y="<?= $y + $point['dy'] ?>" text-anchor="<?= $point['anchor'] ?>" class="coverage-map__label"><?= e($point['label']) ?></text>
+            <circle cx="<?= $x ?>" cy="<?= $y ?>" r="16" class="coverage-map__pulse" />
+            <circle cx="<?= $x ?>" cy="<?= $y ?>" r="8" class="coverage-map__dot" />
+            <text x="<?= $x + $point['dx'] ?>" y="<?= $y + $point['dy'] ?>" text-anchor="<?= $point['anchor'] ?>"
+              class="coverage-map__label"><?= e($point['label']) ?></text>
           </a>
         <?php endforeach; ?>
       </svg>
@@ -164,16 +186,18 @@ $conditions = [
     <div class="section-head section-head--center">
       <p class="eyebrow">Where we work</p>
       <h2>Suburbs &amp; towns <span class="hl-mark">we service</span></h2>
-      <p>These are just some of the places we work in regularly. If yours isn't listed, get in touch. Chances are we cover it.</p>
+      <p>These are just some of the places we work in regularly. If yours isn't listed, get in touch. Chances are we
+        cover it.</p>
     </div>
     <?php
     $areaGroups = [
-      'metro'    => ['Metropolitan Adelaide', 'All suburbs, north, south, east and west', 'map'],
+      'metro' => ['Metropolitan Adelaide', 'All suburbs, north, south, east and west', 'map'],
       'regional' => ['Regional areas', 'Country towns within ' . $radius . 'km of Adelaide', 'pin'],
     ];
     foreach ($areaGroups as $groupKey => [$groupTitle, $groupNote, $groupIcon]):
       $groupAreas = array_filter($areas, fn($region) => ($region['group'] ?? 'metro') === $groupKey);
-      if (!$groupAreas) continue; ?>
+      if (!$groupAreas)
+        continue; ?>
       <div class="areas-group areas-group--<?= e($groupKey) ?>" id="area-group-<?= e($groupKey) ?>">
         <div class="areas-group__head">
           <span class="areas-group__icon"><?= icon($groupIcon) ?></span>
@@ -188,12 +212,14 @@ $conditions = [
               <div class="region-card__head">
                 <h4><?= e($region['name']) ?></h4>
                 <?php if (!empty($regionDistance[$region['name']])): ?>
-                  <span class="region-card__km" title="Approximate driving distance from the Adelaide CBD"><?= icon('pin') ?><?= e($regionDistance[$region['name']]) ?></span>
+                  <span class="region-card__km"
+                    title="Approximate driving distance from the Adelaide CBD"><?= icon('pin') ?><?= e($regionDistance[$region['name']]) ?></span>
                 <?php endif; ?>
               </div>
               <p><?= e($region['blurb']) ?></p>
               <ul class="chips chips--light">
-                <?php foreach ($region['suburbs'] as $suburb): ?><li data-place="<?= e(mb_strtolower($suburb)) ?>"><?= e($suburb) ?></li><?php endforeach; ?>
+                <?php foreach ($region['suburbs'] as $suburb): ?>
+                  <li data-place="<?= e(mb_strtolower($suburb)) ?>"><?= e($suburb) ?></li><?php endforeach; ?>
               </ul>
             </article>
           <?php endforeach; ?>
@@ -203,7 +229,8 @@ $conditions = [
 
     <div class="areas-note" data-reveal>
       <span class="areas-note__icon"><?= icon('phone') ?></span>
-      <p><strong>Can't see your suburb?</strong> We regularly travel further for larger jobs. Give us a call and we'll let you know straight away.</p>
+      <p><strong>Can't see your suburb?</strong> We regularly travel further for larger jobs. Give us a call and we'll
+        let you know straight away.</p>
       <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> <?= e(config('phone')) ?></a>
     </div>
   </div>
@@ -215,19 +242,33 @@ $conditions = [
     <div class="split__content" data-reveal>
       <p class="eyebrow">Local knowledge</p>
       <h2>Roofing built for <span class="hl-mark">Adelaide conditions</span></h2>
-      <p>Every part of our service area is tough on roofs in its own way. We tailor each restoration to your home, from the cleaning method to the coating and pointing we recommend.</p>
+      <p>Every part of our service area is tough on roofs in its own way. We tailor each restoration to your home, from
+        the cleaning method to the coating and pointing we recommend.</p>
       <ul class="conditions">
         <?php foreach ($conditions as $condition): ?>
-          <li>
-            <span class="conditions__icon"><?= icon($condition['icon']) ?></span>
-            <div><h3><?= e($condition['title']) ?></h3><p><?= e($condition['text']) ?></p></div>
-          </li>
+        <li>
+          <span class="conditions__icon">
+            <?= icon($condition['icon']) ?>
+          </span>
+          <div>
+            <h3>
+              <?= e($condition['title']) ?>
+            </h3>
+            <p>
+              <?= e($condition['text']) ?>
+            </p>
+          </div>
+        </li>
         <?php endforeach; ?>
       </ul>
-      <a class="btn btn--dark areas-local__btn" href="<?= e(url('free-quote')) ?>">Get a free quote in your area <?= icon('arrow-right', 'icon-shift') ?></a>
+      <a class="btn btn--dark areas-local__btn" href="<?= e(url('free-quote')) ?>">Get a free quote in your area
+        <?= icon('arrow-right', 'icon-shift') ?>
+      </a>
     </div>
     <div class="map-embed areas-local__map" data-reveal>
-      <iframe src="https://www.google.com/maps?q=Adelaide%20SA&amp;z=8&amp;output=embed" title="Map of our service area: Adelaide and regional areas within <?= e($radius) ?>km" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps?q=Adelaide%20SA&amp;z=8&amp;output=embed"
+        title="Map of our service area: Adelaide and regional areas within <?= e($radius) ?>km" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </section>
@@ -241,11 +282,17 @@ $conditions = [
     </div>
     <div class="features features--light">
       <?php foreach ($services as $slug => $service): ?>
-        <a class="feature plain-link" href="<?= e(service_url($slug)) ?>" data-reveal>
-          <span class="feature__icon"><?= icon($service['icon']) ?></span>
-          <h3><?= e($service['name']) ?></h3>
-          <p><?= e($service['excerpt']) ?></p>
-        </a>
+      <a class="feature plain-link" href="<?= e(service_url($slug)) ?>" data-reveal>
+        <span class="feature__icon">
+          <?= icon($service['icon']) ?>
+        </span>
+        <h3>
+          <?= e($service['name']) ?>
+        </h3>
+        <p>
+          <?= e($service['excerpt']) ?>
+        </p>
+      </a>
       <?php endforeach; ?>
     </div>
   </div>

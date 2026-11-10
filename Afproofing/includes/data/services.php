@@ -11,7 +11,7 @@ return [
     'roof-restoration-adelaide' => [
         'name' => 'Full Roof Restoration',
         'icon' => 'roof',
-        'image' => 'assets/img/services/Full Roof Restoration.jpg',
+        'image' => 'assets/img/services/Full-Roof-Restoration.jpg',
         'meta_title' => 'Full Roof Restoration Adelaide | AF Prestige Roofing',
         'meta_description' => 'Complete tiled roof restorations in Adelaide: high-pressure clean, tile repairs, ridge cap re-bedding & repointing, then sealing and painting. Free quotes.',
         'h1' => 'Full Roof Restoration in Adelaide',

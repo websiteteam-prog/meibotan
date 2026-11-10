@@ -23,10 +23,7 @@ $hasSamples = (bool) array_filter($gallery, fn($p) => !empty($p['sample']));
 
 <section class="section section--paper">
   <div class="container">
-    <?php if ($hasSamples): ?>
-      <p class="notice"><?= icon('eye') ?><span>Sample images are shown while we add photos from our latest projects. Ask
-          us for more examples of our work when we visit for your free quote.</span></p>
-    <?php endif; ?>
+  
 
     <div class="filters" data-gallery-filters role="group" aria-label="Filter projects">
       <?php foreach ($filters as $value => $label): ?>

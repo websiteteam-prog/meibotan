@@ -38,9 +38,9 @@ include ROOT_PATH . '/includes/header.php';
 <section class="section" id="about">
   <div class="container about about--intro">
     <div class="about__media" data-reveal>
-      <img src="<?= e(asset('assets/img/about-roof restoration.jpg')) ?>"
+      <img src="<?= e(asset('assets/img/about-roof restoration.png')) ?>"
         alt="Tiled roof half cleaned and restored, showing the difference a roof restoration makes"
-        <?= img_size('assets/img/about-roof restoration.jpg') ?> loading="lazy" decoding="async">
+        <?= img_size('assets/img/about-roof restoration.png') ?> loading="lazy" decoding="async">
       <div class="about__badge">
         <span class="about__badge-icon"><?= icon('shield') ?></span>
         <div><strong>Locally Owned &amp; Operated</strong><span>Free, no-obligation quotes</span></div>
@@ -56,19 +56,7 @@ include ROOT_PATH . '/includes/header.php';
         enhance the appearance of their properties. From pressure cleaning and tile replacement to ridge capping,
         re-bedding, pointing and roof painting, we provide complete roofing solutions tailored to your roof&rsquo;s
         needs.</p>
-      <h3 class="about__subhead">Our services include:</h3>
-      <ul class="checklist checklist--2col about__services">
-        <li><?= icon('check') ?>High-pressure roof cleaning and washing</li>
-        <li><?= icon('check') ?>Broken and damaged roof tile replacement</li>
-        <li><?= icon('check') ?>Ridge cap re-bedding and repointing</li>
-        <li><?= icon('check') ?>Roof repairs and maintenance</li>
-        <li><?= icon('check') ?>Roof priming and professional spray painting</li>
-        <li><?= icon('check') ?>Complete tiled roof restoration</li>
-      </ul>
-      <p>At AF Prestige Roofing, we take pride in delivering quality workmanship, attention to detail and reliable
-        customer service. We believe every roof deserves the right care, using quality materials and proven
-        restoration techniques to achieve a clean, refreshed and long-lasting finish.</p>
-      <p>Whether your roof needs a few repairs or a complete restoration, our team is here to help.</p>
+    
       <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong>
       </p>
       <div class="about__actions">
@@ -77,7 +65,7 @@ include ROOT_PATH . '/includes/header.php';
         <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
           <?= e(config('phone')) ?></a>
       </div>
-      <p class="about__signoff"><strong>AF Prestige Roofing</strong> &ndash; Restoring Roofs. Protecting Homes.</p>
+
     </div>
   </div>
 </section>
@@ -91,13 +79,10 @@ include ROOT_PATH . '/includes/header.php';
         <p>Everything your tiled roof needs, from a high-pressure clean to a complete restoration, delivered by one
           reliable local team.</p>
       </div>
-      <a class="btn btn--outline" href="<?= e(url('services')) ?>">All services
-        <?= icon('arrow-right', 'icon-shift') ?></a>
+
     </div>
     <?php
-    // Services showcase: a large featured service, a photo card for each other service
-    // (a swipeable row on phones) and a free-inspection strip. Photos come from each
-    // service's 'image' in includes/data/services.php.
+
     $svcFeaturedSlug = array_key_first($services);
     $svcFeatured = $services[$svcFeaturedSlug];
     $svcOthers = array_slice($services, 1, null, true);
@@ -108,7 +93,7 @@ include ROOT_PATH . '/includes/header.php';
         <a class="svc-card__media" href="<?= e(service_url($svcFeaturedSlug)) ?>" tabindex="-1" aria-hidden="true">
           <img src="<?= e(asset($svcFeatured['image'])) ?>" alt="" <?= img_size($svcFeatured['image']) ?> loading="lazy"
             decoding="async">
-          <span class="svc-card__num">01</span>
+
           <span class="svc-card__tag"><?= icon('award') ?>Complete package</span>
         </a>
         <div class="svc-card__body">
@@ -138,7 +123,7 @@ include ROOT_PATH . '/includes/header.php';
             <span class="svc-card__media">
               <img src="<?= e(asset($svcItem['image'])) ?>" alt="" <?= img_size($svcItem['image']) ?> loading="lazy"
                 decoding="async">
-              <span class="svc-card__num"><?= sprintf('%02d', $svcNum) ?></span>
+
             </span>
             <span class="svc-card__icon"><?= icon($svcItem['icon']) ?></span>
             <span class="svc-card__body">

@@ -14,7 +14,7 @@ partial('page-hero', [
   'lead' => 'We built our business on doing roofs properly: quality workmanship, attention to detail, reliable service and customers who are genuinely happy with the result.',
   'eyebrow' => 'About us',
   'crumbs' => [['Why Choose Us', 'why-choose-us']],
-  'image' => 'assets/img/services/Full Roof Restoration.jpg',
+  'image' => 'assets/img/services/about-banner.png',
 ]);
 ?>
 
@@ -22,17 +22,14 @@ partial('page-hero', [
   <div class="container split">
     <div class="split__media" data-reveal>
       <div class="media-frame">
-        <img src="<?= e(asset('assets/img/services/why-choose-section1.jpg')) ?>"
+        <img src="<?= e(asset('assets/img/services/why-choose-section1.jpeg')) ?>"
           alt="Ridge capping before and after re-bedding and repointing"
           <?= img_size('assets/img/services/ridge-capping.jpg') ?> loading="lazy" decoding="async">
-        <div class="media-badge">
-          <span class="media-badge__icon"><?= icon('award') ?></span>
-          <div><strong>Pride in every roof</strong><span>Local Adelaide roof restorers</span></div>
-        </div>
+
       </div>
     </div>
     <div class="split__content" data-reveal>
-     
+
       <h2>Quality Roof Restoration You Can Trust</h2>
       <p>AF Prestige Roofing is a locally owned and operated roofing company servicing Adelaide and regional areas
         within <?= e(config('service_radius_km')) ?>km. We specialise in tiled roofs, terracotta and concrete, and focus
@@ -59,7 +56,7 @@ partial('page-hero', [
   <div class="container split split--reverse">
     <div class="split__media" data-reveal>
       <div class="media-frame">
-        <img src="<?= e(asset('assets/img/services/roof-painting.jpg')) ?>"
+        <img src="<?= e(asset('assets/img/services/why-choose-section2.jpeg')) ?>"
           alt="Concrete tile roof part-way through sealing and painting"
           <?= img_size('assets/img/services/roof-painting.jpg') ?> loading="lazy" decoding="async">
       </div>
