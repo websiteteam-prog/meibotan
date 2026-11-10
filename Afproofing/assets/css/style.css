@@ -371,6 +371,12 @@ h3 { font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.6rem); line-height: 1.
 .hero__content { max-width: 820px; }
 .hero h1 { max-width: none; font-size: clamp(1.9rem, 7.6vw, 4.5rem); }
 .hero__line { display: block; }
+@media (max-width: 767px) {
+  .hero .eyebrow { display: none; }  /* hide "Adelaide's tiled roof specialists" on phones */
+  /* Keep the heading to two lines: shrink it so "Premium Roof Restoration" fits the screen width */
+  .hero h1 { font-size: min(clamp(1.9rem, 7.6vw, 4.5rem), calc((100vw - 2 * var(--gutter)) / 10.9)); }
+  .hero__line { white-space: nowrap; }
+}
 .hero__lead { margin-top: 22px; max-width: 38em; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: #d2d2d2; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 @media (max-width: 559px) { .hero__actions .btn, .page-hero__actions .btn, .cta-band__actions .btn { flex: 1 1 100%; } }
@@ -496,6 +502,12 @@ h3 { font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.6rem); line-height: 1.
   width: 100%; object-fit: cover;
   border-radius: var(--radius); box-shadow: var(--shadow-md);
   height: 480px;
+}
+@media (max-width: 959px) {
+  .about__media img { height: auto; aspect-ratio: 4 / 3; }
+}
+@media (min-width: 640px) and (max-width: 959px) {
+  .about__media img { aspect-ratio: 16 / 10; }
 }
 .about__badge {
   position: absolute; left: 16px; bottom: -22px;
@@ -843,6 +855,34 @@ h3 { font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.6rem); line-height: 1.
 /* Reviews ------------------------------------------------------------------------ */
 .reviews-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
 @media (min-width: 1024px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Reviews carousel (homepage): swipeable row with arrows and dots */
+.reviews-carousel { position: relative; }
+.reviews-carousel__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 86%; gap: 18px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+  padding: 4px 2px 8px; scrollbar-width: none;
+}
+.reviews-carousel__track::-webkit-scrollbar { display: none; }
+.reviews-carousel__track:focus-visible { outline-offset: 6px; }
+.reviews-carousel__track > .review-card { scroll-snap-align: start; }
+.js .reviews-carousel [data-reveal] { opacity: 1; transform: none; }
+@media (min-width: 640px) { .reviews-carousel__track { grid-auto-columns: calc((100% - 18px) / 2); } }
+@media (min-width: 1024px) { .reviews-carousel__track { grid-auto-columns: calc((100% - 36px) / 3); } }
+.reviews-carousel__controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 26px; }
+.reviews-carousel.is-static .reviews-carousel__controls { display: none; }
+.reviews-carousel__btn {
+  display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 50%;
+  background: var(--white); border: 1.5px solid var(--teal); color: var(--teal); cursor: pointer;
+  transition: background-color .2s, color .2s, opacity .2s;
+}
+.reviews-carousel__btn .icon { width: 20px; height: 20px; }
+.reviews-carousel__btn--prev .icon { transform: rotate(180deg); }
+.reviews-carousel__btn:hover:not(:disabled) { background: var(--teal); color: var(--yellow); }
+.reviews-carousel__btn:disabled { opacity: .35; cursor: default; }
+.reviews-carousel__dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.reviews-carousel__dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: #b4c9ca; cursor: pointer; transition: width .25s, background-color .25s; }
+.reviews-carousel__dot.is-active { width: 28px; background: var(--yellow); }
 .review-card {
   position: relative; display: flex; flex-direction: column; gap: 16px;
   padding: 28px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line);

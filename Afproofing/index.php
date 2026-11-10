@@ -254,9 +254,17 @@ include ROOT_PATH . '/includes/header.php';
       <a class="btn btn--outline-dark" href="<?= e(url('reviews')) ?>">Read more reviews
         <?= icon('arrow-right', 'icon-shift') ?></a>
     </div>
-    <div class="reviews-grid">
-      <?php foreach (array_slice($reviews, 0, 3) as $review)
-        partial('review-card', ['review' => $review]); ?>
+    <div class="reviews-carousel" data-carousel>
+      <div class="reviews-carousel__track" role="region" aria-label="Customer reviews" tabindex="0">
+        <?php foreach ($reviews as $review)
+          partial('review-card', ['review' => $review]); ?>
+      </div>
+      <div class="reviews-carousel__controls">
+        <button class="reviews-carousel__btn reviews-carousel__btn--prev" type="button" data-carousel-prev
+          aria-label="Previous review"><?= icon('arrow-right') ?></button>
+        <div class="reviews-carousel__dots" data-carousel-dots></div>
+        <button class="reviews-carousel__btn" type="button" data-carousel-next aria-label="Next review"><?= icon('arrow-right') ?></button>
+      </div>
     </div>
   </div>
 </section>
@@ -300,5 +308,83 @@ include ROOT_PATH . '/includes/header.php';
     <?php partial('faq', ['faqs' => $faqs]); ?>
   </div>
 </section>
+
+<script>
+  // Reviews carousel: swipe or drag on touch screens, arrows and dots everywhere,
+  // and a gentle auto-advance that pauses while the visitor is interacting.
+  (function () {
+    document.querySelectorAll('[data-carousel]').forEach(function (root) {
+      var track = root.querySelector('.reviews-carousel__track');
+      var prev = root.querySelector('[data-carousel-prev]');
+      var next = root.querySelector('[data-carousel-next]');
+      var dotsWrap = root.querySelector('[data-carousel-dots]');
+      var cards = Array.prototype.slice.call(track.children);
+      if (!cards.length) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var timer = null, paused = false;
+
+      function step() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth; }
+      function maxScroll() { return track.scrollWidth - track.clientWidth; }
+      function positions() { return Math.max(1, Math.round(maxScroll() / step()) + 1); }
+      function current() { return Math.min(positions() - 1, Math.round(track.scrollLeft / step())); }
+      function go(i) {
+        var last = positions() - 1;
+        if (i < 0) i = 0;
+        if (i > last) i = last;
+        track.scrollTo({ left: Math.min(i * step(), maxScroll()), behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      function update() {
+        var c = current(), n = positions();
+        Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
+          d.classList.toggle('is-active', i === c);
+          d.setAttribute('aria-current', i === c ? 'true' : 'false');
+        });
+        prev.disabled = c <= 0;
+        next.disabled = c >= n - 1;
+        root.classList.toggle('is-static', n <= 1);
+      }
+      function buildDots() {
+        dotsWrap.innerHTML = '';
+        for (var i = 0; i < positions(); i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'reviews-carousel__dot';
+          dot.setAttribute('aria-label', 'Show review ' + (i + 1));
+          dot.addEventListener('click', go.bind(null, i));
+          dotsWrap.appendChild(dot);
+        }
+        update();
+      }
+      function autoplay() {
+        clearInterval(timer);
+        if (reduceMotion) return;
+        timer = setInterval(function () {
+          if (paused || document.hidden) return;
+          var c = current();
+          go(c >= positions() - 1 ? 0 : c + 1);
+        }, 5000);
+      }
+
+      prev.addEventListener('click', function () { go(current() - 1); });
+      next.addEventListener('click', function () { go(current() + 1); });
+      var ticking = false;
+      track.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { update(); ticking = false; });
+      }, { passive: true });
+      ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { root.addEventListener(ev, function () { paused = true; }, { passive: true }); });
+      ['mouseleave', 'focusout'].forEach(function (ev) { root.addEventListener(ev, function () { paused = false; }); });
+      track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
+      });
+      var resizeTimer;
+      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(buildDots, 150); });
+      buildDots();
+      autoplay();
+    });
+  })();
+</script>
 
 <?php include ROOT_PATH . '/includes/footer.php'; ?>
