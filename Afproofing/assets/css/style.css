@@ -1175,6 +1175,14 @@ h3 { font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.6rem); line-height: 1.
   .page-contact .page-hero::before { background: linear-gradient(90deg, rgba(0, 0, 0, .84) 0%, rgba(0, 0, 0, .62) 100%); }
 }
 
+/* Free quote page banner photo (body class "page-quote" is set in free-quote.php) */
+.page-quote .page-hero__bg img { object-position: center 40%; }
+@media (max-width: 767px) {
+  /* keep the clipboard to the right and darken the photo so the text stays readable */
+  .page-quote .page-hero__bg img { object-position: 78% center; }
+  .page-quote .page-hero::before { background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0%, rgba(0, 0, 0, .68) 100%); }
+}
+
 /* Free quote page */
 .quote-layout { display: grid; gap: 48px; align-items: start; }
 @media (min-width: 1024px) { .quote-layout { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 64px; } }

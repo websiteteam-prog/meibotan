@@ -6,6 +6,7 @@ $page = [
     'description' => 'Get a free, no-obligation roof restoration quote in Adelaide. Free roof inspection and clear, itemised pricing for terracotta and concrete tiled roofs.',
     'path'        => 'free-quote',
     'hide_cta'    => true,
+    'body_class'  => 'page-quote',
     'schema'      => [breadcrumb_schema([['Free Quote', 'free-quote']])],
 ];
 include ROOT_PATH . '/includes/header.php';
@@ -15,6 +16,7 @@ partial('page-hero', [
     'lead'    => 'Free inspection. Honest advice. A clear, itemised quote with no obligation and no hidden extras.',
     'eyebrow' => '100% free & no obligation',
     'crumbs'  => [['Free Quote', 'free-quote']],
+    'image'   => 'assets/img/Free Inspection.jpg',
     'actions' => false,
 ]);
 ?>
