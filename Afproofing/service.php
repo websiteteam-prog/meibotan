@@ -1,6 +1,10 @@
 <?php
 /**
- * Individual service page: /services/{slug}. Content comes from includes/data/services.php.
+ * Service detail page: /services/{slug}
+ *
+ * One page is generated for every service in includes/data/services.php
+ * (name, image, intro, sections, what's included, FAQs and related services),
+ * so adding or editing a service there updates its page automatically.
  */
 require_once __DIR__ . '/includes/bootstrap.php';
 
@@ -13,13 +17,20 @@ if ($service === null) {
 }
 
 $path = 'services/' . $slug;
-$GLOBALS['preselect_service'] = $slug;
+$GLOBALS['preselect_service'] = $slug; // pre-selects this service in the quote form
+
+// Previous / next service (wraps around), so every service page links to the others.
+$slugs = array_keys($services);
+$index = array_search($slug, $slugs, true);
+$prevSlug = $slugs[($index - 1 + count($slugs)) % count($slugs)];
+$nextSlug = $slugs[($index + 1) % count($slugs)];
 
 $page = [
     'title'       => $service['meta_title'],
     'description' => $service['meta_description'],
     'path'        => $path,
     'image'       => $service['image'],
+    'body_class'  => 'page-service',
     'schema'      => [
         breadcrumb_schema([['Services', 'services'], [$service['name'], $path]]),
         [
@@ -45,17 +56,25 @@ partial('page-hero', [
     'crumbs'  => [['Services', 'services'], [$service['name'], $path]],
     'image'   => $service['image'],
 ]);
+
+partial('trust-strip');
 ?>
 
+<!-- Overview, details and what's included, with the quote form alongside ---------->
 <section class="section">
   <div class="container content-layout">
-    <article class="prose">
+    <article class="prose service-body">
+      <p class="eyebrow">About this service</p>
       <?php foreach ($service['intro'] as $i => $paragraph): ?>
         <p<?= $i === 0 ? ' class="lead-text"' : '' ?>><?= e($paragraph) ?></p>
       <?php endforeach; ?>
 
-      <figure>
+      <figure class="service-figure">
         <img src="<?= e(asset($service['image'])) ?>" alt="<?= e($service['name']) ?> on a tiled roof in Adelaide" <?= img_size($service['image']) ?> loading="lazy" decoding="async">
+        <figcaption class="service-figure__badge">
+          <span class="service-figure__icon"><?= icon($service['icon']) ?></span>
+          <span><strong><?= e($service['name']) ?></strong>Free inspection &amp; itemised quote</span>
+        </figcaption>
       </figure>
 
       <?php foreach ($service['sections'] as $section): ?>
@@ -72,13 +91,30 @@ partial('page-hero', [
       <?php endforeach; ?>
 
       <div class="includes-box">
-        <h2>What's included</h2>
+        <div class="includes-box__head">
+          <span class="includes-box__icon"><?= icon($service['icon']) ?></span>
+          <h2>What's included</h2>
+        </div>
         <ul class="checklist checklist--2col">
           <?php foreach ($service['includes'] as $item): ?>
             <li><?= icon('check') ?><?= e($item) ?></li>
           <?php endforeach; ?>
         </ul>
+        <div class="includes-box__actions">
+          <a class="btn btn--primary" href="<?= e(url('free-quote')) ?>">Get a Free Quote <?= icon('arrow-right', 'icon-shift') ?></a>
+          <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> <?= e(config('phone')) ?></a>
+        </div>
       </div>
+
+      <nav class="service-pager" aria-label="More services">
+        <?php foreach ([['Previous service', $prevSlug, 'prev'], ['Next service', $nextSlug, 'next']] as [$label, $pagerSlug, $dir]): $pager = $services[$pagerSlug]; ?>
+          <a class="service-pager__link service-pager__link--<?= $dir ?>" href="<?= e(service_url($pagerSlug)) ?>">
+            <img src="<?= e(asset($pager['image'])) ?>" alt="" width="72" height="72" loading="lazy" decoding="async">
+            <span><small><?= e($label) ?></small><strong><?= e($pager['name']) ?></strong></span>
+            <?= icon('arrow-right') ?>
+          </a>
+        <?php endforeach; ?>
+      </nav>
     </article>
 
     <aside class="sidebar" aria-label="Get a quote">
@@ -100,11 +136,13 @@ partial('page-hero', [
             <li><a href="<?= e(service_url($otherSlug)) ?>"<?= $otherSlug === $slug ? ' aria-current="page"' : '' ?>><?= e($other['name']) ?><?= icon('arrow-right') ?></a></li>
           <?php endforeach; ?>
         </ul>
+        <a class="link-arrow service-links__all" href="<?= e(url('services')) ?>">View all services <?= icon('arrow-right') ?></a>
       </nav>
     </aside>
   </div>
 </section>
 
+<!-- Before & after ---------------------------------------------------------------->
 <section class="section section--dark">
   <div class="container">
     <div class="section-head section-head--split">
@@ -121,6 +159,7 @@ partial('page-hero', [
   </div>
 </section>
 
+<!-- FAQs ------------------------------------------------------------------------------>
 <section class="section section--paper">
   <div class="container">
     <div class="section-head section-head--center">
@@ -131,19 +170,28 @@ partial('page-hero', [
   </div>
 </section>
 
-<section class="section section--dark">
+<!-- Related services (photo cards) ------------------------------------------------------>
+<section class="section section--dark section--tiles">
   <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">Related services</p>
-      <h2>You might also <span class="hl">need</span></h2>
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Related services</p>
+        <h2>You might also <span class="hl">need</span></h2>
+      </div>
+      <a class="btn btn--outline" href="<?= e(url('services')) ?>">All services <?= icon('arrow-right', 'icon-shift') ?></a>
     </div>
-    <div class="service-grid service-grid--3">
-      <?php foreach ($service['related'] as $n => $relatedSlug): $related = $services[$relatedSlug]; ?>
-        <a class="service-card" href="<?= e(service_url($relatedSlug)) ?>" data-reveal>
-          <span class="service-card__icon"><?= icon($related['icon']) ?></span>
-          <h3><?= e($related['name']) ?></h3>
-          <p><?= e($related['excerpt']) ?></p>
-          <span class="service-card__more">Learn more <?= icon('arrow-right') ?></span>
+    <div class="related-grid">
+      <?php foreach ($service['related'] as $relatedSlug): $related = $services[$relatedSlug] ?? null; if (!$related) continue; ?>
+        <a class="svc-card" href="<?= e(service_url($relatedSlug)) ?>" data-reveal>
+          <span class="svc-card__media">
+            <img src="<?= e(asset($related['image'])) ?>" alt="" <?= img_size($related['image']) ?> loading="lazy" decoding="async">
+          </span>
+          <span class="svc-card__icon"><?= icon($related['icon']) ?></span>
+          <span class="svc-card__body">
+            <h3><?= e($related['name']) ?></h3>
+            <p><?= e($related['excerpt']) ?></p>
+            <span class="svc-card__more">Learn more <?= icon('arrow-right') ?></span>
+          </span>
         </a>
       <?php endforeach; ?>
     </div>
