@@ -24,7 +24,7 @@ The website for AF Prestige Roofing, a locally owned and operated roof restorati
 Everything below is in **`includes/config.php`** unless noted.
 
 - [ ] **Phone number.** It's currently a placeholder (`0400 000 000`).
-- [ ] **Email addresses.** Set `email`, `enquiry_to` (where enquiries go) and `mail_from`. Create the `mail_from` mailbox (e.g. `website@afproofing.com.au`) in your hosting so emails aren't marked as spam.
+- [ ] **Email.** Set `email`, `enquiry_to` (where enquiries go) and `mail_from`, then fill in the mailbox password and server under `smtp`. See [Email setup](#email-setup-godaddy) below.
 - [ ] **Opening hours.** Confirm `hours` and `hours_note`.
 - [ ] **ABN and licence number** (optional, but they build trust).
 - [ ] **Social links and Google Business Profile URL** (`social`), plus your Google **"write a review" link** (`google_review_url`).
@@ -34,6 +34,34 @@ Everything below is in **`includes/config.php`** unless noted.
 - [ ] **Google Analytics** (optional): add your GA4 ID to `ga4_id`.
 - [ ] **Google Search Console**: add `google_site_verification`, then submit `https://afproofing.com.au/sitemap.xml`.
 - [ ] Once HTTPS works, uncomment the `Strict-Transport-Security` line in `.htaccess`.
+
+## Email setup (GoDaddy)
+
+Every enquiry sends two emails:
+
+1. **To you** (`enquiry_to`): all the customer's details. Press *Reply* to answer the customer directly.
+2. **To the customer**: a branded "we've received your request" confirmation with what happens next. Their replies come to `enquiry_to`.
+
+Emails are sent by logging in to your own mailbox (SMTP), so they pass spam checks. The settings are in `includes/config.php`:
+
+| Your setup | `host` | `port` | `encryption` | `username` / `password` |
+| --- | --- | --- | --- | --- |
+| **GoDaddy Professional Email** | `smtpout.secureserver.net` | `465` | `ssl` | full email address / mailbox password |
+| **Microsoft 365 from GoDaddy** | `smtp.office365.com` | `587` | `tls` | full email address / mailbox password |
+| **Website hosted on GoDaddy cPanel hosting** | `localhost` | `25` | `''` (empty) | leave both empty |
+
+Notes:
+
+- `mail_from` must be the same address as `username` (the mailbox you log in to).
+- **Microsoft 365:** turn on *SMTP Authentication* for the mailbox (GoDaddy: Email & Office Dashboard, the mailbox, *Advanced settings*). Microsoft is switching this login method off by default at the end of December 2026. If emails stop then, turn it back on, or switch to the GoDaddy hosting relay or an email-sending service.
+- **GoDaddy hosting** blocks outgoing connections to other mail servers, so use the `localhost` row. Make sure your domain's SPF record includes `include:secureserver.net`.
+- If logging in fails, the site automatically tries the host's own `mail()` instead (`mail_fallback`), so the enquiry isn't lost. Problems are written to `storage/mail-errors.log` (never the password).
+- `config.php` holds the mailbox password. Don't share or email this file. The `includes/` folder is blocked from the web.
+- To turn off customer confirmations, set `send_confirmation` to `false`.
+
+**Test it:** after uploading, send an enquiry with your own email address. You should get both emails within a minute. If not, check `storage/mail-errors.log` and your spam folder.
+
+When you preview the site on your computer (`php -S localhost:8000 router.php`), emails aren't sent. Instead both are saved to `storage/mail-preview/` so you can open them in a browser.
 
 ## Hosting requirements
 
@@ -67,7 +95,7 @@ With PHP installed:
 php -S localhost:8000 router.php
 ```
 
-Then open http://localhost:8000. When run this way, enquiries are saved to `storage/enquiries.log` instead of being emailed.
+Then open http://localhost:8000. When run this way, enquiries are saved to `storage/enquiries.log` and the two emails to `storage/mail-preview/` instead of being sent.
 
 ## Replacing the images
 
@@ -123,7 +151,7 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
   - Works with or without JavaScript.
   - Validates input on the page and again on the server.
   - Spam protection: hidden honeypot field, signed timestamp and a per-IP rate limit.
-  - Emails each enquiry and keeps a backup copy in `storage/enquiries.log`.
+  - Emails each enquiry to you, sends the customer a confirmation email, and keeps a backup copy in `storage/enquiries.log`.
 - **Accessible.** Keyboard-friendly menus and sliders, skip link, labelled form fields, good colour contrast, and reduced motion for visitors who ask for it.
 
 ## Local SEO: next steps after launch

@@ -3,13 +3,16 @@
  * Handles quote/enquiry form submissions.
  *
  * Validates the input, filters spam (hidden honeypot field, signed timestamp
- * and a per-IP rate limit), emails the enquiry to config('enquiry_to') and
- * keeps a backup copy in storage/enquiries.log.
+ * and a per-IP rate limit), emails the enquiry to config('enquiry_to'), sends
+ * the customer a confirmation email and keeps a backup copy in
+ * storage/enquiries.log. Email settings: includes/config.php (see README).
  *
  * Responds with JSON for JavaScript submissions; otherwise redirects to the
  * thank-you page, or back to the form with errors.
  */
 require_once __DIR__ . '/includes/bootstrap.php';
+require_once ROOT_PATH . '/includes/mailer.php';
+require_once ROOT_PATH . '/includes/email-templates.php';
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     header('Location: ' . url('contact'), true, 303);
@@ -109,51 +112,51 @@ function log_enquiry(array $data, string $status): void
     @file_put_contents(ROOT_PATH . '/storage/enquiries.log', $line . "\n", FILE_APPEND | LOCK_EX);
 }
 
+/**
+ * Email the enquiry to you and, once that has worked, send the customer a
+ * confirmation. A failed confirmation is logged but doesn't fail the enquiry.
+ */
 function send_enquiry_email(array $data): bool
 {
-    if (IS_DEV) {
-        return true; // Local development server: enquiries are only logged.
+    $admin = enquiry_admin_email($data);
+    $customer = ($data['email'] !== '' && config('send_confirmation', true)) ? enquiry_customer_email($data) : null;
+    $inbox = (string) (config('enquiry_to') ?: config('email'));
+
+    // Local development server: save the two emails as previews instead of sending them.
+    if (IS_DEV && !getenv('AF_SEND_MAIL')) {
+        $dir = ROOT_PATH . '/storage/mail-preview';
+        if (is_dir($dir) || @mkdir($dir, 0755, true)) {
+            @file_put_contents($dir . '/admin.html', $admin['html']);
+            if ($customer) {
+                @file_put_contents($dir . '/customer.html', $customer['html']);
+            }
+        }
+        return true;
     }
 
-    $services = service_options();
-    $roofTypes = roof_type_options();
-    $subject = 'New quote request: ' . $data['name'] . ' (' . $data['suburb'] . ')';
-
-    $body = implode("\n", [
-        'New enquiry from the ' . config('site_name') . ' website',
-        str_repeat('-', 48),
-        'Name:       ' . $data['name'],
-        'Phone:      ' . $data['phone'],
-        'Email:      ' . ($data['email'] ?: '(not provided)'),
-        'Suburb:     ' . $data['suburb'],
-        'Service:    ' . ($services[$data['service']] ?? 'Not specified'),
-        'Roof type:  ' . ($roofTypes[$data['roof_type']] ?? 'Not specified'),
-        '',
-        'Message:',
-        $data['message'] ?: '(no message)',
-        '',
-        str_repeat('-', 48),
-        'Sent from:  ' . absolute_url(ltrim($data['page'], '/')),
-        'Received:   ' . date('l j F Y, g:ia'),
+    $sent = send_mail([
+        'to'            => $inbox,
+        'from_name'     => config('site_name') . ' Website',
+        'subject'       => $admin['subject'],
+        'text'          => $admin['text'],
+        'html'          => $admin['html'],
+        'reply_to'      => $data['email'],
+        'reply_to_name' => $data['name'],
     ]);
 
-    $headers = [
-        'From'         => mb_encode_mimeheader(config('site_name') . ' Website', 'UTF-8', 'B') . ' <' . config('mail_from') . '>',
-        'MIME-Version' => '1.0',
-        'Content-Type' => 'text/plain; charset=UTF-8',
-        'X-Mailer'     => 'PHP/' . PHP_VERSION,
-    ];
-    if ($data['email'] !== '') {
-        $headers['Reply-To'] = $data['email'];
+    if ($sent && $customer) {
+        send_mail([
+            'to'            => $data['email'],
+            'to_name'       => $data['name'],
+            'subject'       => $customer['subject'],
+            'text'          => $customer['text'],
+            'html'          => $customer['html'],
+            'reply_to'      => $inbox,
+            'reply_to_name' => config('site_name'),
+        ]);
     }
 
-    return mail(
-        (string) (config('enquiry_to') ?: config('email')),
-        mb_encode_mimeheader($subject, 'UTF-8', 'B'),
-        $body,
-        $headers,
-        '-f' . config('mail_from')
-    );
+    return $sent;
 }
 
 // ---------------------------------------------------------------------------
@@ -190,7 +193,9 @@ $digits = preg_replace('/\D+/', '', $data['phone']);
 if (strlen($digits) < 8 || strlen($digits) > 12) {
     $errors['phone'] = 'Please enter a valid phone number.';
 }
-if ($data['email'] !== '' && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+if ($data['email'] === '') {
+    $errors['email'] = 'Please enter your email address.';
+} elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
     $errors['email'] = 'Please enter a valid email address.';
 }
 if (mb_strlen($data['suburb']) < 2) {
@@ -212,7 +217,7 @@ if (rate_limited()) {
 }
 
 $sent = send_enquiry_email($data);
-log_enquiry($data, IS_DEV ? 'dev-not-emailed' : ($sent ? 'sent' : 'mail-failed'));
+log_enquiry($data, (IS_DEV && !getenv('AF_SEND_MAIL')) ? 'dev-preview-only' : ($sent ? 'sent' : 'mail-failed'));
 
 if (!$sent) {
     respond(false, 'Sorry, we couldn\'t send your request just now. To get your free quote, ' . $phoneHelp, [], $data, $formId);
