@@ -170,32 +170,4 @@ partial('trust-strip');
   </div>
 </section>
 
-<!-- Related services (photo cards) ------------------------------------------------------>
-<section class="section section--dark section--tiles">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div>
-        <p class="eyebrow">Related services</p>
-        <h2>You might also <span class="hl">need</span></h2>
-      </div>
-      <a class="btn btn--outline" href="<?= e(url('services')) ?>">All services <?= icon('arrow-right', 'icon-shift') ?></a>
-    </div>
-    <div class="related-grid">
-      <?php foreach ($service['related'] as $relatedSlug): $related = $services[$relatedSlug] ?? null; if (!$related) continue; ?>
-        <a class="svc-card" href="<?= e(service_url($relatedSlug)) ?>" data-reveal>
-          <span class="svc-card__media">
-            <img src="<?= e(asset($related['image'])) ?>" alt="" <?= img_size($related['image']) ?> loading="lazy" decoding="async">
-          </span>
-          <span class="svc-card__icon"><?= icon($related['icon']) ?></span>
-          <span class="svc-card__body">
-            <h3><?= e($related['name']) ?></h3>
-            <p><?= e($related['excerpt']) ?></p>
-            <span class="svc-card__more">Learn more <?= icon('arrow-right') ?></span>
-          </span>
-        </a>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
 <?php include ROOT_PATH . '/includes/footer.php'; ?>

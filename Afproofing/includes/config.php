@@ -24,30 +24,6 @@ return [
     // Sender address for enquiry emails. Use an address on your own domain so
     // the emails pass SPF/DKIM checks and don't land in spam.
     'mail_from' => 'Info@afproofing.com.au',
-    // Sender name customers see on the confirmation email.
-    'mail_from_name' => 'AF Prestige Roofing',
-
-    // ---------------------------------------------------------------------
-    // How emails are sent. See "Email setup" in README.md.
-    //   'smtp' = log in to your GoDaddy mailbox and send through it (recommended)
-    //   'mail' = use the web host's own mail server (PHP mail())
-    // ---------------------------------------------------------------------
-    'mail_transport' => 'smtp',
-    'smtp' => [
-        // GoDaddy Professional Email:  smtpout.secureserver.net, port 465, 'ssl'
-        // Microsoft 365 from GoDaddy:  smtp.office365.com, port 587, 'tls'
-        // Website on GoDaddy hosting:  localhost, port 25, '' (no username/password)
-        'host' => 'smtpout.secureserver.net',
-        'port' => 465,
-        'encryption' => 'ssl',                   // 'ssl' (465), 'tls' (587) or '' (none)
-        'username' => 'Info@afproofing.com.au',  // the full email address of the mailbox
-        'password' => '',                        // TODO: the mailbox password. Keep this file private.
-        'timeout' => 15,
-    ],
-    // If SMTP fails, try the host's mail() as a backup so the enquiry isn't lost.
-    'mail_fallback' => true,
-    // Send customers a "we've received your request" confirmation email.
-    'send_confirmation' => true,
 
     // Shown in the footer and schema when filled in.
     'abn' => '', // e.g. '12 345 678 901'

@@ -2,7 +2,7 @@
 /** One customer review. Vars: $review (from data/reviews.php). */
 defined('ROOT_PATH') || exit;
 $sample = !empty($review['sample']);
-$name = $sample ? 'Sample review' : $review['name'];
+$name = $sample ? "" : $review['name'];
 $meta = array_filter([$review['location'] ? $review['location'] . ', SA' : '', $review['service']]);
 ?>
 <article class="review-card" data-reveal>
@@ -14,7 +14,7 @@ $meta = array_filter([$review['location'] ? $review['location'] . ', SA' : '', $
   <footer>
     <span class="avatar" aria-hidden="true"><?= $sample ? icon('users') : e(mb_strtoupper(mb_substr($name, 0, 1))) ?></span>
     <div>
-      <cite><?= e($name) ?></cite><?php if ($sample): ?> <span class="sample-tag">Replace with a real review</span><?php endif; ?>
+      <cite><?= e($name) ?></cite><?php if ($sample): ?> <?php endif; ?>
       <?php if ($meta): ?><span class="review-card__meta"><?= e(implode(' · ', $meta)) ?></span><?php endif; ?>
     </div>
   </footer>

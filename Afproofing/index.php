@@ -262,7 +262,7 @@ include ROOT_PATH . '/includes/header.php';
       <div class="reviews-carousel__controls">
         <button class="reviews-carousel__btn reviews-carousel__btn--prev" type="button" data-carousel-prev
           aria-label="Previous review"><?= icon('arrow-right') ?></button>
-        <div class="reviews-carousel__dots" data-carousel-dots></div>
+        
         <button class="reviews-carousel__btn" type="button" data-carousel-next aria-label="Next review"><?= icon('arrow-right') ?></button>
       </div>
     </div>

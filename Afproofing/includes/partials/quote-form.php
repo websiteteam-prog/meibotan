@@ -47,11 +47,13 @@ $error = function (string $name) use ($id): string {
       <input<?= $attrs('phone') ?> type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" pattern="[0-9 +()\-]{8,20}" value="<?= e(old($id, 'phone')) ?>" data-error="Please enter a valid phone number.">
       <?= $error('phone') ?>
     </div>
-    <div class="field">
-      <label for="<?= e($id) ?>-email">Email <span class="req" aria-hidden="true">*</span></label>
-      <input<?= $attrs('email') ?> type="email" autocomplete="email" required maxlength="120" value="<?= e(old($id, 'email')) ?>" data-error="Please enter a valid email address.">
-      <?= $error('email') ?>
-    </div>
+    <?php if (!$compact): ?>
+      <div class="field">
+        <label for="<?= e($id) ?>-email">Email</label>
+        <input<?= $attrs('email') ?> type="email" autocomplete="email" maxlength="120" value="<?= e(old($id, 'email')) ?>" data-error="Please enter a valid email address.">
+        <?= $error('email') ?>
+      </div>
+    <?php endif; ?>
     <div class="field">
       <label for="<?= e($id) ?>-suburb">Suburb <span class="req" aria-hidden="true">*</span></label>
       <input<?= $attrs('suburb') ?> type="text" autocomplete="address-level2" required maxlength="60" list="<?= e($id) ?>-suburbs" value="<?= e(old($id, 'suburb')) ?>" data-error="Please enter your suburb.">

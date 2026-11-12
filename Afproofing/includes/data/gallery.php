@@ -21,7 +21,7 @@ return [
         'services' => ['roof-restoration-adelaide', 'tiled-roof-restoration-adelaide'],
         'before' => 'assets/img/gallery/project-1-before.png',
         'after' => 'assets/img/gallery/project-1-after.jpeg',
-        'sample' => true,
+
     ],
     [
         'title' => 'Concrete tile restoration in charcoal',
@@ -31,7 +31,7 @@ return [
         'services' => ['roof-restoration-adelaide', 'roof-painting-adelaide', 'tiled-roof-restoration-adelaide'],
         'before' => 'assets/img/gallery/project-2-before.png',
         'after' => 'assets/img/gallery/project-2-after.jpeg',
-        'sample' => true,
+
     ],
     [
         'title' => 'Concrete roof clean & repaint',
@@ -41,7 +41,7 @@ return [
         'services' => ['roof-cleaning-adelaide', 'roof-painting-adelaide'],
         'before' => 'assets/img/gallery/project-3-before.jpg',
         'after' => 'assets/img/gallery/project-3-after.jpg',
-        'sample' => true,
+
     ],
     [
         'title' => 'Ridge cap re-bedding & repointing',
@@ -51,7 +51,7 @@ return [
         'services' => ['ridge-capping-adelaide', 'roof-repairs-adelaide'],
         'before' => 'assets/img/gallery/project-4-before.jpg',
         'after' => 'assets/img/gallery/project-4-after.jpg',
-        'sample' => true,
+
     ],
     [
         'title' => 'Concrete roof restored in light grey',
@@ -61,7 +61,7 @@ return [
         'services' => ['roof-painting-adelaide', 'roof-restoration-adelaide', 'roof-cleaning-adelaide'],
         'before' => 'assets/img/gallery/project-5-before.jpg',
         'after' => 'assets/img/gallery/project-5-after.jpg',
-        'sample' => true,
+
     ],
     [
         'title' => 'Broken tile replacement & clean',
@@ -71,6 +71,6 @@ return [
         'services' => ['roof-tile-replacement-adelaide', 'roof-repairs-adelaide', 'roof-cleaning-adelaide'],
         'before' => 'assets/img/gallery/project-6-before.jpg',
         'after' => 'assets/img/gallery/project-6-after.jpg',
-        'sample' => true,
+
     ],
 ];
