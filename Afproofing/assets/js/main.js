@@ -54,6 +54,18 @@
     update();
   });
 
+  // Back-to-top button (bottom right) ------------------------------------------------
+  var toTop = document.querySelector('[data-to-top]');
+  if (toTop) {
+    var toggleTop = function () { toTop.classList.toggle('is-visible', window.scrollY > 500); };
+    toggleTop();
+    window.addEventListener('scroll', toggleTop, { passive: true });
+    toTop.addEventListener('click', function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+
   // Gallery filters ----------------------------------------------------------------
   var filters = document.querySelector('[data-gallery-filters]');
   if (filters) {

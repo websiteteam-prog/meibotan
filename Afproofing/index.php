@@ -6,78 +6,56 @@ $page = [
   'description' => 'Locally owned roof restoration in Adelaide and regional SA within ' . config('service_radius_km') . 'km. Roof cleaning, tile replacement, ridge capping, repairs and roof painting. Free quotes.',
   'path' => '',
   'body_class' => 'page-home',
-  'preload_image' => 'assets/img/hero.jpg',
+  'preload_image' => 'assets/img/services/banner-roof-restoration.png',
   'schema' => [faq_schema($faqs)],
 ];
 include ROOT_PATH . '/includes/header.php';
 ?>
 
-<section class="hero">
+
+<section class="hero hero--split">
   <div class="hero__bg"><img src="<?= e(asset('assets/img/services/banner-roof-restoration.png')) ?>" alt=""
       <?= img_size('assets/img/services/banner-roof-restoration.png') ?> fetchpriority="high"></div>
-  <div class="container">
+  <div class="container hero__grid">
     <div class="hero__content">
-      <p class="eyebrow">Adelaide's tiled roof specialists</p>
-      <h1>
-        <span class="hero__line">Premium Roof Restoration</span>
-        <span class="hero__line">in <span class="hl">Adelaide</span></span>
-      </h1>
-      <p class="hero__lead">We clean, repair, re-point and paint terracotta and concrete tiled roofs so they look brand
-        new and protect your home for years to come.</p>
+      <p class="hero__rating"><span class="hero__stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>Rated 5/5 on Google</p>
+      <h1>Affordable <span class="hl">Roof Restorations &amp; Repairs</span> in Adelaide</h1>
+      <ul class="hero__points">
+        <li>
+          <span class="hero__point-icon"><?= icon('award') ?></span>
+          <div><strong>Satisfaction Guaranteed</strong><span>Licensed &amp; insured roofing specialists</span></div>
+        </li>
+        <li>
+          <span class="hero__point-icon"><?= icon('tag') ?></span>
+          <div><strong>20% Off Your Quote</strong><span>Get a free roof repair &amp; restoration quote today. Free call-out &amp;
+              roof assessments available.</span></div>
+        </li>
+      </ul>
       <div class="hero__actions">
-        <a class="btn btn--primary btn--lg" href="<?= e(url('free-quote')) ?>">Get a Free Quote
-          <?= icon('arrow-right', 'icon-shift') ?></a>
-        <a class="btn btn--outline btn--lg" href="<?= e(url('gallery')) ?>">View Our Work</a>
+        <a class="btn btn--primary btn--lg" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+        <a class="btn btn--outline btn--lg" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
       </div>
+    </div>
+
+    <div class="hero-quote">
+      <p class="hero-quote__title">20% Off Your Quote Today!</p>
+      <p class="hero-quote__sub">Fill out the form and we'll start arranging your free quote as soon as possible.</p>
+      <?php partial('quote-form', ['id' => 'hero', 'variant' => 'hero', 'button' => 'Get My Free Quote']); ?>
     </div>
   </div>
 </section>
 
 <?php partial('trust-strip'); ?>
 
-<section class="section" id="about">
-  <div class="container about about--intro">
-    <div class="about__media" data-reveal>
-      <img src="<?= e(asset('assets/img/about-roof restoration.png')) ?>"
-        alt="Tiled roof half cleaned and restored, showing the difference a roof restoration makes"
-        <?= img_size('assets/img/about-roof restoration.png') ?> loading="lazy" decoding="async">
-      <div class="about__badge">
-        <span class="about__badge-icon"><?= icon('shield') ?></span>
-        <div><strong>Locally Owned &amp; Operated</strong><span>Free, no-obligation quotes</span></div>
-      </div>
-    </div>
-    <div class="about__content" data-reveal>
-      <p class="eyebrow">About us</p>
-      <h2 class="about__title">Welcome to <span class="hl-mark">AF Prestige Roofing</span></h2>
-      <p class="about__tagline">Quality Roofing. Reliable Service. Lasting Protection.</p>
-      <p>AF Prestige Roofing is a locally owned and operated roofing company proudly servicing Adelaide and
-        surrounding areas across South Australia.</p>
-      <p>We specialise in professional roof restoration and maintenance, helping homeowners protect, restore and
-        enhance the appearance of their properties. From pressure cleaning and tile replacement to ridge capping,
-        re-bedding, pointing and roof painting, we provide complete roofing solutions tailored to your roof&rsquo;s
-        needs.</p>
-    
-      <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong>
-      </p>
-      <div class="about__actions">
-        <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Get a Free Quote
-          <?= icon('arrow-right', 'icon-shift') ?></a>
-        <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
-          <?= e(config('phone')) ?></a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <section class="section section--dark section--tiles" id="services">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
         <p class="eyebrow">Our services</p>
-        <h2>Roof restoration services <span class="hl">in Adelaide</span></h2>
-        <p>Everything your tiled roof needs, from a high-pressure clean to a complete restoration, delivered by one
-          reliable local team.</p>
+        <h2>We repair &amp; restore <span class="hl">your roof &amp; protect it for years</span></h2>
+        <p>Doesn't matter if your roof is ageing, faded or damaged. Our team delivers reliable roofing solutions that
+          restore protection, improve appearance and stand the test of time. Every job is backed by our workmanship
+          guarantee and 20+ years of experience.</p>
       </div>
 
     </div>
@@ -153,6 +131,188 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
+<section class="section" id="about">
+  <div class="container about about--intro">
+    <div class="about__media" data-reveal>
+      <img src="<?= e(asset('assets/img/about-roof restoration.png')) ?>"
+        alt="Tiled roof half cleaned and restored, showing the difference a roof restoration makes"
+        <?= img_size('assets/img/about-roof restoration.png') ?> loading="lazy" decoding="async">
+      <div class="about__badge">
+        <span class="about__badge-icon"><?= icon('shield') ?></span>
+        <div><strong>Locally Owned &amp; Operated</strong><span>Free, no-obligation quotes</span></div>
+      </div>
+    </div>
+    <div class="about__content" data-reveal>
+      <p class="eyebrow">About us</p>
+      <h2 class="about__title">Welcome to <span class="hl-mark">AF Prestige Roofing</span></h2>
+      <p class="about__tagline">Quality Roofing. Reliable Service. Lasting Protection.</p>
+      <p>AF Prestige Roofing is a locally owned and operated roofing company proudly servicing Adelaide and
+        surrounding areas across South Australia.</p>
+      <p>We specialise in professional roof restoration and maintenance, helping homeowners protect, restore and
+        enhance the appearance of their properties. From pressure cleaning and tile replacement to ridge capping,
+        re-bedding, pointing and roof painting, we provide complete roofing solutions tailored to your roof&rsquo;s
+        needs.</p>
+    
+      <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong>
+      </p>
+      <div class="about__actions">
+        <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Get a Free Quote
+          <?= icon('arrow-right', 'icon-shift') ?></a>
+        <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
+          <?= e(config('phone')) ?></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper">
+  <div class="container results">
+    <div class="results__media" data-reveal>
+      <img src="<?= e(asset('assets/img/services/why-choose-section2.jpeg')) ?>"
+        alt="AF Prestige Roofing roofer repairing a tiled roof in Adelaide"
+        <?= img_size('assets/img/services/why-choose-section2.jpeg') ?> loading="lazy" decoding="async">
+      <div class="results__badge"><strong>20+</strong><span>Years of combined roofing experience</span></div>
+    </div>
+    <div class="results__content" data-reveal>
+      <p class="eyebrow">Why homeowners choose us</p>
+      <h2>Our roofing results <span class="hl-mark">can't be matched</span> by anyone</h2>
+      <ul class="results__list">
+        <li><?= icon('check') ?><div><strong>10-Year Workmanship Warranty:</strong> Every roof repair and restoration is
+            backed by a 10-year written workmanship guarantee, so you're covered long after the job is done.</div></li>
+        <li><?= icon('check') ?><div><strong>Flexible and Competitive Pricing:</strong> Transparent, competitive pricing on
+            every quote. Whether it's a quick repair or a full restoration, there's an option to suit your budget.</div></li>
+        <li><?= icon('check') ?><div><strong>Licensed &amp; Insured Roofers:</strong> Fully qualified and insured, giving you
+            total peace of mind that your home, roof and property are protected from the moment we step on site.</div></li>
+        <li><?= icon('check') ?><div><strong>Prioritising Safety:</strong> Safety is central to everything we do. Every job
+            is carried out to strict Australian standards with proper roof safety systems in place.</div></li>
+        <li><?= icon('check') ?><div><strong>Roofing Specialists:</strong> With over 20 years of combined experience, we
+            specialise in tile roof repairs and restorations.</div></li>
+        <li><?= icon('check') ?><div><strong>Free Same-Day Quotes, No Obligation:</strong> Get a free quote the same day you
+            call. No pressure, no hidden costs, just a straight answer on what your roof needs and what it will cost.</div></li>
+      </ul>
+      <div class="cta-pair">
+        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+        <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark section--tiles">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">How it works</p>
+      <h2>How our <span class="hl">roof transformations</span> work</h2>
+      <p>Three simple steps from your first call to a finished roof you'll love.</p>
+    </div>
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step__icon"><?= icon('calendar') ?></span>
+        <h3 class="step__num">Step 1</h3>
+        <p>Simply call or book online and our experienced roofing specialists will arrange a convenient time to inspect
+          your roof and understand your needs.</p>
+        <span class="step__label">Book a Free Quote</span>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step__icon"><?= icon('search') ?></span>
+        <h3 class="step__num">Step 2</h3>
+        <p>We assess your roof in detail, explain the scope of work clearly and provide a transparent fixed price, so
+          there are no surprises later.</p>
+        <span class="step__label">Site Inspection &amp; Fixed Quote</span>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step__icon"><?= icon('clipboard') ?></span>
+        <h3 class="step__num">Step 3</h3>
+        <p>Our skilled team completes the restoration, repair or cleaning, then walks you through the results to make sure
+          everything meets your expectations.</p>
+        <span class="step__label">Work Completed &amp; Final Check</span>
+      </li>
+    </ol>
+      <div class="cta-pair cta-pair--center">
+        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+      </div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Customer reviews</p>
+      <h2>What our <span class="hl-mark">clients</span> say</h2>
+      <?php $googleUrl = (string) config('social.google'); ?>
+      <<?= $googleUrl ? 'a href="' . e($googleUrl) . '" target="_blank" rel="noopener"' : 'p' ?> class="google-badge">
+        <strong>Excellent</strong>
+        <span class="google-badge__stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>
+        <span>reviews on</span> <?= google_logo_svg(20) ?><span class="google-badge__word">Google</span>
+      </<?= $googleUrl ? 'a' : 'p' ?>>
+    </div>
+    <div class="reviews-carousel" data-carousel>
+      <div class="reviews-carousel__track" role="region" aria-label="Customer reviews" tabindex="0">
+        <?php foreach ($reviews as $review)
+          partial('review-card', ['review' => $review]); ?>
+      </div>
+      <div class="reviews-carousel__controls">
+        <button class="reviews-carousel__btn reviews-carousel__btn--prev" type="button" data-carousel-prev
+          aria-label="Previous review"><?= icon('arrow-right') ?></button>
+        <button class="reviews-carousel__btn" type="button" data-carousel-next aria-label="Next review"><?= icon('arrow-right') ?></button>
+      </div>
+    </div>
+    <p class="center mt-md"><a class="link-arrow" href="<?= e(url('reviews')) ?>">Read more reviews <?= icon('arrow-right') ?></a></p>
+  </div>
+</section>
+
+<section class="special" style="--special-photo: url('<?= e(asset('assets/img/hero.jpg')) ?>')">
+  <div class="container">
+    <div class="special__panel" data-reveal>
+      <p class="special__tag"><?= icon('tag') ?> 20% Off Special!</p>
+      <h2>Get a free roof repair &amp; restoration quote today!</h2>
+      <p>Available 24/7. Fast, reliable &amp; affordable roofing services across Adelaide and regional areas within
+        <?= e(config('service_radius_km')) ?>km.</p>
+      <div class="cta-pair cta-pair--center">
+        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Before &amp; after</p>
+        <h2>See the <span class="hl-mark">difference</span></h2>
+        <p>Drag the slider to compare. Every restoration is finished with the same care and attention to detail.</p>
+      </div>
+      <a class="btn btn--outline-dark" href="<?= e(url('gallery')) ?>">View full gallery
+        <?= icon('arrow-right', 'icon-shift') ?></a>
+    </div>
+    <div class="ba-grid">
+      <?php foreach (array_slice($gallery, 0, 2) as $project)
+        partial('ba-card', ['project' => $project]); ?>
+    </div>
+  </div>
+</section>
+
+<section class="section section--ink section--photo"
+  style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Why choose us?</p>
+      <h2>Why <span class="hl">choose</span> us</h2>
+      <p>Reliable roofing solutions delivered by experienced professionals who focus on quality, honesty and
+        long-lasting results.</p>
+    </div>
+    <?php partial('features', ['center' => true]); ?>
+      <div class="cta-pair cta-pair--center">
+        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+      </div>
+  </div>
+</section>
+
 <section class="section section--paper">
   <div class="container">
     <div class="section-head section-head--center">
@@ -203,73 +363,6 @@ include ROOT_PATH . '/includes/header.php';
 </section>
 
 <section class="section section--dark">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div>
-        <p class="eyebrow">Before &amp; after</p>
-        <h2>See the <span class="hl">difference</span></h2>
-        <p>Drag the slider to compare. Every restoration is finished with the same care and attention to detail.</p>
-      </div>
-      <a class="btn btn--outline" href="<?= e(url('gallery')) ?>">View full gallery
-        <?= icon('arrow-right', 'icon-shift') ?></a>
-    </div>
-    <div class="ba-grid">
-      <?php foreach (array_slice($gallery, 0, 2) as $project)
-        partial('ba-card', ['project' => $project]); ?>
-    </div>
-  </div>
-</section>
-
-<section class="section section--paper">
-  <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow">How it works?</p>
-      <h2>Our roof restoration <span class="hl-mark">process</span></h2>
-      <p>A proven, step-by-step process that delivers a beautiful, long-lasting result.</p>
-    </div>
-    <?php partial('process'); ?>
-  </div>
-</section>
-
-<section class="section section--ink section--photo"
-  style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
-  <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow">Why choose us?</p>
-      <h2>The AF Prestige <span class="hl">difference</span></h2>
-      <p>Premium results come from doing the basics brilliantly, every single time.</p>
-    </div>
-    <?php partial('features'); ?>
-  </div>
-</section>
-
-<section class="section section--paper">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div>
-        <p class="eyebrow">Customer reviews</p>
-        <h2>What our customers <span class="hl-mark">say?</span></h2>
-        <p>Our reputation is built on happy customers and roofs we're proud of.</p>
-      </div>
-      <a class="btn btn--outline-dark" href="<?= e(url('reviews')) ?>">Read more reviews
-        <?= icon('arrow-right', 'icon-shift') ?></a>
-    </div>
-    <div class="reviews-carousel" data-carousel>
-      <div class="reviews-carousel__track" role="region" aria-label="Customer reviews" tabindex="0">
-        <?php foreach ($reviews as $review)
-          partial('review-card', ['review' => $review]); ?>
-      </div>
-      <div class="reviews-carousel__controls">
-        <button class="reviews-carousel__btn reviews-carousel__btn--prev" type="button" data-carousel-prev
-          aria-label="Previous review"><?= icon('arrow-right') ?></button>
-        
-        <button class="reviews-carousel__btn" type="button" data-carousel-next aria-label="Next review"><?= icon('arrow-right') ?></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--dark">
   <div class="container areas-split">
     <div>
       <p class="eyebrow">Service areas</p>
@@ -310,14 +403,14 @@ include ROOT_PATH . '/includes/header.php';
 </section>
 
 <script>
-  // Reviews carousel: swipe or drag on touch screens, arrows and dots everywhere,
-  // and a gentle auto-advance that pauses while the visitor is interacting.
+  // Reviews carousel: swipe on touch screens, arrows (and dots, if present), gentle
+  // auto-advance that pauses while the visitor is interacting.
   (function () {
     document.querySelectorAll('[data-carousel]').forEach(function (root) {
       var track = root.querySelector('.reviews-carousel__track');
       var prev = root.querySelector('[data-carousel-prev]');
       var next = root.querySelector('[data-carousel-next]');
-      var dotsWrap = root.querySelector('[data-carousel-dots]');
+      var dotsWrap = root.querySelector('[data-carousel-dots]'); // optional
       var cards = Array.prototype.slice.call(track.children);
       if (!cards.length) return;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -329,29 +422,32 @@ include ROOT_PATH . '/includes/header.php';
       function current() { return Math.min(positions() - 1, Math.round(track.scrollLeft / step())); }
       function go(i) {
         var last = positions() - 1;
-        if (i < 0) i = 0;
-        if (i > last) i = last;
+        i = Math.max(0, Math.min(i, last));
         track.scrollTo({ left: Math.min(i * step(), maxScroll()), behavior: reduceMotion ? 'auto' : 'smooth' });
       }
       function update() {
         var c = current(), n = positions();
-        Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
-          d.classList.toggle('is-active', i === c);
-          d.setAttribute('aria-current', i === c ? 'true' : 'false');
-        });
-        prev.disabled = c <= 0;
-        next.disabled = c >= n - 1;
+        if (dotsWrap) {
+          Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
+            d.classList.toggle('is-active', i === c);
+            d.setAttribute('aria-current', i === c ? 'true' : 'false');
+          });
+        }
+        if (prev) prev.disabled = c <= 0;
+        if (next) next.disabled = c >= n - 1;
         root.classList.toggle('is-static', n <= 1);
       }
-      function buildDots() {
-        dotsWrap.innerHTML = '';
-        for (var i = 0; i < positions(); i++) {
-          var dot = document.createElement('button');
-          dot.type = 'button';
-          dot.className = 'reviews-carousel__dot';
-          dot.setAttribute('aria-label', 'Show review ' + (i + 1));
-          dot.addEventListener('click', go.bind(null, i));
-          dotsWrap.appendChild(dot);
+      function build() {
+        if (dotsWrap) {
+          dotsWrap.innerHTML = '';
+          for (var i = 0; i < positions(); i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'reviews-carousel__dot';
+            dot.setAttribute('aria-label', 'Show review ' + (i + 1));
+            dot.addEventListener('click', go.bind(null, i));
+            dotsWrap.appendChild(dot);
+          }
         }
         update();
       }
@@ -365,8 +461,8 @@ include ROOT_PATH . '/includes/header.php';
         }, 5000);
       }
 
-      prev.addEventListener('click', function () { go(current() - 1); });
-      next.addEventListener('click', function () { go(current() + 1); });
+      if (prev) prev.addEventListener('click', function () { go(current() - 1); });
+      if (next) next.addEventListener('click', function () { go(current() + 1); });
       var ticking = false;
       track.addEventListener('scroll', function () {
         if (ticking) return;
@@ -380,8 +476,8 @@ include ROOT_PATH . '/includes/header.php';
         if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
       });
       var resizeTimer;
-      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(buildDots, 150); });
-      buildDots();
+      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(build, 150); });
+      build();
       autoplay();
     });
   })();

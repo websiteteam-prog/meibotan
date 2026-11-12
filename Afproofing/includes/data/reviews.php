@@ -1,62 +1,56 @@
 <?php
 /**
- * Customer reviews.
+ * Customer reviews: homepage carousel, Reviews page, Why Choose Us and Free Quote pages.
  *
- * TODO: These are sample reviews written to show the layout. They are
- * labelled "Sample review" on the website. Replace them with genuine reviews
- * from your customers (with their permission), for example copied from your
- * Google Business Profile, fill in name and suburb, and set 'sample' => false.
- * Never publish made-up reviews: it breaches Australian Consumer Law.
+ * These are genuine Google reviews of AF Prestige Roofing, copied from the
+ * previous website. That site cut two of them short (shown with "…"), and the
+ * reviewers' names weren't legible, so only their initial is shown. Copy the
+ * full name and full text from your Google Business Profile to complete them,
+ * and add more the same way.
+ *
+ * Only publish genuine reviews from real customers. Made-up reviews breach
+ * Australian Consumer Law.
+ *
+ * Fields: name (optional), initial (shown in the avatar when there's no name),
+ * source ('Google' shows the Google logo), rating (1-5), text, location, service.
  */
 defined('ROOT_PATH') || exit;
 
 return [
     [
-        'name' => 'Anjali ',
-        'location' => '',
-        'service' => 'Full roof restoration',
+        'name' => '',
+        'initial' => 'J',
+        'source' => 'Google',
         'rating' => 5,
-        'text' => 'From the quote to the final clean-up the team were professional and easy to deal with. Our old terracotta roof looks brand new and the ridge lines are perfectly straight.',
-
+        'text' => 'Good value for money workers good and helpful',
+        'location' => '',
+        'service' => '',
     ],
     [
-        'name' => 'Sneha',
-        'location' => '',
-        'service' => 'Roof painting',
+        'name' => '',
+        'initial' => 'K',
+        'source' => 'Google',
         'rating' => 5,
-        'text' => 'They explained every step, turned up when they said they would and left the place spotless. The new charcoal colour has completely changed the look of our house.',
-
+        'text' => 'Highly recommend AF Prestige roofing. They have just finished restoring my old roof. …',
+        'location' => '',
+        'service' => 'Roof restoration',
     ],
     [
-        'name' => 'Preeti',
-        'location' => '',
-        'service' => 'Ridge capping repairs',
+        'name' => '',
+        'initial' => 'P',
+        'source' => 'Google',
         'rating' => 5,
-        'text' => 'We had a leak near the ridge after a storm. They found the problem quickly, re-bedded and repointed the caps, and we have had no issues since. Honest, fair and reliable.',
-
+        'text' => 'Absolutely amazing customer service. High quality job done from the start to the end. Highly trained professionals …',
+        'location' => '',
+        'service' => '',
     ],
     [
-        'name' => 'Isha',
-        'location' => '',
-        'service' => 'Roof cleaning',
+        'name' => '',
+        'initial' => 'T',
+        'source' => 'Google',
         'rating' => 5,
-        'text' => 'Years of moss and lichen gone in a day. They took care of our rainwater tank and gardens and even sent photos of the finished roof. Highly recommend.',
-
-    ],
-    [
-        'name' => 'Rohan',
+        'text' => 'A very professional job completed on time! Would recommend to anyone',
         'location' => '',
-        'service' => 'Tile replacement',
-        'rating' => 5,
-        'text' => 'Our solar installers cracked several tiles. AF Prestige matched the tiles perfectly. You honestly cannot tell where the repairs were done.',
-
-    ],
-    [
-        'name' => 'Priya',
-        'location' => '',
-        'service' => 'Full roof restoration',
-        'rating' => 5,
-        'text' => 'Great communication, a clear quote with no surprises and a beautiful finish. The attention to detail really stood out compared to the other quotes we got.',
-
+        'service' => '',
     ],
 ];

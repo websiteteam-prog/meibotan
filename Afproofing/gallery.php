@@ -16,27 +16,16 @@ partial('page-hero', [
   'crumbs' => [['Gallery', 'gallery']],
   'image' => 'assets/img/gallery/gallery-hero-banner.png',
 ]);
-
-$filters = ['all' => 'All projects', 'terracotta' => 'Terracotta', 'concrete' => 'Concrete', 'ridge-capping' => 'Ridge capping', 'painting' => 'Painting', 'repairs' => 'Repairs'];
-$hasSamples = (bool) array_filter($gallery, fn($p) => !empty($p['sample']));
 ?>
 
 <section class="section section--paper">
   <div class="container">
   
 
-    <div class="filters" data-gallery-filters role="group" aria-label="Filter projects">
-      <?php foreach ($filters as $value => $label): ?>
-        <button type="button" data-filter="<?= e($value) ?>"
-          aria-pressed="<?= $value === 'all' ? 'true' : 'false' ?>"><?= e($label) ?></button>
-      <?php endforeach; ?>
-    </div>
-
     <div class="ba-grid">
       <?php foreach ($gallery as $project)
-        partial('ba-card', ['project' => $project, 'heading' => 'h2']); ?>
+        partial('ba-card', ['project' => $project]); ?>
     </div>
-    <p class="center text-muted mt-lg" data-gallery-empty hidden>No projects in this category yet. Check back soon.</p>
   </div>
 </section>
 

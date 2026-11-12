@@ -69,6 +69,13 @@ $socialLabels = ['facebook' => 'Facebook', 'instagram' => 'Instagram', 'google' 
   </div>
 </footer>
 
+<!-- Floating buttons: call (bottom left, desktop) and back to top (bottom right) -->
+<a class="float-call" href="<?= e(phone_href()) ?>" aria-label="Call us on <?= e(config('phone')) ?>, available 24/7">
+  <span class="float-call__icon"><?= icon('phone') ?></span>
+  <span class="float-call__text"><small>Call Us! Available 24/7</small><strong><?= e(config('phone')) ?></strong></span>
+</a>
+<button class="to-top" type="button" data-to-top aria-label="Back to top"><?= icon('arrow-right') ?></button>
+
 <div class="mobile-cta">
   <a class="mobile-cta__call" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call Now</a>
   <a class="mobile-cta__quote" href="<?= e(url('free-quote')) ?>"><?= icon('clipboard') ?> Free Quote</a>

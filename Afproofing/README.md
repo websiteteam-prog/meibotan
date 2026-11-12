@@ -29,8 +29,8 @@ Everything below is in **`includes/config.php`** unless noted.
 - [ ] **ABN and licence number** (optional, but they build trust).
 - [ ] **Social links and Google Business Profile URL** (`social`), plus your Google **"write a review" link** (`google_review_url`).
 - [ ] **Real photos.** Replace the illustrated placeholder images (see below).
-- [ ] **Real reviews.** Edit `includes/data/reviews.php`. The current reviews are samples and show a "Sample review" label. Only publish genuine reviews from real customers: fake reviews breach Australian Consumer Law.
-- [ ] **Gallery projects.** Edit `includes/data/gallery.php`: add your photos and the suburb for each job, then set `'sample' => false`.
+- [ ] **Reviews.** `includes/data/reviews.php` holds the 4 Google reviews from the previous website. Two were cut short and the names weren't legible, so copy the full name and text from your Google Business Profile, and add more the same way. Only publish genuine reviews: fake reviews breach Australian Consumer Law.
+- [ ] **Gallery projects.** Edit `includes/data/gallery.php` to add before/after photo pairs (taken from the same angle). The gallery shows the photos only, with no categories or captions.
 - [ ] **Google Analytics** (optional): add your GA4 ID to `ga4_id`.
 - [ ] **Google Search Console**: add `google_site_verification`, then submit `https://afproofing.com.au/sitemap.xml`.
 - [ ] Once HTTPS works, uncomment the `Strict-Transport-Security` line in `.htaccess`.

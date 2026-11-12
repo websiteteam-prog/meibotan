@@ -1,14 +1,19 @@
 <?php
 /**
  * Free quote / enquiry form, submitted to enquiry.php.
- * Vars: $id (unique per page, e.g. 'hero'), $variant ('compact' or 'full'),
- *       $button (submit label).
+ * Vars: $id (unique per page, e.g. 'hero'), $variant ('compact', 'full' or 'hero'),
+ *       $button (submit label). The 'hero' variant is the short homepage banner
+ *       form: name, mobile, email, suburb and a job description, with placeholders.
  */
 defined('ROOT_PATH') || exit;
 
 $id = $id ?? 'quote';
 $variant = $variant ?? 'full';
 $compact = $variant === 'compact';
+$hero = $variant === 'hero';
+// Hero form: labels are read by screen readers but the placeholders do the visible labelling.
+$labelClass = $hero ? ' class="visually-hidden"' : '';
+$ph = fn (string $text): string => $hero ? ' placeholder="' . e($text) . '"' : '';
 $button = $button ?? 'Request My Free Quote';
 $flash = $GLOBALS['flash'];
 $message = ($flash['form'] ?? '') === $id ? (string) ($flash['message'] ?? '') : '';
@@ -38,28 +43,29 @@ $error = function (string $name) use ($id): string {
 
   <div class="form-grid">
     <div class="field">
-      <label for="<?= e($id) ?>-name">Full name <span class="req" aria-hidden="true">*</span></label>
-      <input<?= $attrs('name') ?> type="text" autocomplete="name" required maxlength="80" value="<?= e(old($id, 'name')) ?>" data-error="Please enter your name.">
+      <label for="<?= e($id) ?>-name"<?= $labelClass ?>>Full name <span class="req" aria-hidden="true">*</span></label>
+      <input<?= $attrs('name') ?> type="text" autocomplete="name"<?= $ph('Your name *') ?> required maxlength="80" value="<?= e(old($id, 'name')) ?>" data-error="Please enter your name.">
       <?= $error('name') ?>
     </div>
     <div class="field">
-      <label for="<?= e($id) ?>-phone">Phone <span class="req" aria-hidden="true">*</span></label>
-      <input<?= $attrs('phone') ?> type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" pattern="[0-9 +()\-]{8,20}" value="<?= e(old($id, 'phone')) ?>" data-error="Please enter a valid phone number.">
+      <label for="<?= e($id) ?>-phone"<?= $labelClass ?>>Phone <span class="req" aria-hidden="true">*</span></label>
+      <input<?= $attrs('phone') ?> type="tel" autocomplete="tel" inputmode="tel"<?= $ph('Mobile number *') ?> required maxlength="20" pattern="[0-9 +()\-]{8,20}" value="<?= e(old($id, 'phone')) ?>" data-error="Please enter a valid phone number.">
       <?= $error('phone') ?>
     </div>
     <div class="field">
-      <label for="<?= e($id) ?>-email">Email <span class="req" aria-hidden="true">*</span></label>
-      <input<?= $attrs('email') ?> type="email" autocomplete="email" required maxlength="120" value="<?= e(old($id, 'email')) ?>" data-error="Please enter a valid email address.">
+      <label for="<?= e($id) ?>-email"<?= $labelClass ?>>Email <span class="req" aria-hidden="true">*</span></label>
+      <input<?= $attrs('email') ?> type="email" autocomplete="email"<?= $ph('Email address *') ?> required maxlength="120" value="<?= e(old($id, 'email')) ?>" data-error="Please enter a valid email address.">
       <?= $error('email') ?>
     </div>
     <div class="field">
-      <label for="<?= e($id) ?>-suburb">Suburb <span class="req" aria-hidden="true">*</span></label>
-      <input<?= $attrs('suburb') ?> type="text" autocomplete="address-level2" required maxlength="60" list="<?= e($id) ?>-suburbs" value="<?= e(old($id, 'suburb')) ?>" data-error="Please enter your suburb.">
+      <label for="<?= e($id) ?>-suburb"<?= $labelClass ?>>Suburb <span class="req" aria-hidden="true">*</span></label>
+      <input<?= $attrs('suburb') ?> type="text" autocomplete="address-level2"<?= $ph('Suburb *') ?> required maxlength="60" list="<?= e($id) ?>-suburbs" value="<?= e(old($id, 'suburb')) ?>" data-error="Please enter your suburb.">
       <datalist id="<?= e($id) ?>-suburbs">
         <?php foreach ($GLOBALS['areas'] as $region): foreach ($region['suburbs'] as $suburb): ?><option value="<?= e($suburb) ?>"><?php endforeach; endforeach; ?>
       </datalist>
       <?= $error('suburb') ?>
     </div>
+    <?php if (!$hero): ?>
     <div class="field">
       <label for="<?= e($id) ?>-service">Service required</label>
       <select<?= $attrs('service') ?>>
@@ -70,7 +76,15 @@ $error = function (string $name) use ($id): string {
       </select>
       <?= $error('service') ?>
     </div>
-    <?php if (!$compact): ?>
+    <?php endif; ?>
+    <?php if ($hero): ?>
+      <div class="field field--full">
+        <label for="<?= e($id) ?>-message" class="visually-hidden">Describe the job</label>
+        <textarea<?= $attrs('message') ?> rows="3" maxlength="2000" placeholder="Please describe the job"><?= e(old($id, 'message')) ?></textarea>
+        <?= $error('message') ?>
+      </div>
+    <?php endif; ?>
+    <?php if (!$compact && !$hero): ?>
       <div class="field">
         <label for="<?= e($id) ?>-roof_type">Roof type</label>
         <select<?= $attrs('roof_type') ?>>

@@ -1,16 +1,17 @@
 <?php
-/** "Why choose us" feature cards. Vars: $light (bool) for use on light backgrounds. */
+/** "Why choose us" feature cards. Vars: $light (bool) for light backgrounds, $center (bool) for centred icon cards. */
 defined('ROOT_PATH') || exit;
 $items = [
-    ['award', 'Quality Workmanship', "We do every job properly the first time, using proven methods and quality products that stand up to Adelaide's climate."],
-    ['eye', 'Attention to Detail', 'Straight ridge lines, neat pointing, even coats and a spotless site. The small details are what make a restoration look premium.'],
-    ['calendar', 'Reliable Service', "We turn up when we say we will, keep you informed at every step and work to the agreed schedule, weather permitting."],
-    ['thumbs-up', 'Customer Satisfaction', "Your satisfaction is our priority. We walk you through the finished job and make sure you're completely happy before we call it done."],
-    ['tag', 'Free, Honest Quotes', "Clear, itemised quotes with no hidden extras and no pressure. We only recommend the work your roof actually needs."],
-    ['pin', 'Local Adelaide Business', 'We live and work here. We know Adelaide homes and conditions, and our reputation in the local community matters to us.'],
+    ['users', 'Experienced Roofing Specialists', 'Over 20 years of combined experience in tile roof repairs and restorations across Adelaide.'],
+    ['award', 'Quality Workmanship Guaranteed', 'Every roof repair and restoration is backed by our 10-year written workmanship warranty.'],
+    ['thumbs-up', 'Honest Customer Service', 'Straight answers, clear communication and only the work your roof actually needs.'],
+    ['shield', 'Licensed & Insured Roofers', 'Fully qualified and insured, so your home and property are protected from the moment we arrive.'],
+    ['tag', 'Fixed, Competitive Pricing', 'Transparent fixed-price quotes with no hidden extras, and 20% off your quote when you book today.'],
+    ['pin', 'Local Adelaide Team', 'Locally owned and operated, servicing all of Adelaide and regional areas within ' . config('service_radius_km') . 'km.'],
 ];
+$classes = 'features' . (!empty($light) ? ' features--light' : '') . (!empty($center) ? ' features--center' : '');
 ?>
-<div class="features<?= !empty($light) ? ' features--light' : '' ?>">
+<div class="<?= $classes ?>">
   <?php foreach ($items as [$iconName, $title, $text]): ?>
     <div class="feature" data-reveal>
       <span class="feature__icon"><?= icon($iconName) ?></span>
