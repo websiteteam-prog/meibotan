@@ -1,6 +1,6 @@
 # AF Prestige Roofing: afproofing.com.au
 
-The website for AF Prestige Roofing, a locally owned and operated roof restoration company servicing Adelaide and regional South Australia within 100km of the city. It's built with plain HTML, CSS and PHP, with no frameworks, database or build step, so it runs on any standard cPanel / shared hosting plan.
+The website for AF Prestige Roofing, a locally owned and operated roof restoration company servicing Adelaide and regional South Australia. It's built with plain HTML, CSS and PHP, with no frameworks, database or build step, so it runs on any standard cPanel / shared hosting plan.
 
 ## Pages
 
@@ -133,7 +133,6 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
 | Gallery projects | `includes/data/gallery.php` |
 | Reviews | `includes/data/reviews.php` |
 | Suburbs, towns & regions (metro and regional) | `includes/data/areas.php` |
-| Service radius (currently 100km) | `service_radius_km` in `includes/config.php` |
 | Homepage FAQs | `includes/data/faqs.php` |
 | Colours & fonts | Top of `assets/css/style.css` (`:root`). Theme: brand teal `#12393e` (`--teal`) and yellow `#ffc20e` (`--yellow`) |
 
@@ -144,7 +143,7 @@ Tips: export as JPG at about 80% quality and keep each photo under ~250 KB so pa
 - **Local SEO.**
   - Unique title and description on every page.
   - Keyword-focused service pages: "roof restoration Adelaide", "roof painting Adelaide", "roof cleaning Adelaide", "ridge capping Adelaide" and more.
-  - A service-areas page listing metropolitan suburbs and regional towns within the 100km service radius.
+  - A service-areas page listing metropolitan suburbs and regional towns across South Australia, with a suburb checker.
   - Clean URLs, canonical tags and an automatic sitemap.
   - Google structured data: `RoofingContractor` business details with areas served and hours, `Service`, `BreadcrumbList` and `FAQPage`.
 - **Enquiry form.**

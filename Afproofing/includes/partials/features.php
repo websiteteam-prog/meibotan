@@ -7,7 +7,7 @@ $items = [
     ['thumbs-up', 'Honest Customer Service', 'Straight answers, clear communication and only the work your roof actually needs.'],
     ['shield', 'Licensed & Insured Roofers', 'Fully qualified and insured, so your home and property are protected from the moment we arrive.'],
     ['tag', 'Fixed, Competitive Pricing', 'Transparent fixed-price quotes with no hidden extras, and 20% off your quote when you book today.'],
-    ['pin', 'Local Adelaide Team', 'Locally owned and operated, servicing all of Adelaide and regional areas within ' . config('service_radius_km') . 'km.'],
+    ['pin', 'Local Adelaide Team', 'Locally owned and operated, servicing all of Adelaide and regional South Australia.'],
 ];
 $classes = 'features' . (!empty($light) ? ' features--light' : '') . (!empty($center) ? ' features--center' : '');
 ?>

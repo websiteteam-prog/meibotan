@@ -143,14 +143,10 @@ function json_ld(array $data): string
     return '<script type="application/ld+json">' . $json . '</script>' . "\n";
 }
 
-/** Schema.org circle describing the service radius around Adelaide. */
+/** Schema.org area served beyond Adelaide: the whole state (no distance limit). */
 function service_area_schema(): array
 {
-    return [
-        '@type'       => 'GeoCircle',
-        'geoMidpoint' => ['@type' => 'GeoCoordinates', 'latitude' => config('geo.lat'), 'longitude' => config('geo.lng')],
-        'geoRadius'   => (int) config('service_radius_km', 100) * 1000, // metres
-    ];
+    return ['@type' => 'State', 'name' => 'South Australia'];
 }
 
 function business_schema(): array
@@ -193,7 +189,7 @@ function business_schema(): array
         '@type'                     => 'RoofingContractor',
         '@id'                       => absolute_url('#business'),
         'name'                      => config('site_name'),
-        'description'               => 'Locally owned and operated roof restoration and maintenance company servicing Adelaide and regional South Australia within ' . config('service_radius_km', 100) . 'km of the city.',
+        'description'               => 'Locally owned and operated roof restoration and maintenance company servicing Adelaide and regional South Australia.',
         'url'                       => absolute_url(),
         'telephone'                 => phone_international(),
         'email'                     => config('email'),

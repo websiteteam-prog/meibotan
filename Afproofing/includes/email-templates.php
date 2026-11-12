@@ -207,7 +207,7 @@ function enquiry_customer_email(array $data): array
 
     $footer = '<a href="' . e(absolute_url()) . '" style="color:#ffc20e;font-weight:bold;">' . e(rtrim(preg_replace('#^https?://#', '', absolute_url()), '/')) . '</a>'
         . ' &middot; <a href="' . e($phoneHref) . '" style="color:#ffc20e;">' . e($phone) . '</a>'
-        . ' &middot; Servicing Adelaide &amp; regional areas within ' . e(config('service_radius_km')) . 'km'
+        . ' &middot; Servicing Adelaide &amp; regional South Australia'
         . '<br><br>You received this email because a quote was requested on our website with this address. If that wasn&rsquo;t you, you can ignore it.';
 
     return [

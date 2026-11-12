@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
   'title' => 'Roof Restoration Adelaide | AF Prestige Roofing',
-  'description' => 'Locally owned roof restoration in Adelaide and regional SA within ' . config('service_radius_km') . 'km. Roof cleaning, tile replacement, ridge capping, repairs and roof painting. Free quotes.',
+  'description' => 'Locally owned roof restoration across Adelaide and regional South Australia. Roof cleaning, tile replacement, ridge capping, repairs and roof painting. Free quotes.',
   'path' => '',
   'body_class' => 'page-home',
   'preload_image' => 'assets/img/services/banner-roof-restoration.png',
@@ -49,85 +49,42 @@ include ROOT_PATH . '/includes/header.php';
 
 <section class="section section--dark section--tiles" id="services">
   <div class="container">
-    <div class="section-head section-head--split">
-      <div>
-        <p class="eyebrow">Our services</p>
-        <h2>We repair &amp; restore <span class="hl">your roof &amp; protect it for years</span></h2>
-        <p>Doesn't matter if your roof is ageing, faded or damaged. Our team delivers reliable roofing solutions that
-          restore protection, improve appearance and stand the test of time. Every job is backed by our workmanship
-          guarantee and 20+ years of experience.</p>
-      </div>
-
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Our services</p>
+      <h2>We repair &amp; restore <span class="hl">your roof &amp; protect it for years</span></h2>
+      <p>Doesn't matter if your roof is ageing, faded or damaged. Our team delivers reliable roofing solutions that
+        restore protection, improve appearance and stand the test of time. Every job is backed by our workmanship
+        guarantee and 20+ years of experience.</p>
     </div>
     <?php
-
-    $svcFeaturedSlug = array_key_first($services);
-    $svcFeatured = $services[$svcFeaturedSlug];
-    $svcOthers = array_slice($services, 1, null, true);
-    $svcNum = 1;
+    // Services shown on the homepage (title, text and the service page each card opens).
+    // The photo comes from that service in includes/data/services.php. Remove a row to show fewer.
+    $homeServices = [
+      ['roof-repairs-adelaide', 'Roof Repair & Roof Leaks', 'Fast and reliable roof repairs, roof leaks, cracked tile replacement and preventative roofing maintenance to protect your home from water damage.'],
+      ['roof-restoration-adelaide', 'Roof Restorations', "Complete roof restoration services including repairs, rebedding, cleaning and painting to improve your roof's appearance and lifespan."],
+      ['roof-painting-adelaide', 'Roof Painting & Cleaning', 'Professional roof cleaning and painting services that remove dirt, moss and faded coatings while restoring a fresh, modern finish.'],
+      ['ridge-capping-adelaide', 'Roof Rebedding & Repointing', 'Restore loose ridge caps and damaged mortar with expert rebedding and repointing services designed for long-term roof protection.'],
+    ];
     ?>
-    <div class="svc">
-      <article class="svc-card svc-card--featured" data-reveal>
-        <a class="svc-card__media" href="<?= e(service_url($svcFeaturedSlug)) ?>" tabindex="-1" aria-hidden="true">
-          <img src="<?= e(asset($svcFeatured['image'])) ?>" alt="" <?= img_size($svcFeatured['image']) ?> loading="lazy"
-            decoding="async">
-
-          <span class="svc-card__tag"><?= icon('award') ?>Complete package</span>
+    <div class="home-svc">
+      <?php foreach ($homeServices as [$svcSlug, $svcTitle, $svcText]):
+        if (empty($services[$svcSlug])) continue;
+        $svcImage = $services[$svcSlug]['image']; ?>
+        <a class="home-svc__card" href="<?= e(service_url($svcSlug)) ?>" data-reveal>
+          <span class="home-svc__media">
+            <img src="<?= e(asset($svcImage)) ?>" alt="<?= e($svcTitle) ?> in Adelaide" <?= img_size($svcImage) ?>
+              loading="lazy" decoding="async">
+          </span>
+          <h3><?= e($svcTitle) ?></h3>
+          <p><?= e($svcText) ?></p>
+          <span class="home-svc__more">Learn more <?= icon('arrow-right') ?></span>
         </a>
-        <div class="svc-card__body">
-          <span class="svc-card__icon"><?= icon($svcFeatured['icon']) ?></span>
-          <h3><a href="<?= e(service_url($svcFeaturedSlug)) ?>"><?= e($svcFeatured['name']) ?></a></h3>
-          <p><?= e($svcFeatured['excerpt']) ?></p>
-          <ul class="checklist">
-            <?php foreach (array_slice($svcFeatured['includes'] ?? [], 0, 3) as $svcInclude): ?>
-              <li><?= icon('check') ?><?= e($svcInclude) ?></li>
-            <?php endforeach; ?>
-          </ul>
-          <div class="svc-card__actions">
-            <a class="btn btn--dark" href="<?= e(service_url($svcFeaturedSlug)) ?>">Learn more<span
-                class="visually-hidden"> about <?= e($svcFeatured['name']) ?></span>
-              <?= icon('arrow-right', 'icon-shift') ?></a>
-            <a class="link-arrow" href="<?= e(url('free-quote')) ?>">Free quote <?= icon('arrow-right') ?></a>
-          </div>
-        </div>
-      </article>
-
-      <p class="svc-hint" aria-hidden="true">Swipe to see all services <?= icon('arrow-right') ?></p>
-
-      <div class="svc-list">
-        <?php foreach ($svcOthers as $svcSlug => $svcItem):
-          $svcNum++; ?>
-          <a class="svc-card" href="<?= e(service_url($svcSlug)) ?>" data-reveal>
-            <span class="svc-card__media">
-              <img src="<?= e(asset($svcItem['image'])) ?>" alt="" <?= img_size($svcItem['image']) ?> loading="lazy"
-                decoding="async">
-
-            </span>
-            <span class="svc-card__icon"><?= icon($svcItem['icon']) ?></span>
-            <span class="svc-card__body">
-              <h3><?= e($svcItem['name']) ?></h3>
-              <p><?= e($svcItem['excerpt']) ?></p>
-              <span class="svc-card__more">Learn more <?= icon('arrow-right') ?></span>
-            </span>
-          </a>
-        <?php endforeach; ?>
-      </div>
-
-      <div class="svc-cta" data-reveal>
-        <span class="svc-cta__icon"><?= icon('clipboard') ?></span>
-        <div>
-          <h3>Not sure what your roof needs?</h3>
-          <p>Book a free, no-obligation inspection. We'll check your roof and give you honest advice and a clear quote.
-          </p>
-        </div>
-        <div class="svc-cta__actions">
-          <a class="btn btn--dark" href="<?= e(url('free-quote')) ?>">Book a free inspection
-            <?= icon('arrow-right', 'icon-shift') ?></a>
-          <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
-            <?= e(config('phone')) ?></a>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
+    <p class="home-svc__all">
+      <a class="btn btn--primary btn--lg" href="<?= e(url('services')) ?>">Explore more services
+        <?= icon('arrow-right', 'icon-shift') ?></a>
+    </p>
   </div>
 </section>
 
@@ -263,16 +220,30 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
-<section class="special" style="--special-photo: url('<?= e(asset('assets/img/hero.jpg')) ?>')">
+<section class="section section--tight offer-wrap">
   <div class="container">
-    <div class="special__panel" data-reveal>
-      <p class="special__tag"><?= icon('tag') ?> 20% Off Special!</p>
-      <h2>Get a free roof repair &amp; restoration quote today!</h2>
-      <p>Available 24/7. Fast, reliable &amp; affordable roofing services across Adelaide and regional areas within
-        <?= e(config('service_radius_km')) ?>km.</p>
-      <div class="cta-pair cta-pair--center">
-        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
-        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+    <div class="offer" data-reveal>
+      <div class="offer__media">
+        <img src="<?= e(asset('assets/img/services/why-choose-section1.jpeg')) ?>"
+          alt="Freshly restored terracotta tiled roof in Adelaide" <?= img_size('assets/img/services/why-choose-section1.jpeg') ?>
+          loading="lazy" decoding="async">
+      </div>
+      <span class="offer__badge" aria-hidden="true"><strong>20%</strong><span>off</span></span>
+      <div class="offer__body">
+        <p class="offer__tag"><?= icon('tag') ?> Special offer</p>
+        <h2>Get a free roof repair &amp; restoration quote today</h2>
+        <p class="offer__text">Available 24/7. Fast, reliable and affordable roofing services across Adelaide and
+          regional South Australia, with <strong>20% off your quote</strong> when you book today.</p>
+        <ul class="offer__perks">
+          <li><?= icon('check') ?>Free call-out &amp; roof assessment</li>
+          <li><?= icon('check') ?>Fixed-price quote, no surprises</li>
+          <li><?= icon('check') ?>10-year workmanship warranty</li>
+        </ul>
+        <div class="offer__actions">
+          <a class="btn btn--dark-solid btn--lg" href="#hero-form"><?= icon('tag') ?> Claim 20% Off</a>
+          <a class="offer__call" href="<?= e(phone_href()) ?>"><span class="offer__call-icon"><?= icon('phone') ?></span>
+            <span><small>Call us 24/7</small><strong><?= e(config('phone')) ?></strong></span></a>
+        </div>
       </div>
     </div>
   </div>
@@ -367,13 +338,8 @@ include ROOT_PATH . '/includes/header.php';
     <div>
       <p class="eyebrow">Service areas</p>
       <h2>Proudly servicing <span class="hl">Adelaide</span> &amp; regional SA</h2>
-      <p class="areas-split__text">We work right across metropolitan Adelaide and regional areas up to
-        <?= e(config('service_radius_km')) ?>km from the city, including the Adelaide Hills, Barossa, Fleurieu
-        Peninsula and Murraylands. Not sure if we cover your area? Just ask.
-      </p>
-      <p class="radius-badge"><span
-          class="radius-badge__num"><?= e(config('service_radius_km')) ?><small>km</small></span>
-        <span>service radius from the Adelaide CBD</span>
+      <p class="areas-split__text">We work right across metropolitan Adelaide and regional South Australia, including
+        the Adelaide Hills, Barossa, Fleurieu Peninsula and Murraylands. Not sure if we cover your area? Just ask.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="<?= e(url('service-areas')) ?>">View service areas

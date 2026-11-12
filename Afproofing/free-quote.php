@@ -47,7 +47,7 @@ partial('page-hero', [
       <ul class="checklist mt-lg">
         <li><?= icon('check') ?>Terracotta &amp; concrete tile specialists</li>
         <li><?= icon('check') ?>Quality workmanship and attention to detail</li>
-        <li><?= icon('check') ?>Servicing Adelaide &amp; regional areas within <?= e(config('service_radius_km')) ?>km
+        <li><?= icon('check') ?>Servicing Adelaide &amp; regional South Australia
         </li>
         <li><?= icon('check') ?>Honest recommendations, with only the work your roof needs</li>
       </ul>

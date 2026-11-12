@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
   'title' => 'Service Areas | Roofing Across Adelaide & Regional SA',
-  'description' => 'AF Prestige Roofing services all of Adelaide and regional areas within ' . config('service_radius_km') . 'km: the Adelaide Hills, Barossa, Fleurieu Peninsula, Murray Bridge and Adelaide Plains. Free quotes.',
+  'description' => 'AF Prestige Roofing services all of Adelaide and regional South Australia, including the Adelaide Hills, Barossa, Fleurieu Peninsula, Murray Bridge and Adelaide Plains. Free quotes.',
   'path' => 'service-areas',
   'body_class' => 'page-areas',
   'schema' => [breadcrumb_schema([['Service Areas', 'service-areas']])],
@@ -12,7 +12,7 @@ include ROOT_PATH . '/includes/header.php';
 
 partial('page-hero', [
   'title' => 'Roofing Across Adelaide & Regional SA',
-  'lead' => 'We restore, repair and paint tiled roofs throughout metropolitan Adelaide and regional areas up to ' . config('service_radius_km') . 'km from the city. Find your area below, or call us to check.',
+  'lead' => 'We restore, repair and paint tiled roofs throughout metropolitan Adelaide and regional South Australia. Find your area below, or call us to check.',
   'eyebrow' => 'Service areas',
   'crumbs' => [['Service Areas', 'service-areas']],
   'image' => 'assets/img/services/service-area-hero-banner.png',
@@ -21,8 +21,6 @@ partial('page-hero', [
 // ---------------------------------------------------------------------------
 // Page data (regions and suburbs come from includes/data/areas.php)
 // ---------------------------------------------------------------------------
-$radius = (int) config('service_radius_km');
-
 // Approximate driving distance of each region from the Adelaide CBD.
 $regionDistance = [
   'Inner Adelaide' => '0–6 km',
@@ -48,8 +46,9 @@ foreach ($areas as $region) {
 }
 
 // Coverage diagram: where each regional area sits from the CBD (km and compass bearing).
-// A schematic, not to scale: 100km = 220px from the centre of a 520px square.
-$mapScale = 220 / max($radius, 1);
+// A schematic only: 2.2px per km from the centre of a 520px square. It isn't a limit,
+// the business also travels further across South Australia.
+$mapScale = 2.2;
 $mapPoints = [
   ['name' => 'Gawler & Barossa', 'label' => 'Gawler & Barossa', 'km' => 60, 'deg' => 20, 'dx' => 12, 'dy' => -10, 'anchor' => 'start'],
   ['name' => 'Adelaide Plains', 'label' => 'Adelaide Plains', 'km' => 45, 'deg' => 335, 'dx' => -12, 'dy' => -10, 'anchor' => 'end'],
@@ -101,7 +100,7 @@ $conditions = [
         </noscript>
       </div>
       <ul class="areas-stats">
-        <li><strong><?= e($radius) ?><small>km</small></strong><span>Service radius from the Adelaide CBD</span></li>
+        <li><strong>20+</strong><span>Years of roofing experience</span></li>
         <li><strong><?= count($areas) ?></strong><span>Regions, metro &amp; regional</span></li>
         <li><strong><?= e($placeCount) ?>+</strong><span>Suburbs &amp; towns we visit regularly</span></li>
         <li><strong>Free</strong><span>On-site roof inspections &amp; quotes</span></li>
@@ -114,9 +113,9 @@ $conditions = [
 <section class="section section--dark section--tiles areas-coverage">
   <div class="container areas-coverage__grid">
     <div class="areas-coverage__text" data-reveal>
-      <p class="eyebrow">How far we travel</p>
-      <h2>Adelaide &amp; <span class="hl"><?= e($radius) ?>km around it</span></h2>
-      <p>We service every suburb of metropolitan Adelaide, plus regional towns up to <?= e($radius) ?>km from the CBD.
+      <p class="eyebrow">Where we travel</p>
+      <h2>Adelaide &amp; <span class="hl">regional South Australia</span></h2>
+      <p>We service every suburb of metropolitan Adelaide and travel right across regional South Australia.
         Whether you're in the city, up in the Hills, on the Fleurieu coast or out in the Barossa, you get the same free
         inspection, honest advice and quality finish.</p>
       <ul class="coverage-legend">
@@ -130,13 +129,15 @@ $conditions = [
         <li><a href="#area-group-metro"><span
               class="coverage-legend__dot coverage-legend__dot--metro"></span>Metropolitan Adelaide<small>All
               suburbs</small></a></li>
+        <li><a href="<?= e(phone_href()) ?>"><span
+              class="coverage-legend__dot coverage-legend__dot--more"></span>Further across SA<small>Just
+              ask</small></a></li>
       </ul>
     </div>
 
     <figure class="coverage-map" data-reveal>
       <svg viewBox="0 0 520 520" role="img" aria-labelledby="coverage-map-title">
-        <title id="coverage-map-title">Diagram of our service area: metropolitan Adelaide and regional areas up to
-          <?= e($radius) ?>km from the CBD</title>
+        <title id="coverage-map-title">Diagram of our service area: metropolitan Adelaide and regional South Australia</title>
         <defs>
           <radialGradient id="coverage-glow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color="#ffc20e" stop-opacity=".22" />
@@ -144,14 +145,10 @@ $conditions = [
           </radialGradient>
         </defs>
         <circle cx="260" cy="260" r="220" class="coverage-map__area" />
-        <?php foreach ([25, 50, 75, 100] as $ring):
-          if ($ring > $radius)
-            continue;
-          $r = round($ring * $mapScale, 1); ?>
-          <circle cx="260" cy="260" r="<?= $r ?>"
-            class="coverage-map__ring<?= $ring === $radius ? ' coverage-map__ring--edge' : '' ?>" />
-          <text x="260" y="<?= round(260 - $r - 7, 1) ?>" class="coverage-map__ring-label"><?= $ring ?>km</text>
+        <?php foreach ([55, 110, 165, 220] as $r): ?>
+          <circle cx="260" cy="260" r="<?= $r ?>" class="coverage-map__ring" />
         <?php endforeach; ?>
+        <text x="260" y="504" class="coverage-map__beyond">&hellip; and further across South Australia</text>
         <line x1="260" y1="30" x2="260" y2="490" class="coverage-map__axis" />
         <line x1="30" y1="260" x2="490" y2="260" class="coverage-map__axis" />
         <g class="coverage-map__north" transform="translate(492 40)" aria-hidden="true">
@@ -192,7 +189,7 @@ $conditions = [
     <?php
     $areaGroups = [
       'metro' => ['Metropolitan Adelaide', 'All suburbs, north, south, east and west', 'map'],
-      'regional' => ['Regional areas', 'Country towns within ' . $radius . 'km of Adelaide', 'pin'],
+      'regional' => ['Regional areas', 'Country towns across South Australia', 'pin'],
     ];
     foreach ($areaGroups as $groupKey => [$groupTitle, $groupNote, $groupIcon]):
       $groupAreas = array_filter($areas, fn($region) => ($region['group'] ?? 'metro') === $groupKey);
@@ -267,7 +264,7 @@ $conditions = [
     </div>
     <div class="map-embed areas-local__map" data-reveal>
       <iframe src="https://www.google.com/maps?q=Adelaide%20SA&amp;z=8&amp;output=embed"
-        title="Map of our service area: Adelaide and regional areas within <?= e($radius) ?>km" loading="lazy"
+        title="Map of our service area: Adelaide and regional South Australia" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
@@ -337,7 +334,7 @@ $conditions = [
       } else if (final || q.length >= 4) {
         result.className = 'areas-finder__result is-maybe';
         result.innerHTML = '<span class="areas-finder__badge">?</span><div><strong>“' + esc(input.value.trim()) + '” isn’t on our list yet</strong>' +
-          '<span>If it’s within <?= e($radius) ?>km of Adelaide we can most likely help. Give us a call to check.</span></div>' +
+          '<span>We also travel across regional South Australia, so we can most likely help. Give us a call to check.</span></div>' +
           '<a class="btn btn--outline-dark" href="' + esc(phoneHref) + '">Call ' + esc(phone) + '</a>';
         result.hidden = false;
       } else {

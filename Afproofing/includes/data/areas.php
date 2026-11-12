@@ -4,8 +4,8 @@
  * homepage, the quote form's suburb suggestions and in Google schema markup.
  *
  * 'group' is either 'metro' (metropolitan Adelaide) or 'regional' (country
- * towns within the service radius set in config.php, currently 100km of the
- * Adelaide CBD). Add or remove suburbs and towns freely.
+ * towns around Adelaide). These are examples, not a limit: the business also
+ * travels further across South Australia. Add or remove suburbs and towns freely.
  */
 defined('ROOT_PATH') || exit;
 
@@ -42,7 +42,7 @@ return [
         'suburbs' => ['Glenelg', 'Henley Beach', 'Grange', 'West Lakes', 'Seaton', 'Findon', 'Woodville', 'Fulham Gardens', 'Semaphore', 'Port Adelaide'],
     ],
 
-    // Regional areas within 100km of Adelaide ------------------------------
+    // Regional areas around Adelaide ----------------------------------------
     [
         'name'    => 'Adelaide Hills',
         'group'   => 'regional',

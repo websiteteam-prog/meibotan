@@ -72,7 +72,7 @@ $schema = [
 
   <div class="topbar">
     <div class="container topbar__inner">
-      <p><?= icon('pin') ?> Servicing Adelaide &amp; regional areas within <?= e(config('service_radius_km')) ?>km <span
+      <p><?= icon('pin') ?> Servicing Adelaide &amp; regional South Australia <span
           class="topbar__badge">&middot; Free quotes</span></p>
       <ul class="topbar__links">
         <li><a href="<?= e(email_href()) ?>"><?= icon('mail') ?><?= e(config('email')) ?></a></li>

@@ -37,7 +37,7 @@ partial('page-hero', [
       </li>
       <li class="contact-item">
         <span class="contact-item__icon"><?= icon('pin') ?></span>
-        <div><h2>Service area</h2><strong>Adelaide &amp; regional areas within <?= e(config('service_radius_km')) ?>km</strong><p>All of metropolitan Adelaide, plus the Adelaide Hills, Barossa, Fleurieu Peninsula, Murraylands and Adelaide Plains. <a class="plain-link" href="<?= e(url('service-areas')) ?>">See all areas</a></p></div>
+        <div><h2>Service area</h2><strong>Adelaide &amp; regional South Australia</strong><p>All of metropolitan Adelaide, plus the Adelaide Hills, Barossa, Fleurieu Peninsula, Murraylands and Adelaide Plains. <a class="plain-link" href="<?= e(url('service-areas')) ?>">See all areas</a></p></div>
       </li>
       <li class="contact-item">
         <span class="contact-item__icon"><?= icon('clock') ?></span>

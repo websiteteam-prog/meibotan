@@ -31,8 +31,8 @@ partial('page-hero', [
     <div class="split__content" data-reveal>
 
       <h2>Quality Roof Restoration You Can Trust</h2>
-      <p>AF Prestige Roofing is a locally owned and operated roofing company servicing Adelaide and regional areas
-        within <?= e(config('service_radius_km')) ?>km. We specialise in tiled roofs, terracotta and concrete, and focus
+      <p>AF Prestige Roofing is a locally owned and operated roofing company servicing Adelaide and regional
+        South Australia. We specialise in tiled roofs, terracotta and concrete, and focus
         on one thing: restoring roofs to a standard we're proud to put our name to.</p>
       <p>Your roof protects everything underneath it, so we never cut corners. Every job starts with an honest
         inspection and a clear quote, and finishes with a walk-through to make sure you're completely satisfied.</p>
