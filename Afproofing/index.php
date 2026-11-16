@@ -6,34 +6,44 @@ $page = [
   'description' => 'Locally owned roof restoration across Adelaide and regional South Australia. Roof cleaning, tile replacement, ridge capping, repairs and roof painting. Free quotes.',
   'path' => '',
   'body_class' => 'page-home',
-  'preload_image' => 'assets/img/services/banner-roof-restoration.png',
+  'preload_image' => 'assets/img/Rooftop Restoration at Golden Hour.png',
   'schema' => [faq_schema($faqs)],
 ];
 include ROOT_PATH . '/includes/header.php';
 ?>
 
-
-<section class="hero hero--split">
-  <div class="hero__bg"><img src="<?= e(asset('assets/img/services/banner-roof-restoration.png')) ?>" alt=""
-      <?= img_size('assets/img/services/banner-roof-restoration.png') ?> fetchpriority="high"></div>
+<!-- Hero: text on the left, quote form on the right ----------------------------------- -->
+<section class="hero hero--split hero--home">
+  <div class="hero__bg"><img src="<?= e(asset('assets/img/Rooftop Restoration at Golden Hour.png')) ?>" alt=""
+      <?= img_size('assets/img/Rooftop Restoration at Golden Hour.png') ?> fetchpriority="high"></div>
   <div class="container hero__grid">
     <div class="hero__content">
-      <p class="hero__rating"><span class="hero__stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>Rated 5/5 on Google</p>
+      <p class="hero__rating">
+        <span class="hero__rating-g"><?= google_logo_svg(18) ?></span>
+        <span class="hero__stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>
+        <span>Rated 5/5 on Google</span>
+      </p>
       <h1>Affordable <span class="hl">Roof Restorations &amp; Repairs</span> in Adelaide</h1>
-      <ul class="hero__points">
-        <li>
-          <span class="hero__point-icon"><?= icon('award') ?></span>
-          <div><strong>Satisfaction Guaranteed</strong><span>Licensed &amp; insured roofing specialists</span></div>
-        </li>
-        <li>
-          <span class="hero__point-icon"><?= icon('tag') ?></span>
-          <div><strong>20% Off Your Quote</strong><span>Get a free roof repair &amp; restoration quote today. Free call-out &amp;
-              roof assessments available.</span></div>
-        </li>
+      <p class="hero__lead">Locally owned tile roof specialists with 20+ years of experience. We clean, repair, rebed,
+        repoint and paint roofs across Adelaide and regional South Australia.</p>
+      <ul class="hero__checks">
+        <li><?= icon('check') ?>Satisfaction guaranteed</li>
+        <li><?= icon('check') ?>Licensed &amp; insured roofers</li>
+        <li><?= icon('check') ?>10-year workmanship warranty</li>
+        <li><?= icon('check') ?>Free same-day quotes</li>
       </ul>
+      <div class="hero__offer">
+        <span class="hero__offer-icon"><?= icon('tag') ?></span>
+        <div>
+          <strong>20% off your quote</strong>
+          <span>Get a free roof repair &amp; restoration quote today. Free call-out &amp; roof assessments
+            available.</span>
+        </div>
+      </div>
       <div class="hero__actions">
         <a class="btn btn--primary btn--lg" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
-        <a class="btn btn--outline btn--lg" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+        <a class="btn btn--outline btn--lg" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call:
+          <?= e(config('phone')) ?></a>
       </div>
     </div>
 
@@ -47,47 +57,7 @@ include ROOT_PATH . '/includes/header.php';
 
 <?php partial('trust-strip'); ?>
 
-<section class="section section--dark section--tiles" id="services">
-  <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow">Our services</p>
-      <h2>We repair &amp; restore <span class="hl">your roof &amp; protect it for years</span></h2>
-      <p>Doesn't matter if your roof is ageing, faded or damaged. Our team delivers reliable roofing solutions that
-        restore protection, improve appearance and stand the test of time. Every job is backed by our workmanship
-        guarantee and 20+ years of experience.</p>
-    </div>
-    <?php
-    // Services shown on the homepage (title, text and the service page each card opens).
-    // The photo comes from that service in includes/data/services.php. Remove a row to show fewer.
-    $homeServices = [
-      ['roof-repairs-adelaide', 'Roof Repair & Roof Leaks', 'Fast and reliable roof repairs, roof leaks, cracked tile replacement and preventative roofing maintenance to protect your home from water damage.'],
-      ['roof-restoration-adelaide', 'Roof Restorations', "Complete roof restoration services including repairs, rebedding, cleaning and painting to improve your roof's appearance and lifespan."],
-      ['roof-painting-adelaide', 'Roof Painting & Cleaning', 'Professional roof cleaning and painting services that remove dirt, moss and faded coatings while restoring a fresh, modern finish.'],
-      ['ridge-capping-adelaide', 'Roof Rebedding & Repointing', 'Restore loose ridge caps and damaged mortar with expert rebedding and repointing services designed for long-term roof protection.'],
-    ];
-    ?>
-    <div class="home-svc">
-      <?php foreach ($homeServices as [$svcSlug, $svcTitle, $svcText]):
-        if (empty($services[$svcSlug])) continue;
-        $svcImage = $services[$svcSlug]['image']; ?>
-        <a class="home-svc__card" href="<?= e(service_url($svcSlug)) ?>" data-reveal>
-          <span class="home-svc__media">
-            <img src="<?= e(asset($svcImage)) ?>" alt="<?= e($svcTitle) ?> in Adelaide" <?= img_size($svcImage) ?>
-              loading="lazy" decoding="async">
-          </span>
-          <h3><?= e($svcTitle) ?></h3>
-          <p><?= e($svcText) ?></p>
-          <span class="home-svc__more">Learn more <?= icon('arrow-right') ?></span>
-        </a>
-      <?php endforeach; ?>
-    </div>
-    <p class="home-svc__all">
-      <a class="btn btn--primary btn--lg" href="<?= e(url('services')) ?>">Explore more services
-        <?= icon('arrow-right', 'icon-shift') ?></a>
-    </p>
-  </div>
-</section>
-
+<!-- About ------------------------------------------------------------------------------ -->
 <section class="section" id="about">
   <div class="container about about--intro">
     <div class="about__media" data-reveal>
@@ -109,7 +79,6 @@ include ROOT_PATH . '/includes/header.php';
         enhance the appearance of their properties. From pressure cleaning and tile replacement to ridge capping,
         re-bedding, pointing and roof painting, we provide complete roofing solutions tailored to your roof&rsquo;s
         needs.</p>
-    
       <p class="about__cta-text">Contact AF Prestige Roofing today for your <strong>FREE, no-obligation quote.</strong>
       </p>
       <div class="about__actions">
@@ -118,44 +87,102 @@ include ROOT_PATH . '/includes/header.php';
         <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?>
           <?= e(config('phone')) ?></a>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- Services ---------------------------------------------------------------------------- -->
+<section class="section section--dark section--tiles" id="services">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Our services</p>
+      <h2>We repair &amp; restore <span class="hl">your roof &amp; protect it for years</span></h2>
+      <p>Doesn't matter if your roof is ageing, faded or damaged. Our team delivers reliable roofing solutions that
+        restore protection, improve appearance and stand the test of time. Every job is backed by our workmanship
+        guarantee and 20+ years of experience.</p>
+    </div>
+    <?php
+    // Services shown on the homepage (title, text and the service page each card opens).
+    // The photo comes from that service in includes/data/services.php. Remove a row to show fewer.
+    $homeServices = [
+      ['roof-repairs-adelaide', 'Roof Repair & Roof Leaks', 'Fast and reliable roof repairs, roof leaks, cracked tile replacement and preventative roofing maintenance to protect your home from water damage.'],
+      ['roof-restoration-adelaide', 'Roof Restorations', "Complete roof restoration services including repairs, rebedding, cleaning and painting to improve your roof's appearance and lifespan."],
+      ['roof-painting-adelaide', 'Roof Painting & Cleaning', 'Professional roof cleaning and painting services that remove dirt, moss and faded coatings while restoring a fresh, modern finish.'],
+      ['ridge-capping-adelaide', 'Roof Rebedding & Repointing', 'Restore loose ridge caps and damaged mortar with expert rebedding and repointing services designed for long-term roof protection.'],
+    ];
+    ?>
+    <div class="home-svc">
+      <?php foreach ($homeServices as [$svcSlug, $svcTitle, $svcText]):
+        if (empty($services[$svcSlug]))
+          continue;
+        $svcImage = $services[$svcSlug]['image']; ?>
+        <a class="home-svc__card" href="<?= e(service_url($svcSlug)) ?>" data-reveal>
+          <span class="home-svc__media">
+            <img src="<?= e(asset($svcImage)) ?>" alt="<?= e($svcTitle) ?> in Adelaide" <?= img_size($svcImage) ?>
+              loading="lazy" decoding="async">
+          </span>
+          <h3><?= e($svcTitle) ?></h3>
+          <p><?= e($svcText) ?></p>
+          <span class="home-svc__more">Learn more <span class="home-svc__more-icon"><?= icon('arrow-right') ?></span></span>
+        </a>
+      <?php endforeach; ?>
+    </div>
+    <p class="home-svc__all">
+      <a class="btn btn--primary btn--lg" href="<?= e(url('services')) ?>">Explore more services
+        <?= icon('arrow-right', 'icon-shift') ?></a>
+    </p>
+  </div>
+</section>
+
+<!-- Why homeowners choose us ------------------------------------------------------------- -->
 <section class="section section--paper">
   <div class="container results">
     <div class="results__media" data-reveal>
-      <img src="<?= e(asset('assets/img/services/why-choose-section2.jpeg')) ?>"
+      <img src="<?= e(asset('assets/img/services/Home-why-choose.jpeg')) ?>"
         alt="AF Prestige Roofing roofer repairing a tiled roof in Adelaide"
-        <?= img_size('assets/img/services/why-choose-section2.jpeg') ?> loading="lazy" decoding="async">
+        <?= img_size('assets/img/services/Home-why-choose.jpeg') ?> loading="lazy" decoding="async">
       <div class="results__badge"><strong>20+</strong><span>Years of combined roofing experience</span></div>
     </div>
     <div class="results__content" data-reveal>
-      <p class="eyebrow">Why homeowners choose us</p>
+      <p class="eyebrow">Why homeowners choose us?</p>
       <h2>Our roofing results <span class="hl-mark">can't be matched</span> by anyone</h2>
       <ul class="results__list">
-        <li><?= icon('check') ?><div><strong>10-Year Workmanship Warranty:</strong> Every roof repair and restoration is
-            backed by a 10-year written workmanship guarantee, so you're covered long after the job is done.</div></li>
-        <li><?= icon('check') ?><div><strong>Flexible and Competitive Pricing:</strong> Transparent, competitive pricing on
-            every quote. Whether it's a quick repair or a full restoration, there's an option to suit your budget.</div></li>
-        <li><?= icon('check') ?><div><strong>Licensed &amp; Insured Roofers:</strong> Fully qualified and insured, giving you
-            total peace of mind that your home, roof and property are protected from the moment we step on site.</div></li>
-        <li><?= icon('check') ?><div><strong>Prioritising Safety:</strong> Safety is central to everything we do. Every job
-            is carried out to strict Australian standards with proper roof safety systems in place.</div></li>
-        <li><?= icon('check') ?><div><strong>Roofing Specialists:</strong> With over 20 years of combined experience, we
-            specialise in tile roof repairs and restorations.</div></li>
-        <li><?= icon('check') ?><div><strong>Free Same-Day Quotes, No Obligation:</strong> Get a free quote the same day you
-            call. No pressure, no hidden costs, just a straight answer on what your roof needs and what it will cost.</div></li>
+        <li><?= icon('check') ?>
+          <div><strong>10-Year Workmanship Warranty:</strong> Every roof repair and restoration is
+            backed by a 10-year written workmanship guarantee, so you're covered long after the job is done.</div>
+        </li>
+        <li><?= icon('check') ?>
+          <div><strong>Flexible and Competitive Pricing:</strong> Transparent, competitive pricing on
+            every quote. Whether it's a quick repair or a full restoration, there's an option to suit your budget.</div>
+        </li>
+        <li><?= icon('check') ?>
+          <div><strong>Licensed &amp; Insured Roofers:</strong> Fully qualified and insured, giving you
+            total peace of mind that your home, roof and property are protected from the moment we step on site.</div>
+        </li>
+        <li><?= icon('check') ?>
+          <div><strong>Prioritising Safety:</strong> Safety is central to everything we do. Every job
+            is carried out to strict Australian standards with proper roof safety systems in place.</div>
+        </li>
+        <li><?= icon('check') ?>
+          <div><strong>Roofing Specialists:</strong> With over 20 years of combined experience, we
+            specialise in tile roof repairs and restorations.</div>
+        </li>
+        <li><?= icon('check') ?>
+          <div><strong>Free Same-Day Quotes, No Obligation:</strong> Get a free quote the same day you
+            call. No pressure, no hidden costs, just a straight answer on what your roof needs and what it will cost.
+          </div>
+        </li>
       </ul>
       <div class="cta-pair">
         <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
-        <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+        <a class="btn btn--outline-dark" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call:
+          <?= e(config('phone')) ?></a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- How it works -------------------------------------------------------------------------- -->
 <section class="section section--dark section--tiles">
   <div class="container">
     <div class="section-head section-head--center">
@@ -181,52 +208,59 @@ include ROOT_PATH . '/includes/header.php';
       <li class="step" data-reveal>
         <span class="step__icon"><?= icon('clipboard') ?></span>
         <h3 class="step__num">Step 3</h3>
-        <p>Our skilled team completes the restoration, repair or cleaning, then walks you through the results to make sure
-          everything meets your expectations.</p>
+        <p>Our skilled team completes the restoration, repair or cleaning, then walks you through the results to make
+          sure everything meets your expectations.</p>
         <span class="step__label">Work Completed &amp; Final Check</span>
       </li>
     </ol>
-      <div class="cta-pair cta-pair--center">
-        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
-        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
-      </div>
+    <div class="cta-pair cta-pair--center">
+      <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+      <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+    </div>
   </div>
 </section>
 
-<section class="section" id="reviews">
-  <div class="container">
-    <div class="section-head section-head--center">
+<!-- Testimonials: rating panel on the left, swipeable reviews on the right ------------------ -->
+<section class="section section--paper testimonials" id="reviews">
+  <div class="container testimonials__grid" data-carousel>
+    <div class="testimonials__intro" data-reveal>
       <p class="eyebrow">Customer reviews</p>
-      <h2>What our <span class="hl-mark">clients</span> say</h2>
-      <?php $googleUrl = (string) config('social.google'); ?>
-      <<?= $googleUrl ? 'a href="' . e($googleUrl) . '" target="_blank" rel="noopener"' : 'p' ?> class="google-badge">
-        <strong>Excellent</strong>
-        <span class="google-badge__stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>
-        <span>reviews on</span> <?= google_logo_svg(20) ?><span class="google-badge__word">Google</span>
-      </<?= $googleUrl ? 'a' : 'p' ?>>
+      <h2>What our <span class="hl">clients</span> say</h2>
+      <div class="testimonials__score">
+        <strong>5.0</strong>
+        <div>
+          <span class="stars" aria-hidden="true"><?= str_repeat(icon('star'), 5) ?></span>
+          <span class="testimonials__score-label"><?= google_logo_svg(18) ?> Rated 5/5 on Google</span>
+        </div>
+      </div>
+      <p>Honest work, clear quotes and roofs we're proud of. Here's what Adelaide homeowners say about us.</p>
+      <div class="testimonials__actions">
+        <a class="btn btn--primary" href="<?= e(url('reviews')) ?>">Read all reviews <?= icon('arrow-right', 'icon-shift') ?></a>
+        <div class="testimonials__nav">
+          <button class="testimonials__btn testimonials__btn--prev" type="button" data-carousel-prev
+            aria-label="Previous review"><?= icon('arrow-right') ?></button>
+          <button class="testimonials__btn" type="button" data-carousel-next
+            aria-label="Next review"><?= icon('arrow-right') ?></button>
+        </div>
+      </div>
     </div>
-    <div class="reviews-carousel" data-carousel>
+    <div class="testimonials__slider">
       <div class="reviews-carousel__track" role="region" aria-label="Customer reviews" tabindex="0">
         <?php foreach ($reviews as $review)
           partial('review-card', ['review' => $review]); ?>
       </div>
-      <div class="reviews-carousel__controls">
-        <button class="reviews-carousel__btn reviews-carousel__btn--prev" type="button" data-carousel-prev
-          aria-label="Previous review"><?= icon('arrow-right') ?></button>
-        <button class="reviews-carousel__btn" type="button" data-carousel-next aria-label="Next review"><?= icon('arrow-right') ?></button>
-      </div>
     </div>
-    <p class="center mt-md"><a class="link-arrow" href="<?= e(url('reviews')) ?>">Read more reviews <?= icon('arrow-right') ?></a></p>
   </div>
 </section>
 
+<!-- 20% off offer ---------------------------------------------------------------------------- -->
 <section class="section section--tight offer-wrap">
   <div class="container">
     <div class="offer" data-reveal>
       <div class="offer__media">
         <img src="<?= e(asset('assets/img/services/why-choose-section1.jpeg')) ?>"
-          alt="Freshly restored terracotta tiled roof in Adelaide" <?= img_size('assets/img/services/why-choose-section1.jpeg') ?>
-          loading="lazy" decoding="async">
+          alt="Freshly restored terracotta tiled roof in Adelaide"
+          <?= img_size('assets/img/services/why-choose-section1.jpeg') ?> loading="lazy" decoding="async">
       </div>
       <span class="offer__badge" aria-hidden="true"><strong>20%</strong><span>off</span></span>
       <div class="offer__body">
@@ -241,7 +275,8 @@ include ROOT_PATH . '/includes/header.php';
         </ul>
         <div class="offer__actions">
           <a class="btn btn--dark-solid btn--lg" href="#hero-form"><?= icon('tag') ?> Claim 20% Off</a>
-          <a class="offer__call" href="<?= e(phone_href()) ?>"><span class="offer__call-icon"><?= icon('phone') ?></span>
+          <a class="offer__call" href="<?= e(phone_href()) ?>"><span
+              class="offer__call-icon"><?= icon('phone') ?></span>
             <span><small>Call us 24/7</small><strong><?= e(config('phone')) ?></strong></span></a>
         </div>
       </div>
@@ -249,24 +284,43 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
+<!-- Before & after: 4 photos (no slider) ------------------------------------------------------ -->
 <section class="section section--paper">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
         <p class="eyebrow">Before &amp; after</p>
         <h2>See the <span class="hl-mark">difference</span></h2>
-        <p>Drag the slider to compare. Every restoration is finished with the same care and attention to detail.</p>
+        <p>Real results from our roof restorations, cleans and repaints across Adelaide.</p>
       </div>
       <a class="btn btn--outline-dark" href="<?= e(url('gallery')) ?>">View full gallery
         <?= icon('arrow-right', 'icon-shift') ?></a>
     </div>
-    <div class="ba-grid">
-      <?php foreach (array_slice($gallery, 0, 2) as $project)
-        partial('ba-card', ['project' => $project]); ?>
-    </div>
+    <?php
+    // Each photo shows the roof before (left) and after (right). Files are in assets/img/gallery/.
+    $homeBeforeAfter = [
+      ['assets/img/gallery/home-before-after-1.jpg', 'Tiled roof before and after a full restoration'],
+      ['assets/img/gallery/home-before-after-2.jpg', 'Concrete tile roof before and after restoration in charcoal'],
+      ['assets/img/gallery/home-before-after-3.jpg', 'Terracotta ridge before and after re-bedding, repointing and painting'],
+      ['assets/img/gallery/home-before-after-4.jpg', 'Concrete roof before and after cleaning and painting in light grey'],
+    ];
+    ?>
+    <ul class="ba-photos">
+      <?php foreach ($homeBeforeAfter as [$baImage, $baAlt]): ?>
+        <li data-reveal>
+          <a class="ba-photo" href="<?= e(url('gallery')) ?>">
+            <img src="<?= e(asset($baImage)) ?>" alt="<?= e($baAlt) ?>" <?= img_size($baImage) ?> loading="lazy"
+              decoding="async">
+            <span class="ba-photo__tag ba-photo__tag--before">Before</span>
+            <span class="ba-photo__tag ba-photo__tag--after">After</span>
+          </a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
   </div>
 </section>
 
+<!-- Why choose us ------------------------------------------------------------------------------- -->
 <section class="section section--ink section--photo"
   style="--section-photo: url('<?= e(asset('assets/img/services/Concrete Tile Restoration.jpg')) ?>')">
   <div class="container">
@@ -277,13 +331,14 @@ include ROOT_PATH . '/includes/header.php';
         long-lasting results.</p>
     </div>
     <?php partial('features', ['center' => true]); ?>
-      <div class="cta-pair cta-pair--center">
-        <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
-        <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
-      </div>
+    <div class="cta-pair cta-pair--center">
+      <a class="btn btn--primary" href="#hero-form"><?= icon('tag') ?> Get 20% Off Today</a>
+      <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> Call: <?= e(config('phone')) ?></a>
+    </div>
   </div>
 </section>
 
+<!-- Signs your roof needs work ---------------------------------------------------------------- -->
 <section class="section section--paper">
   <div class="container">
     <div class="section-head section-head--center">
@@ -333,8 +388,9 @@ include ROOT_PATH . '/includes/header.php';
   </div>
 </section>
 
+<!-- Service areas: text on the left, map image on the right ------------------------------------ -->
 <section class="section section--dark">
-  <div class="container areas-split">
+  <div class="container areas-split areas-split--media">
     <div>
       <p class="eyebrow">Service areas</p>
       <h2>Proudly servicing <span class="hl">Adelaide</span> &amp; regional SA</h2>
@@ -347,17 +403,17 @@ include ROOT_PATH . '/includes/header.php';
         <a class="btn btn--outline" href="<?= e(phone_href()) ?>"><?= icon('phone') ?> <?= e(config('phone')) ?></a>
       </div>
     </div>
-    <ul class="region-list">
-      <?php foreach ($areas as $region): ?>
-        <li data-reveal>
-          <strong><?= icon('pin') ?><?= e($region['name']) ?></strong><span><?= e(implode(', ', array_slice($region['suburbs'], 0, 6))) ?>
-            &amp; more</span>
-        </li>
-      <?php endforeach; ?>
-    </ul>
+    <figure class="areas-photo" data-reveal>
+      <a href="<?= e(url('service-areas')) ?>">
+        <img src="<?= e(asset('assets/img/home-service-area.jpg')) ?>"
+          alt="Map of our service area: metropolitan Adelaide plus the Adelaide Hills, Barossa, Adelaide Plains, Fleurieu Peninsula and Murray Bridge"
+          <?= img_size('assets/img/home-service-area.jpg') ?> loading="lazy" decoding="async">
+      </a>
+    </figure>
   </div>
 </section>
 
+<!-- FAQs ------------------------------------------------------------------------------------------ -->
 <section class="section">
   <div class="container">
     <div class="section-head section-head--center">
@@ -369,14 +425,14 @@ include ROOT_PATH . '/includes/header.php';
 </section>
 
 <script>
-  // Reviews carousel: swipe on touch screens, arrows (and dots, if present), gentle
-  // auto-advance that pauses while the visitor is interacting.
+  // Reviews carousel: swipe on touch screens, arrow buttons, gentle auto-advance that
+  // pauses while the visitor is interacting.
   (function () {
     document.querySelectorAll('[data-carousel]').forEach(function (root) {
       var track = root.querySelector('.reviews-carousel__track');
       var prev = root.querySelector('[data-carousel-prev]');
       var next = root.querySelector('[data-carousel-next]');
-      var dotsWrap = root.querySelector('[data-carousel-dots]'); // optional
+      if (!track) return;
       var cards = Array.prototype.slice.call(track.children);
       if (!cards.length) return;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -387,35 +443,14 @@ include ROOT_PATH . '/includes/header.php';
       function positions() { return Math.max(1, Math.round(maxScroll() / step()) + 1); }
       function current() { return Math.min(positions() - 1, Math.round(track.scrollLeft / step())); }
       function go(i) {
-        var last = positions() - 1;
-        i = Math.max(0, Math.min(i, last));
+        i = Math.max(0, Math.min(i, positions() - 1));
         track.scrollTo({ left: Math.min(i * step(), maxScroll()), behavior: reduceMotion ? 'auto' : 'smooth' });
       }
       function update() {
         var c = current(), n = positions();
-        if (dotsWrap) {
-          Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
-            d.classList.toggle('is-active', i === c);
-            d.setAttribute('aria-current', i === c ? 'true' : 'false');
-          });
-        }
         if (prev) prev.disabled = c <= 0;
         if (next) next.disabled = c >= n - 1;
         root.classList.toggle('is-static', n <= 1);
-      }
-      function build() {
-        if (dotsWrap) {
-          dotsWrap.innerHTML = '';
-          for (var i = 0; i < positions(); i++) {
-            var dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'reviews-carousel__dot';
-            dot.setAttribute('aria-label', 'Show review ' + (i + 1));
-            dot.addEventListener('click', go.bind(null, i));
-            dotsWrap.appendChild(dot);
-          }
-        }
-        update();
       }
       function autoplay() {
         clearInterval(timer);
@@ -424,7 +459,7 @@ include ROOT_PATH . '/includes/header.php';
           if (paused || document.hidden) return;
           var c = current();
           go(c >= positions() - 1 ? 0 : c + 1);
-        }, 5000);
+        }, 6000);
       }
 
       if (prev) prev.addEventListener('click', function () { go(current() - 1); });
@@ -442,8 +477,8 @@ include ROOT_PATH . '/includes/header.php';
         if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
       });
       var resizeTimer;
-      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(build, 150); });
-      build();
+      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(update, 150); });
+      update();
       autoplay();
     });
   })();
