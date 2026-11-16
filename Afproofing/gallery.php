@@ -20,8 +20,6 @@ partial('page-hero', [
 
 <section class="section section--paper">
   <div class="container">
-  
-
     <div class="ba-grid">
       <?php foreach ($gallery as $project)
         partial('ba-card', ['project' => $project]); ?>

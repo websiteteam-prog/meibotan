@@ -66,26 +66,6 @@
     });
   }
 
-  // Gallery filters ----------------------------------------------------------------
-  var filters = document.querySelector('[data-gallery-filters]');
-  if (filters) {
-    var items = document.querySelectorAll('[data-gallery-item]');
-    var empty = document.querySelector('[data-gallery-empty]');
-    filters.addEventListener('click', function (e) {
-      var btn = e.target.closest('button[data-filter]');
-      if (!btn) return;
-      var filter = btn.getAttribute('data-filter');
-      var shown = 0;
-      filters.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      items.forEach(function (item) {
-        var match = filter === 'all' || item.getAttribute('data-tags').split(' ').indexOf(filter) !== -1;
-        item.hidden = !match;
-        if (match) shown++;
-      });
-      if (empty) empty.hidden = shown > 0;
-    });
-  }
-
   // Reveal-on-scroll animation -------------------------------------------------------
   var reveals = document.querySelectorAll('[data-reveal]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
