@@ -59,6 +59,19 @@ function url(string $path = '', array $query = []): string
     return $out;
 }
 
+/** URL for an admin-entered link: absolute URLs pass through, paths become site URLs. */
+function link_url(?string $link, string $fallback = '/shop'): string
+{
+    $link = trim((string) $link);
+    if ($link === '') {
+        return url($fallback);
+    }
+    if (preg_match('~^(https?:)?//~i', $link) || str_starts_with($link, 'mailto:') || str_starts_with($link, 'tel:') || str_starts_with($link, '#')) {
+        return $link;
+    }
+    return url($link);
+}
+
 /** URL for a static asset with cache-busting version based on file mtime. */
 function asset(string $path): string
 {

@@ -75,6 +75,9 @@ final class ProductService
                 $where[] = "p.{$col} = 1";
             }
         }
+        if (!empty($f['not_bestseller'])) {
+            $where[] = 'p.is_bestseller = 0';
+        }
         if (!empty($f['on_sale'])) {
             $where[] = 'p.sale_price IS NOT NULL AND p.sale_price > 0 AND p.sale_price < p.price';
         }
