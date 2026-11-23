@@ -318,7 +318,7 @@
     var variantInput = $('[name=variant_id]', form);
     var qtyInput = $('[name=quantity]', form);
     var scope = form.closest('[data-product-scope]') || form;
-    var baseStock = parseInt(form.getAttribute('data-stock') || '0', 10);
+    var baseStock = parseInt(form.getAttribute('data-base-stock') || '0', 10);
 
     function setStock(qty) {
       var el = $('[data-stock]', scope);
