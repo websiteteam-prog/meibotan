@@ -1,0 +1,2 @@
+<?php /** @var string $href @var string $label */ ?>
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0"><tr><td style="background:#810100;border-radius:999px"><a href="<?= e($href) ?>" style="display:inline-block;padding:14px 30px;color:#EDEBDD;text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:bold"><?= e($label) ?></a></td></tr></table>
