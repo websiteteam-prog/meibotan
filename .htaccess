@@ -1,0 +1,10 @@
+# Used when the web server's document root is the project folder (e.g. shared
+# hosting public_html). Requests are passed into /public and private folders
+# are blocked. If you can point the document root at /public, do that instead.
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(config|src|views|storage|database|bin|app)(/|$) - [F,L]
+    RewriteRule (^|/)\. - [F]
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

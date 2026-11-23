@@ -1,0 +1,9 @@
+/config/config.php
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/cache/*
+!/storage/cache/.gitkeep
+/node_modules/
+.DS_Store
+# Customer uploads (demo/seed images are committed separately)
+/public/uploads/**/20*-*
