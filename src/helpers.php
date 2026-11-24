@@ -34,20 +34,67 @@ function setting(string $key, mixed $default = null): mixed
     return Settings::get($key, $default);
 }
 
-/** Base path of the app (e.g. "" or "/shop") derived from app_url. */
+/**
+ * Public base URL of the site, without trailing slash.
+ *
+ * Uses 'app_url' from config/config.php. When it is empty — or when the site is
+ * opened from a different folder than configured (e.g. XAMPP htdocs/savie_amour_new) —
+ * the folder is detected from the request, so the store works from any folder name.
+ * On a live server, set app_url to your real domain (it is used in e-mails).
+ */
+function app_url(): string
+{
+    static $url = null;
+    if ($url !== null) {
+        return $url;
+    }
+    $configured = rtrim(trim((string) config('app_url', '')), '/');
+    $host = (string) ($_SERVER['HTTP_HOST'] ?? '');
+    if (PHP_SAPI === 'cli' || PHP_SAPI === 'cli-server' || !preg_match('/^[A-Za-z0-9.\-]+(:\d+)?$|^\[[0-9a-fA-F:]+\](:\d+)?$/', $host)) {
+        return $url = $configured !== '' ? $configured : ($host !== '' && preg_match('/^[A-Za-z0-9.\-:]+$/', $host) ? 'http://' . $host : 'http://localhost');
+    }
+    // Folder of the front controller, e.g. "/savie_amour_new/public" or "".
+    $dir = rtrim(str_replace('\\', '/', dirname(str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? '/index.php')))), '/');
+    $uri = (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH);
+    if (str_ends_with($dir, '/public') && !str_starts_with($uri . '/', $dir . '/')) {
+        $dir = substr($dir, 0, -7); // requests come in through the root .htaccess
+    }
+    if ($configured !== '' && rtrim((string) parse_url($configured, PHP_URL_PATH), '/') === $dir) {
+        return $url = $configured;
+    }
+    return $url = (App\Core\Http::isHttps() ? 'https' : 'http') . '://' . $host . $dir;
+}
+
+/** Base path of the app (e.g. "" or "/savie_amour_new"). */
 function base_path(): string
 {
     static $path = null;
     if ($path === null) {
-        $path = rtrim((string) parse_url((string) config('app_url', ''), PHP_URL_PATH), '/');
+        $path = rtrim((string) parse_url(app_url(), PHP_URL_PATH), '/');
     }
     return $path;
+}
+
+/** Friendly full-page message for set-up problems (missing config, database errors). */
+function setup_error_page(string $title, string $html, int $status = 503): never
+{
+    if (!headers_sent()) {
+        http_response_code($status);
+        header('Content-Type: text/html; charset=utf-8');
+    }
+    echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . e($title) . '</title>'
+        . '<body style="margin:0;font-family:system-ui,Segoe UI,sans-serif;background:#EDEBDD;color:#1B1717;padding:48px 24px;line-height:1.6">'
+        . '<div style="max-width:760px;margin:auto;background:#F5F3EA;border:1px solid #ddd6c5;border-radius:18px;padding:34px 36px">'
+        . '<p style="margin:0 0 6px;color:#810100;letter-spacing:.2em;font-size:12px;font-weight:700;text-transform:uppercase">Savié Amour · setup</p>'
+        . '<h1 style="font-weight:600;margin:0 0 16px;font-size:28px">' . e($title) . '</h1>' . $html
+        . '<style>code{background:#e6e0d1;padding:2px 6px;border-radius:5px;font-size:.92em}li{margin-bottom:6px}</style></div></body>';
+    exit;
 }
 
 /** Absolute URL for an application path. */
 function url(string $path = '', array $query = []): string
 {
-    $base = rtrim((string) config('app_url', ''), '/');
+    $base = app_url();
     $path = '/' . ltrim($path, '/');
     $out = $base . ($path === '/' ? '/' : $path);
     if ($query) {
@@ -190,7 +237,7 @@ function redirect(string $to, int $status = 302): never
 function back(string $fallback = '/'): never
 {
     $ref = $_SERVER['HTTP_REFERER'] ?? '';
-    $app = rtrim((string) config('app_url'), '/');
+    $app = app_url();
     if ($ref !== '' && str_starts_with($ref, $app)) {
         header('Location: ' . $ref, true, 302);
         exit;

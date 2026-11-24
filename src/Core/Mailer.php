@@ -66,7 +66,7 @@ final class Mailer
             'MIME-Version: 1.0',
             'From: ' . self::encodeHeader($fromName) . ' <' . $fromEmail . '>',
             'Date: ' . date('r'),
-            'Message-ID: <' . bin2hex(random_bytes(10)) . '@' . (parse_url((string) config('app_url'), PHP_URL_HOST) ?: 'localhost') . '>',
+            'Message-ID: <' . bin2hex(random_bytes(10)) . '@' . (parse_url(app_url(), PHP_URL_HOST) ?: 'localhost') . '>',
             'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
         ];
         if ($replyTo && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
@@ -122,7 +122,7 @@ final class Mailer
             return $resp;
         };
         $read();
-        $ehloHost = parse_url((string) config('app_url'), PHP_URL_HOST) ?: 'localhost';
+        $ehloHost = parse_url(app_url(), PHP_URL_HOST) ?: 'localhost';
         $cmd('EHLO ' . $ehloHost, [250]);
         if ($enc === 'tls') {
             $cmd('STARTTLS', [220]);

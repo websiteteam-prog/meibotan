@@ -36,13 +36,12 @@ if (!is_file($configFile)) {
         fwrite(STDERR, "Missing config/config.php — run: php bin/install.php\n");
         exit(1);
     }
-    http_response_code(503);
-    echo '<!doctype html><meta charset="utf-8"><title>Setup required</title>'
-        . '<body style="font-family:system-ui;background:#EDEBDD;color:#1B1717;padding:60px">'
-        . '<h1 style="font-weight:500">Savié Amour — setup required</h1>'
-        . '<p>Copy <code>config/config.sample.php</code> to <code>config/config.php</code>, '
-        . 'update the database credentials and run <code>php bin/install.php</code>.</p></body>';
-    exit;
+    $hint = is_file($configFile . '.txt') ? '<p><strong>Found <code>config.php.txt</code></strong> — Windows added a hidden “.txt”. Rename it to <code>config.php</code> (turn on View → File name extensions to see it).</p>' : '';
+    setup_error_page('config/config.php is missing', $hint
+        . '<ol><li>Import <code>database/savie_amour_full.sql</code> into a new database in phpMyAdmin.</li>'
+        . '<li>In the <code>config</code> folder, copy <code>config.sample.php</code> and name the copy <code>config.php</code>.</li>'
+        . '<li>Open it and set <code>database</code>, <code>username</code> and <code>password</code> (XAMPP: <code>root</code> and empty password). <code>app_url</code> can stay empty — the folder is detected automatically.</li>'
+        . '<li>Refresh this page.</li></ol>');
 }
 $GLOBALS['__config'] = require $configFile;
 
@@ -63,6 +62,10 @@ set_exception_handler(static function (Throwable $e) use ($isDev): void {
     if (PHP_SAPI === 'cli') {
         fwrite(STDERR, (string) $e . "\n");
         exit(1);
+    }
+    if ($e instanceof PDOException && ($e->getCode() === '42S02' || str_contains($e->getMessage(), '1146'))) {
+        setup_error_page('The database is empty', '<p>The connection works, but the store tables were not found in database <strong>' . e((string) config('db.database')) . '</strong>.</p>'
+            . '<p>Open phpMyAdmin, select that database, go to <strong>Import</strong> and import <code>database/savie_amour_full.sql</code> from this project. Then refresh.</p>');
     }
     if (!headers_sent()) {
         http_response_code(500);

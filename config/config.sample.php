@@ -9,7 +9,10 @@
  */
 return [
     // Public URL of the site without trailing slash, e.g. https://www.savieamour.com
-    'app_url'   => 'http://localhost:8000',
+    // Leave empty ('') to detect it automatically — handy on XAMPP, where the
+    // folder name (http://localhost/savie_amour_new) can be anything.
+    // On the live server, set your real domain: it is used in e-mails and SEO tags.
+    'app_url'   => '',
 
     // production | development  (development shows detailed errors)
     'app_env'   => 'production',

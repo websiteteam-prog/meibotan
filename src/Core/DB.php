@@ -26,16 +26,52 @@ final class DB
                 $c['database'],
                 $c['charset'] ?? 'utf8mb4'
             );
-            self::$pdo = new PDO($dsn, $c['username'], $c['password'], [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-                PDO::ATTR_STRINGIFY_FETCHES  => false,
-            ]);
+            try {
+                self::$pdo = new PDO($dsn, $c['username'], $c['password'], [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES   => false,
+                    PDO::ATTR_STRINGIFY_FETCHES  => false,
+                ]);
+            } catch (\PDOException $e) {
+                self::connectionHelp($e, $c);
+            }
             $offset = (new \DateTime())->format('P');
             self::$pdo->exec("SET time_zone = '{$offset}', sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'");
         }
         return self::$pdo;
+    }
+
+    /** Explain a failed database connection in plain words (instead of a blank error page). */
+    private static function connectionHelp(\PDOException $e, array $c): never
+    {
+        if (PHP_SAPI === 'cli') {
+            throw $e;
+        }
+        error_log('DB connection failed: ' . $e->getMessage());
+        $msg = $e->getMessage();
+        $db = (string) $c['database'];
+        $fix = '<p>Open <code>config/config.php</code> and check the <code>db</code> section.</p>';
+        if (str_contains($msg, '1049') || stripos($msg, 'Unknown database') !== false) {
+            $title = 'Database “' . $db . '” was not found';
+            $list = [];
+            try {
+                $tmp = new PDO(sprintf('mysql:host=%s;port=%d;charset=utf8mb4', $c['host'], (int) ($c['port'] ?? 3306)), $c['username'], $c['password']);
+                $list = array_values(array_diff($tmp->query('SHOW DATABASES')->fetchAll(PDO::FETCH_COLUMN), ['information_schema', 'mysql', 'performance_schema', 'sys', 'phpmyadmin', 'test']));
+            } catch (\Throwable) {
+            }
+            $fix = '<p>In <code>config/config.php</code>, set <code>\'database\' =&gt; \'…\'</code> to the exact name of the database you created in phpMyAdmin.</p>'
+                . ($list ? '<p>Databases found on this server: <strong>' . e(implode(', ', $list)) . '</strong></p>' : '<p>No databases were found — create one in phpMyAdmin and import <code>database/savie_amour_full.sql</code> into it.</p>');
+        } elseif (str_contains($msg, '1045') || stripos($msg, 'Access denied') !== false) {
+            $title = 'MySQL username or password is wrong';
+            $fix = '<p>In <code>config/config.php</code>, fix <code>\'username\'</code> and <code>\'password\'</code>. On XAMPP the defaults are <code>root</code> and an empty password <code>\'\'</code>.</p>';
+        } elseif (str_contains($msg, '2002') || stripos($msg, 'refused') !== false || stripos($msg, 'No such file') !== false) {
+            $title = 'MySQL is not running';
+            $fix = '<p>Start <strong>MySQL</strong> in the XAMPP Control Panel (or your hosting panel), then refresh this page. Also check <code>\'host\'</code> (<code>127.0.0.1</code> or <code>localhost</code>) and <code>\'port\'</code> (usually 3306) in <code>config/config.php</code>.</p>';
+        } else {
+            $title = 'Could not connect to the database';
+        }
+        setup_error_page($title, $fix . '<p style="color:#6c6260;font-size:13px;margin-bottom:0">Technical detail: ' . e($msg) . '</p>');
     }
 
     public static function setPdo(PDO $pdo): void

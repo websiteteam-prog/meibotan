@@ -22,12 +22,16 @@ php bin/install.php
 
 The installer asks for the site URL and database details, writes `config/config.php`, creates the tables, optionally loads the demo catalogue, and creates your super-admin account.
 
-### Option B — shared hosting / cPanel (no SSH)
+### Option B — XAMPP / shared hosting / cPanel (no SSH)
 
-1. Upload all files (to `public_html` or a subfolder).
-2. Create a MySQL database and import **`database/savie_amour_full.sql`** in phpMyAdmin (schema + demo content).
-3. Copy `config/config.sample.php` to `config/config.php` and fill in `app_url`, the database details and a long random `app_key`.
-4. Log in at `/admin` with **admin@savieamour.com / ChangeMe@2026** and **change the password immediately** (the dashboard warns until you do).
+1. Extract the zip into `htdocs` (XAMPP) or `public_html` — any folder name works, e.g. `htdocs/savie_amour_new`.
+2. In phpMyAdmin create a database (e.g. `savie_amour`, collation `utf8mb4_unicode_ci`), select it, and **Import** `database/savie_amour_full.sql`.
+3. Open `config/config.php` and check the `db` section: `database` must match the name from step 2. XAMPP defaults are `root` with an empty password. Leave `app_url` empty locally — the folder is detected automatically.
+4. Open `http://localhost/savie_amour_new` (your folder name). Admin: `/admin` with **admin@savieamour.com / ChangeMe@2026** — **change the password immediately** (the dashboard warns until you do).
+
+If something is wrong (database name, MySQL password, MySQL not running, tables not imported) the site shows a page explaining exactly what to fix.
+
+On the live server set `app_url` to your real domain (e.g. `https://www.savieamour.com`) and `app_env` to `production`.
 
 Make `public/uploads/` and `storage/` writable by the web server.
 
