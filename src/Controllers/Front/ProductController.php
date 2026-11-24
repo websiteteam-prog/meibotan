@@ -25,6 +25,7 @@ final class ProductController extends Controller
         ProductService::trackRecentlyViewed((int) $p['id']);
 
         $reviews = DB::all("SELECT * FROM reviews WHERE product_id = :id AND status = 'approved' ORDER BY created_at DESC LIMIT 50", ['id' => $p['id']]);
+        $reviews = self::withPhotos($reviews);
         $dist = array_fill(1, 5, 0);
         foreach ($reviews as $r) {
             $dist[(int) $r['rating']]++;
@@ -116,17 +117,53 @@ final class ProductController extends Controller
             flash('info', 'You have already reviewed this product — thank you!');
             redirect($back);
         }
+        // Up to 3 photos per review.
+        $files = array_slice(\App\Core\Uploader::files('photos'), 0, 3);
+        $photos = [];
+        try {
+            foreach ($files as $f) {
+                $photos[] = \App\Core\Uploader::store($f, 'reviews', 1400);
+            }
+        } catch (\RuntimeException $e) {
+            foreach ($photos as $ph) {
+                \App\Core\Uploader::delete($ph);
+            }
+            with_errors(['photos' => $e->getMessage()], $_POST);
+            flash('error', 'Photo upload failed: ' . $e->getMessage());
+            redirect($back);
+        }
         RateLimiter::hit('review|' . $customer['id']);
         $status = Settings::bool('review_auto_approve') ? 'approved' : 'pending';
-        DB::insert('reviews', [
+        $reviewId = DB::insert('reviews', [
             'product_id' => $p['id'], 'customer_id' => $customer['id'], 'name' => $customer['name'],
             'rating' => (int) input('rating'), 'title' => input('title') ?: null, 'comment' => (string) input('comment'),
             'is_verified' => self::hasPurchased((int) $customer['id'], (int) $p['id']) ? 1 : 0,
             'status' => $status, 'created_at' => now(),
         ]);
+        foreach ($photos as $i => $ph) {
+            DB::insert('review_images', ['review_id' => $reviewId, 'image' => $ph, 'sort_order' => $i, 'created_at' => now()]);
+        }
         self::refreshRating((int) $p['id']);
         flash('success', $status === 'approved' ? 'Thank you! Your review is now live.' : 'Thank you! Your review will appear once it has been approved.');
         redirect($back);
+    }
+
+    /** Attach photo paths to review rows (single query). */
+    public static function withPhotos(array $reviews): array
+    {
+        if (!$reviews) {
+            return [];
+        }
+        $params = [];
+        $in = DB::in(array_column($reviews, 'id'), $params, 'r');
+        $by = [];
+        foreach (DB::all("SELECT review_id, image FROM review_images WHERE review_id IN {$in} ORDER BY sort_order, id", $params) as $row) {
+            $by[(int) $row['review_id']][] = $row['image'];
+        }
+        foreach ($reviews as &$r) {
+            $r['photos'] = $by[(int) $r['id']] ?? [];
+        }
+        return $reviews;
     }
 
     public static function refreshRating(int $productId): void

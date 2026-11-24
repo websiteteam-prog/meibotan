@@ -10,20 +10,31 @@ foreach ($categories as $c) { $catOptions[$c['id']] = $c['name']; }
 $subOptions = [];
 foreach ($subcategories as $s) { $subOptions[$s['id']] = ['label' => $s['name'], 'attrs' => ['data-cat' => $s['category_id']]]; }
 $variantRow = static function ($key, array $row) {
-    $img = !empty($row['image']) ? '<img class="v-img" src="' . e(upload_url($row['image'], '300')) . '" alt="">' : '';
-    return '<div class="repeater-row variant-row" data-repeater-item>'
-        . '<input type="hidden" name="variants[' . $key . '][id]" value="' . (int) ($row['id'] ?? 0) . '">'
-        . '<div><label>Name</label><input class="form-control" name="variants[' . $key . '][name]" value="' . e($row['name'] ?? '') . '" placeholder="e.g. Cherry Amour" required></div>'
-        . '<div><label>Swatch <input type="checkbox" name="variants[' . $key . '][use_swatch]" value="1" ' . (!array_key_exists('swatch', $row) || !empty($row['swatch']) ? 'checked' : '') . ' title="Use colour swatch"></label><input type="color" name="variants[' . $key . '][swatch]" value="' . e($row['swatch'] ?? '#810100') . '"></div>'
-        . '<div><label>SKU</label><input class="form-control" name="variants[' . $key . '][sku]" value="' . e($row['sku'] ?? '') . '"></div>'
-        . '<div><label>Price (blank = product)</label><input class="form-control" type="number" step="0.01" min="0" name="variants[' . $key . '][price]" value="' . e($row['price'] ?? '') . '"></div>'
-        . '<div><label>Sale price</label><input class="form-control" type="number" step="0.01" min="0" name="variants[' . $key . '][sale_price]" value="' . e($row['sale_price'] ?? '') . '"></div>'
-        . '<div><label>Stock</label><input class="form-control" type="number" min="0" name="variants[' . $key . '][stock_qty]" value="' . e($row['stock_qty'] ?? 0) . '" required></div>'
-        . '<div><label>Image</label><div class="d-flex gap-1 align-items-center">' . $img . '<input class="form-control form-control-sm" type="file" name="variant_images[' . $key . ']" accept="image/*" style="max-width:100%"></div>'
-        . ($img ? '<label class="mt-1"><input type="checkbox" name="variants[' . $key . '][remove_image]" value="1"> remove</label>' : '') . '</div>'
-        . '<div class="d-flex flex-column gap-1 align-items-end"><label class="m-0"><input type="checkbox" name="variants[' . $key . '][is_active]" value="1" ' . (!isset($row['is_active']) || $row['is_active'] ? 'checked' : '') . '> Active</label>'
-        . '<input type="hidden" name="variants[' . $key . '][sort_order]" value="' . (int) ($row['sort_order'] ?? 0) . '">'
-        . '<button type="button" class="btn-a sm danger" data-repeater-remove title="Remove">' . icon('trash', 'ic-sm') . '</button></div>'
+    $n = 'variants[' . $key . ']';
+    $hasImg = !empty($row['image']);
+    $useSwatch = !array_key_exists('swatch', $row) || !empty($row['swatch']);
+    $cur = e(setting('currency_symbol', '₹'));
+    return '<div class="variant-card" data-repeater-item>'
+        . '<input type="hidden" name="' . $n . '[id]" value="' . (int) ($row['id'] ?? 0) . '">'
+        . '<input type="hidden" name="' . $n . '[sort_order]" value="' . (int) ($row['sort_order'] ?? 0) . '">'
+        . '<label class="vc-media" title="Click to choose an image for this variant">'
+        .   ($hasImg ? '<img src="' . e(upload_url($row['image'], '300')) . '" alt="">' : '<span class="vc-swatch" style="background:' . e($row['swatch'] ?? '#E5E0D2') . '"></span>')
+        .   '<span class="vc-change">' . icon('upload', 'ic-sm') . ' ' . ($hasImg ? 'Change' : 'Image') . '</span>'
+        .   '<input type="file" name="variant_images[' . $key . ']" accept="image/jpeg,image/png,image/webp" hidden>'
+        . '</label>'
+        . '<div class="vc-fields">'
+        .   '<div class="vc-name"><label>Variant name</label><input class="form-control" name="' . $n . '[name]" value="' . e($row['name'] ?? '') . '" placeholder="e.g. Cherry Amour" required></div>'
+        .   '<div class="vc-colour"><label><input type="checkbox" name="' . $n . '[use_swatch]" value="1"' . ($useSwatch ? ' checked' : '') . '> Colour swatch</label><input type="color" name="' . $n . '[swatch]" value="' . e($row['swatch'] ?? '#810100') . '" aria-label="Swatch colour"></div>'
+        .   '<div class="vc-sku"><label>SKU</label><input class="form-control" name="' . $n . '[sku]" value="' . e($row['sku'] ?? '') . '" placeholder="Optional"></div>'
+        .   '<div><label>Price</label><div class="input-group"><span class="input-group-text">' . $cur . '</span><input class="form-control" type="number" step="0.01" min="0" name="' . $n . '[price]" value="' . e($row['price'] ?? '') . '" placeholder="Same as product"></div></div>'
+        .   '<div><label>Sale price</label><div class="input-group"><span class="input-group-text">' . $cur . '</span><input class="form-control" type="number" step="0.01" min="0" name="' . $n . '[sale_price]" value="' . e($row['sale_price'] ?? '') . '" placeholder="Optional"></div></div>'
+        .   '<div><label>Stock</label><input class="form-control" type="number" min="0" name="' . $n . '[stock_qty]" value="' . e($row['stock_qty'] ?? 0) . '" required></div>'
+        . '</div>'
+        . '<div class="vc-side">'
+        .   '<div class="form-check form-switch m-0"><input class="form-check-input" type="checkbox" role="switch" name="' . $n . '[is_active]" value="1"' . (!isset($row['is_active']) || $row['is_active'] ? ' checked' : '') . ' id="va' . e($key) . '"><label class="form-check-label" for="va' . e($key) . '">Active</label></div>'
+        .   ($hasImg ? '<label class="vc-remove"><input type="checkbox" name="' . $n . '[remove_image]" value="1"> Remove image</label>' : '')
+        .   '<button type="button" class="btn-a sm danger" data-repeater-remove>' . icon('trash', 'ic-sm') . ' Remove</button>'
+        . '</div>'
         . '</div>';
 };
 $specRow = static fn($key, array $row) => '<div class="repeater-row spec-row" data-repeater-item>'
@@ -64,7 +75,7 @@ $specRow = static fn($key, array $row) => '<div class="repeater-row spec-row" da
       </div>
 
       <div class="card-a" data-repeater>
-        <h2>Variants <small>Shades, sizes or other options with their own price &amp; stock</small></h2>
+        <h2>Variants <small>Shades or sizes, each with its own price, stock and image. Leave price empty to use the product price.</small></h2>
         <?= adm_input('variant_label', 'Option name', $v('variant_label'), ['help' => 'Shown to customers, e.g. “Shade” or “Size”.', 'attrs' => ['maxlength' => 40, 'placeholder' => 'Shade']]) ?>
         <div data-repeater-list>
           <?php foreach ($variants as $i => $row): ?><?= $variantRow($i, $row) ?><?php endforeach; ?>

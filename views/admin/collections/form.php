@@ -32,7 +32,7 @@
       <div class="card-a">
         <h2>Publish</h2>
         <?= adm_switch('is_active', 'Active', (bool) ($c['is_active'] ?? 1)) ?>
-        <?= adm_switch('show_on_home', 'Feature on homepage', (bool) ($c['show_on_home'] ?? 0), 'Replaces the currently featured collection.') ?>
+        <?php if (App\Core\AdminAuth::can('design')): ?><?= adm_switch('show_on_home', 'Feature on homepage', (bool) ($c['show_on_home'] ?? 0), 'Replaces the currently featured collection.') ?><?php endif; ?>
         <?= adm_input('sort_order', 'Display order', $c['sort_order'] ?? 0, ['type' => 'number']) ?>
         <button class="btn-a w-100" type="submit">Save collection</button>
       </div>

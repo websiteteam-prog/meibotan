@@ -11,7 +11,8 @@
   <?php foreach ($reviews as $r): ?>
     <tr>
       <td style="width:220px"><div class="d-flex gap-2 align-items-center"><img class="thumb" src="<?= e(upload_url($r['image'], '300')) ?>" alt="" style="width:36px;height:44px"><a class="name" target="_blank" rel="noopener" href="<?= e(url('product/' . $r['slug'])) ?>"><?= e($r['product_name']) ?></a></div></td>
-      <td><span style="color:var(--cherry)"><?= str_repeat('★', (int) $r['rating']) ?><?= str_repeat('☆', 5 - (int) $r['rating']) ?></span><?php if ($r['title']): ?> <strong><?= e($r['title']) ?></strong><?php endif; ?><span class="sub" style="white-space:normal;max-width:520px"><?= e($r['comment']) ?></span></td>
+      <td><span style="color:var(--cherry)"><?= str_repeat('★', (int) $r['rating']) ?><?= str_repeat('☆', 5 - (int) $r['rating']) ?></span><?php if ($r['title']): ?> <strong><?= e($r['title']) ?></strong><?php endif; ?><span class="sub" style="white-space:normal;max-width:520px"><?= e($r['comment']) ?></span>
+        <?php if ($r['photos']): ?><span class="d-flex gap-2 mt-2"><?php foreach ($r['photos'] as $ph): ?><a href="<?= e(upload_url($ph)) ?>" target="_blank" rel="noopener"><img src="<?= e(upload_url($ph, '300')) ?>" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px"></a><?php endforeach; ?></span><?php endif; ?></td>
       <td><?= e($r['name']) ?><span class="sub"><?= format_date($r['created_at']) ?><?= $r['is_verified'] ? ' · Verified buyer' : '' ?></span></td>
       <td><?= adm_badge($r['status']) ?></td>
       <td class="actions">

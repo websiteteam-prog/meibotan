@@ -86,6 +86,7 @@ $addr = static fn(string $p) => e($o[$p . '_name']) . '<br>' . e($o[$p . '_addre
         <?= csrf_field() ?>
         <?= adm_input('courier_name', 'Courier', $o['courier_name'], ['attrs' => ['placeholder' => 'e.g. Delhivery, Blue Dart']]) ?>
         <?= adm_input('tracking_number', 'Tracking / AWB number', $o['tracking_number']) ?>
+        <?= adm_input('tracking_url', 'Tracking link', $o['tracking_url'] ?? '', ['optional' => true, 'help' => 'Paste the tracking page link from the courier or Shiprocket — customers get a “Track shipment” button.', 'attrs' => ['placeholder' => 'https://…']]) ?>
         <?= adm_textarea('admin_notes', 'Internal notes', $o['admin_notes'], ['rows' => 2, 'help' => 'Only visible to admins.']) ?>
         <?php if (in_array($o['status'], ['pending', 'processing', 'confirmed'], true)): ?><label class="form-check mb-3"><input class="form-check-input" type="checkbox" name="mark_shipped" value="1"> <span class="form-check-label">Mark as shipped &amp; notify customer</span></label><?php endif; ?>
         <button class="btn-a light w-100" type="submit">Save shipping details</button>

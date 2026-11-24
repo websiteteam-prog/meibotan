@@ -148,7 +148,16 @@ final class OrderController extends Controller
     public function shipping(string $id): void
     {
         $o = $this->order($id);
+        $trackUrl = trim((string) input('tracking_url', ''));
+        if ($trackUrl !== '' && !preg_match('~^https?://~i', $trackUrl)) {
+            $trackUrl = 'https://' . $trackUrl;
+        }
+        if ($trackUrl !== '' && !filter_var($trackUrl, FILTER_VALIDATE_URL)) {
+            flash('error', 'The tracking link is not a valid URL.');
+            redirect('/admin/orders/' . $o['id']);
+        }
         DB::update('orders', [
+            'tracking_url' => $trackUrl !== '' ? mb_substr($trackUrl, 0, 500) : null,
             'courier_name' => mb_substr(trim((string) input('courier_name', '')), 0, 100) ?: null,
             'tracking_number' => mb_substr(trim((string) input('tracking_number', '')), 0, 100) ?: null,
             'admin_notes' => mb_substr(trim((string) input('admin_notes', '')), 0, 2000) ?: null,

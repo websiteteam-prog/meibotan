@@ -41,7 +41,7 @@ $copyright = str_replace('{year}', date('Y'), (string) setting('copyright_text',
         <h5>Account</h5>
         <ul>
           <li><a href="<?= e(url('account')) ?>">My account</a></li>
-          <li><a href="<?= e(url('account/orders')) ?>">Track orders</a></li>
+          <li><a href="<?= e(url('track-order')) ?>">Track your order</a></li>
           <li><a href="<?= e(url('wishlist')) ?>">Wishlist</a></li>
           <li><a href="<?= e(url('cart')) ?>">Shopping bag</a></li>
         </ul>

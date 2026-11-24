@@ -52,6 +52,8 @@ $router->get('/account/orders/{number}', [Front\AccountController::class, 'order
 $router->post('/account/orders/{number}/cancel', [Front\AccountController::class, 'cancelOrder'], ['auth']);
 
 // Content pages
+$router->get('/track-order', [Front\TrackController::class, 'form']);
+$router->post('/track-order', [Front\TrackController::class, 'lookup']);
 $router->get('/about-us', [Front\PageController::class, 'about']);
 $router->get('/contact', [Front\PageController::class, 'contact']);
 $router->post('/contact', [Front\PageController::class, 'contactSubmit']);

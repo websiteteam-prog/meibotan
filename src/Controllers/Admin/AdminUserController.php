@@ -25,8 +25,13 @@ final class AdminUserController extends Controller
         $v = Validator::make($data, $rules);
         $errors = $v->errors();
         $me = AdminAuth::user();
-        if ($id === (int) $me['id'] && (($data['role'] ?? '') !== 'super_admin' || empty($data['is_active']))) {
-            $errors['role'] = 'You cannot demote or deactivate your own account.';
+        $isDev = AdminAuth::can('design');
+        $target = $id ? DB::one('SELECT * FROM admins WHERE id = :id', ['id' => $id]) : null;
+        if (!$isDev && (($data['role'] ?? '') === 'developer' || ($target && $target['role'] === 'developer'))) {
+            $errors['role'] = 'Developer accounts can only be managed by the website developer.';
+        }
+        if ($id === (int) $me['id'] && (($data['role'] ?? '') !== $me['role'] || empty($data['is_active']))) {
+            $errors['role'] = 'You cannot change the role of, or deactivate, your own account.';
         }
         if ($errors) {
             with_errors($errors, $_POST);
@@ -52,8 +57,13 @@ final class AdminUserController extends Controller
             flash('error', 'You cannot delete your own account.');
             redirect('/admin/admins');
         }
-        if ((int) DB::value("SELECT COUNT(*) FROM admins WHERE role = 'super_admin' AND is_active = 1 AND id <> :id", ['id' => (int) $id]) === 0) {
-            flash('error', 'At least one active super admin is required.');
+        $target = DB::one('SELECT * FROM admins WHERE id = :id', ['id' => (int) $id]);
+        if ($target && $target['role'] === 'developer' && !AdminAuth::can('design')) {
+            flash('error', 'Developer accounts can only be managed by the website developer.');
+            redirect('/admin/admins');
+        }
+        if ((int) DB::value("SELECT COUNT(*) FROM admins WHERE role IN ('developer','super_admin') AND is_active = 1 AND id <> :id", ['id' => (int) $id]) === 0) {
+            flash('error', 'At least one active owner or developer account is required.');
             redirect('/admin/admins');
         }
         DB::delete('admins', 'id = :id', ['id' => (int) $id]);

@@ -23,7 +23,7 @@ $featuredCollection = $featuredCollection ?? ($collections[0] ?? null);
       <?php endforeach; ?>
     </div>
     <div class="announce-right d-none d-lg-flex">
-      <a href="<?= e(url('account/orders')) ?>">Track order</a>
+      <a href="<?= e(url('track-order')) ?>">Track order</a>
       <?php if ($customer): ?>
         <a href="<?= e(url('account')) ?>"><?= icon('user') ?> Hi, <?= e(explode(' ', $customer['name'])[0]) ?></a>
       <?php else: ?>

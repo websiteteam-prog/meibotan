@@ -13,18 +13,7 @@ ob_start(); ?>
     <div><h2>Order #<?= e($order['order_number']) ?></h2><small class="text-muted-sa">Placed on <?= format_date($order['created_at'], 'd M Y, h:i A') ?></small></div>
     <span class="status-badge s-<?= e($order['status']) ?>"><?= e(status_label($order['status'])) ?></span>
   </div>
-  <?php if ($cancelled): ?>
-    <div class="flash flash-error mt-0 mb-3"><?= icon('alert') ?> This order was <?= e($order['status']) ?><?= $order['cancel_reason'] ? ': ' . e($order['cancel_reason']) : '' ?>.</div>
-  <?php else: ?>
-  <ol class="track-steps">
-    <?php $i = 0; foreach ($steps as $key => $label): ?>
-      <li class="<?= $i <= $current ? 'done' : '' ?><?= $i === $current ? ' current' : '' ?>"><span><?= icon($i <= $current ? 'check' : ['package', 'check-circle', 'truck', 'home'][$i]) ?></span><?= e($label) ?></li>
-    <?php $i++; endforeach; ?>
-  </ol>
-  <?php endif; ?>
-  <?php if ($order['tracking_number']): ?>
-    <div class="tracking-box"><?= icon('truck') ?> Shipped via <strong><?= e($order['courier_name'] ?: 'courier') ?></strong> · Tracking number <strong><?= e($order['tracking_number']) ?></strong></div>
-  <?php endif; ?>
+  <?= App\Core\View::partial('front/partials/track-status', ['order' => $order]) ?>
   <?php if ($unpaidOnline): ?>
     <div class="flash flash-info mb-3"><?= icon('alert') ?> Payment pending. <button type="button" class="btn-sa btn-sm ms-auto" data-retry-payment="<?= e($order['order_number']) ?>">Complete payment</button></div>
   <?php endif; ?>

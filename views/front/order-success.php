@@ -32,6 +32,12 @@ $cancelled = in_array($order['status'], ['cancelled', 'refunded'], true);
       </div>
     </div>
 
+    <?php if (!$cancelled && !$unpaidOnline): ?>
+    <div class="acc-card mb-4" style="max-width:860px;margin-left:auto;margin-right:auto">
+      <div class="acc-card-head"><h2>Order status</h2><span class="status-badge s-<?= e($order['status']) ?>"><?= e(status_label($order['status'])) ?></span></div>
+      <?= App\Core\View::partial('front/partials/track-status', ['order' => $order]) ?>
+    </div>
+    <?php endif; ?>
     <div class="order-detail-grid">
       <div class="summary-card">
         <h2 class="serif">Items</h2>

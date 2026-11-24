@@ -5,6 +5,21 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   // ---------------------------------------------------------------- image previews
+  // Variant image: preview inside the small card thumbnail.
+  document.addEventListener('change', function (e) {
+    var input = e.target;
+    if (!input.matches('.vc-media input[type=file]') || !input.files[0]) return;
+    var box = input.closest('.vc-media');
+    var reader = new FileReader();
+    reader.onload = function () {
+      var prev = box.querySelector('img, .vc-swatch');
+      if (prev) prev.parentNode.removeChild(prev);
+      var img = document.createElement('img'); img.src = reader.result; img.alt = '';
+      box.insertBefore(img, box.firstChild);
+    };
+    reader.readAsDataURL(input.files[0]);
+  });
+
   document.addEventListener('change', function (e) {
     var input = e.target;
     if (!input.matches('.img-drop input[type=file]')) return;

@@ -287,3 +287,40 @@ body.adm-auth { min-height: 100vh; display: flex; align-items: center; justify-c
   .invoice { padding: 22px; }
   .cat-subs { padding-left: 16px; }
 }
+
+/* Bootstrap makes .offcanvas-lg transparent on desktop — keep the dark sidebar */
+body.admin .adm-side { background-color: var(--noir) !important; color: rgba(237, 235, 221, .75); }
+body.admin .adm-side .adm-nav a { color: rgba(237, 235, 221, .82); }
+body.admin .adm-side .adm-nav a.active { color: #fff; }
+
+/* Variant cards (product form) */
+.variant-card { display: grid; grid-template-columns: 96px minmax(0, 1fr) 150px; gap: 18px; align-items: start; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fbfaf6; margin-bottom: 12px; }
+.variant-card label { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-bottom: 5px; display: block; }
+.vc-media { position: relative; display: block; width: 96px; height: 120px; border-radius: 12px; overflow: hidden; background: var(--cotton); border: 1px dashed #d8d2bf; cursor: pointer; margin: 0 !important; }
+.vc-media img, .vc-media .vc-swatch { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vc-media .vc-swatch { opacity: .85; }
+.vc-change { position: absolute; left: 6px; right: 6px; bottom: 6px; display: flex; gap: 4px; align-items: center; justify-content: center; padding: 4px; border-radius: 8px; background: rgba(255, 255, 255, .92); color: var(--ink) !important; font-size: 11px !important; margin: 0 !important; }
+.vc-media:hover { border-color: var(--cherry); }
+.vc-fields { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 14px; }
+.vc-fields > div { grid-column: span 2; min-width: 0; }
+.vc-fields .vc-name { grid-column: span 3; }
+.vc-fields .vc-colour { grid-column: span 1; }
+.vc-fields .vc-sku { grid-column: span 2; }
+.vc-colour label { display: flex !important; align-items: center; gap: 5px; white-space: nowrap; }
+.vc-colour input[type=color] { width: 100%; height: 40px; padding: 3px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.variant-card .form-control { padding: 8px 11px; font-size: 13.5px; }
+.variant-card .input-group-text { padding: 0 10px; }
+.vc-side { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding-top: 22px; }
+.vc-side .form-check-label { font-size: 13px; color: var(--ink); font-weight: 500; margin: 0; }
+.vc-remove { display: flex !important; gap: 6px; align-items: center; font-weight: 500 !important; margin: 0 !important; }
+@media (max-width: 1399.98px) {
+  .variant-card { grid-template-columns: 96px minmax(0, 1fr); }
+  .vc-side { grid-column: 2; flex-direction: row; align-items: center; flex-wrap: wrap; padding-top: 0; }
+}
+@media (max-width: 767.98px) {
+  .variant-card { grid-template-columns: 1fr; }
+  .vc-side { grid-column: 1; }
+  .vc-fields { grid-template-columns: 1fr 1fr; }
+  .vc-fields > div, .vc-fields .vc-name, .vc-fields .vc-colour, .vc-fields .vc-sku { grid-column: span 1; }
+  .vc-fields .vc-name { grid-column: span 2; }
+}

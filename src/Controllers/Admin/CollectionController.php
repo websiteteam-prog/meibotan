@@ -62,7 +62,9 @@ final class CollectionController extends Controller
         }
         $row = [
             'name' => trim((string) $data['name']), 'slug' => $data['slug'], 'eyebrow' => ($data['eyebrow'] ?? '') ?: null, 'tagline' => ($data['tagline'] ?? '') ?: null,
-            'description' => ($data['description'] ?? '') ?: null, 'show_on_home' => (int) !empty($data['show_on_home']), 'is_active' => (int) !empty($data['is_active']),
+            'description' => ($data['description'] ?? '') ?: null,
+            'show_on_home' => \App\Core\AdminAuth::can('design') ? (int) !empty($data['show_on_home']) : ($id ? (int) DB::value('SELECT show_on_home FROM collections WHERE id = :id', ['id' => $id]) : 0),
+            'is_active' => (int) !empty($data['is_active']),
             'sort_order' => (int) ($data['sort_order'] ?? 0),
         ];
         if ($image) {

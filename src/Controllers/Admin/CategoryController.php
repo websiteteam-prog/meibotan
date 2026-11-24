@@ -44,7 +44,8 @@ final class CategoryController extends Controller
         $row = [
             'name' => trim((string) $data['name']), 'slug' => $data['slug'], 'tagline' => trim((string) ($data['tagline'] ?? '')) ?: null,
             'description' => trim((string) ($data['description'] ?? '')) ?: null, 'sort_order' => (int) ($data['sort_order'] ?? 0),
-            'is_active' => (int) !empty($data['is_active']), 'is_featured' => (int) !empty($data['is_featured']),
+            'is_active' => (int) !empty($data['is_active']),
+            'is_featured' => \App\Core\AdminAuth::can('design') ? (int) !empty($data['is_featured']) : ($id ? (int) DB::value('SELECT is_featured FROM categories WHERE id = :id', ['id' => $id]) : 1),
             'meta_title' => trim((string) ($data['meta_title'] ?? '')) ?: null, 'meta_description' => trim((string) ($data['meta_description'] ?? '')) ?: null,
         ];
         if ($image) {

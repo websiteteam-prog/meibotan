@@ -733,6 +733,30 @@
     });
   });
 
+  // ------------------------------------------------------------ review photos
+  $$('[data-photo-drop] input[type=file]').forEach(function (input) {
+    input.addEventListener('change', function () {
+      var max = parseInt(input.getAttribute('data-max') || '3', 10);
+      var box = input.closest('[data-photo-drop]').querySelector('[data-photo-previews]');
+      box.innerHTML = '';
+      if (input.files.length > max) { toast('You can add up to ' + max + ' photos.', 'error'); input.value = ''; return; }
+      Array.prototype.forEach.call(input.files, function (f) {
+        if (f.size > 5 * 1024 * 1024) { toast(f.name + ' is larger than 5 MB.', 'error'); return; }
+        var reader = new FileReader();
+        reader.onload = function () { var i = document.createElement('img'); i.src = reader.result; i.alt = ''; box.appendChild(i); };
+        reader.readAsDataURL(f);
+      });
+    });
+  });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-review-photo]');
+    var modal = $('#photoModal');
+    if (!a || !modal || !window.bootstrap) return;
+    e.preventDefault();
+    $('[data-photo-full]', modal).src = a.getAttribute('href');
+    bootstrap.Modal.getOrCreateInstance(modal).show();
+  });
+
   // ------------------------------------------------------------ reveal on scroll
   var revealEls = $$('[data-reveal]');
   if ('IntersectionObserver' in window && !reduceMotion) {

@@ -20,7 +20,7 @@ final class ReviewController extends Controller
         $this->admin('reviews', [
             'title' => 'Reviews', 'active' => 'reviews', 'status' => $status, 'pager' => $pager,
             'counts' => array_column(DB::all('SELECT status, COUNT(*) c FROM reviews GROUP BY status'), 'c', 'status'),
-            'reviews' => DB::all("SELECT r.*, p.name AS product_name, p.slug, p.image FROM reviews r INNER JOIN products p ON p.id = r.product_id WHERE {$where} ORDER BY r.created_at DESC LIMIT :l OFFSET :o", $params + ['l' => $pager->perPage, 'o' => $pager->offset]),
+            'reviews' => FrontProduct::withPhotos(DB::all("SELECT r.*, p.name AS product_name, p.slug, p.image FROM reviews r INNER JOIN products p ON p.id = r.product_id WHERE {$where} ORDER BY r.created_at DESC LIMIT :l OFFSET :o", $params + ['l' => $pager->perPage, 'o' => $pager->offset])),
         ]);
     }
 
@@ -40,6 +40,9 @@ final class ReviewController extends Controller
     {
         $r = DB::one('SELECT * FROM reviews WHERE id = :id', ['id' => (int) $id]);
         if ($r) {
+            foreach (DB::column('SELECT image FROM review_images WHERE review_id = :id', ['id' => $r['id']]) as $img) {
+                \App\Core\Uploader::delete($img);
+            }
             DB::delete('reviews', 'id = :id', ['id' => $r['id']]);
             FrontProduct::refreshRating((int) $r['product_id']);
             flash('success', 'Review deleted.');

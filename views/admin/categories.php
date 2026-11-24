@@ -63,7 +63,7 @@
         <div class="col-md-5">
           <?= adm_image('image', 'Category image', null, ['preview_key' => 'image', 'help' => 'Portrait 4:5 works best.']) ?>
           <?= adm_switch('is_active', 'Active', true) ?>
-          <?= adm_switch('is_featured', 'Show on homepage', true) ?>
+          <?php if (App\Core\AdminAuth::can('design')): ?><?= adm_switch('is_featured', 'Show on homepage', true) ?><?php endif; ?>
         </div>
       </div>
     </div>

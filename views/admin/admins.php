@@ -1,4 +1,5 @@
-<?php /** @var array $admins */ use App\Core\AdminAuth; ?>
+<?php /** @var array $admins */ use App\Core\AdminAuth;
+$roleOptions = AdminAuth::can('design') ? AdminAuth::ROLE_LABELS : array_diff_key(AdminAuth::ROLE_LABELS, ['developer' => 1]); ?>
 <?= adm_head('Admin users', 'Give your team access with the right role.', '<button class="btn-a" type="button" data-bs-toggle="modal" data-bs-target="#aModal" data-fill-form="#aForm" data-title="New admin user" data-values=\'{"id":"0","role":"manager","is_active":"1"}\'>' . icon('plus', 'ic-sm') . ' Add user</button>') ?>
 <div class="grid-2">
   <div class="card-a flush"><div class="table-wrap"><table class="table-a">
@@ -7,18 +8,19 @@
     <?php foreach ($admins as $a): ?>
       <tr>
         <td><strong><?= e($a['name']) ?></strong><span class="sub"><?= e($a['email']) ?></span></td>
-        <td><span class="badge-a <?= $a['role'] === 'super_admin' ? 'purple' : ($a['role'] === 'manager' ? 'blue' : '') ?>"><?= e(AdminAuth::ROLE_LABELS[$a['role']] ?? $a['role']) ?></span></td>
+        <td><span class="badge-a <?= $a['role'] === 'developer' ? 'red' : ($a['role'] === 'super_admin' ? 'purple' : ($a['role'] === 'manager' ? 'blue' : '')) ?>"><?= e(AdminAuth::ROLE_LABELS[$a['role']] ?? $a['role']) ?></span></td>
         <td><?= $a['last_login_at'] ? format_date($a['last_login_at'], 'd M Y, h:i A') : 'Never' ?></td>
         <td><?= $a['is_active'] ? '<span class="badge-a green">Active</span>' : '<span class="badge-a grey">Disabled</span>' ?></td>
-        <td class="actions"><button type="button" class="btn-a sm light" data-bs-toggle="modal" data-bs-target="#aModal" data-fill-form="#aForm" data-title="Edit admin user" data-values='<?= e(json_encode(['id' => $a['id'], 'name' => $a['name'], 'email' => $a['email'], 'phone' => $a['phone'], 'role' => $a['role'], 'is_active' => $a['is_active']])) ?>'><?= icon('edit', 'ic-sm') ?></button>
-          <?php if ((int) $a['id'] !== (int) admin_user()['id']): ?><?= adm_post_button('admin/admins/' . $a['id'] . '/delete', icon('trash', 'ic-sm'), 'btn-a sm danger', 'Delete this admin user?', 'Delete') ?><?php endif; ?></td>
+        <td class="actions"><?php if ($a['role'] === 'developer' && !AdminAuth::can('design')): ?><span class="form-text">Managed by developer</span><?php else: ?><button type="button" class="btn-a sm light" data-bs-toggle="modal" data-bs-target="#aModal" data-fill-form="#aForm" data-title="Edit admin user" data-values='<?= e(json_encode(['id' => $a['id'], 'name' => $a['name'], 'email' => $a['email'], 'phone' => $a['phone'], 'role' => $a['role'], 'is_active' => $a['is_active']])) ?>'><?= icon('edit', 'ic-sm') ?></button>
+          <?php if ((int) $a['id'] !== (int) admin_user()['id']): ?><?= adm_post_button('admin/admins/' . $a['id'] . '/delete', icon('trash', 'ic-sm'), 'btn-a sm danger', 'Delete this admin user?', 'Delete') ?><?php endif; ?><?php endif; ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
   </table></div></div>
   <div class="card-a">
     <h2>Roles &amp; permissions</h2>
-    <p class="mb-2"><strong>Super Admin</strong> — full access, including settings and admin users.</p>
+    <p class="mb-2"><strong>Website Developer</strong> — everything, including the homepage, banners, pages, logo and SEO.</p>
+    <p class="mb-2"><strong>Store Owner</strong> — products, orders, customers, coupons, reviews, messages, business settings and team accounts.</p>
     <p class="mb-2"><strong>Store Manager</strong> — products, categories, orders, customers, coupons, content, reviews and messages.</p>
     <p class="mb-0"><strong>Customer Support</strong> — orders, customers, reviews and messages.</p>
   </div>
@@ -30,7 +32,7 @@
       <?= adm_input('name', 'Name', '', ['attrs' => ['required' => true]]) ?>
       <?= adm_input('email', 'Email', '', ['type' => 'email', 'attrs' => ['required' => true]]) ?>
       <?= adm_input('phone', 'Phone', '', ['optional' => true]) ?>
-      <?= adm_select('role', 'Role', AdminAuth::ROLE_LABELS, 'manager') ?>
+      <?= adm_select('role', 'Role', $roleOptions, 'manager') ?>
       <?= adm_input('password', 'Password', '', ['type' => 'password', 'help' => 'Required for new users. Leave blank to keep the current password.', 'attrs' => ['autocomplete' => 'new-password']]) ?>
       <?= adm_switch('is_active', 'Active', true) ?>
     </div>

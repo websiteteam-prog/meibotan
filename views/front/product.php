@@ -99,6 +99,13 @@ $gallery = $p['gallery'];
                 <div class="d-flex justify-content-between flex-wrap gap-2"><?= stars((float) $r['rating']) ?><time class="text-muted-sa small" datetime="<?= e($r['created_at']) ?>"><?= format_date($r['created_at']) ?></time></div>
                 <?php if ($r['title']): ?><h4><?= e($r['title']) ?></h4><?php endif; ?>
                 <p><?= nl2br(e($r['comment'])) ?></p>
+                <?php if ($r['photos']): ?>
+                  <div class="review-photos">
+                    <?php foreach ($r['photos'] as $ph): ?>
+                      <a href="<?= e(upload_url($ph)) ?>" data-review-photo aria-label="View photo"><img src="<?= e(upload_url($ph, '300')) ?>" alt="Photo from <?= e($r['name']) ?>" loading="lazy" width="88" height="88"></a>
+                    <?php endforeach; ?>
+                  </div>
+                <?php endif; ?>
                 <span class="review-by"><?= e($r['name']) ?><?php if ($r['is_verified']): ?> · <span class="verified"><?= icon('check-circle', 'ic-sm') ?> Verified buyer</span><?php endif; ?></span>
               </article>
             <?php endforeach; ?>
@@ -110,7 +117,7 @@ $gallery = $p['gallery'];
                 <p class="text-muted-sa">Thank you for reviewing this product<?= $myReview['status'] === 'pending' ? ' — your review is awaiting approval' : '' ?>.</p>
               <?php else: ?>
                 <h3 class="serif">Write a review</h3>
-                <form method="post" action="<?= e(url('product/' . $p['slug'] . '/review')) ?>" class="form-sa">
+                <form method="post" action="<?= e(url('product/' . $p['slug'] . '/review')) ?>" class="form-sa" enctype="multipart/form-data">
                   <?= csrf_field() ?>
                   <div class="star-input" role="radiogroup" aria-label="Rating">
                     <?php for ($i = 5; $i >= 1; $i--): ?>
@@ -120,6 +127,15 @@ $gallery = $p['gallery'];
                   <?= error_for('rating') ?>
                   <div class="mb-3"><label class="form-label" for="rv-title">Title (optional)</label><input class="form-control<?= invalid('title') ?>" id="rv-title" name="title" maxlength="120" value="<?= e(old('title')) ?>"><?= error_for('title') ?></div>
                   <div class="mb-3"><label class="form-label" for="rv-comment">Your review</label><textarea class="form-control<?= invalid('comment') ?>" id="rv-comment" name="comment" rows="4" required minlength="10" maxlength="2000"><?= e(old('comment')) ?></textarea><?= error_for('comment') ?></div>
+                  <div class="mb-4">
+                    <label class="form-label">Add photos <span class="text-muted-sa text-lowercase">(optional, up to 3)</span></label>
+                    <label class="photo-drop" data-photo-drop>
+                      <input type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple data-max="3">
+                      <span class="photo-drop-cta"><?= icon('image') ?> <span>Upload photos of the product</span><small>JPG, PNG or WebP · max 5 MB each</small></span>
+                      <span class="photo-previews" data-photo-previews></span>
+                    </label>
+                    <?= error_for('photos') ?>
+                  </div>
                   <button class="btn-sa" type="submit">Submit review</button>
                   <?php if (!$hasPurchased): ?><small class="d-block mt-2 text-muted-sa">Reviews from verified buyers are marked with a badge.</small><?php endif; ?>
                 </form>
@@ -149,6 +165,13 @@ $gallery = $p['gallery'];
   </div>
 </section>
 <?php endif; ?>
+
+<div class="modal fade" id="photoModal" tabindex="-1" aria-label="Review photo" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content bg-transparent">
+    <button type="button" class="btn-icon modal-close" data-bs-dismiss="modal" aria-label="Close" style="background:var(--cotton)"><?= icon('close') ?></button>
+    <img src="" alt="Review photo" data-photo-full style="width:100%;border-radius:18px">
+  </div></div>
+</div>
 
 <div class="mobile-buybar d-lg-none">
   <div><span class="mb-name"><?= e($p['name']) ?></span><span class="mb-price"><?= money($p['from_price'] ?? $p['final_price']) ?></span></div>
