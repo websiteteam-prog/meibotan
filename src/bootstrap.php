@@ -25,6 +25,7 @@ spl_autoload_register(static function (string $class): void {
 });
 
 require SRC_PATH . '/helpers.php';
+require SRC_PATH . '/admin_helpers.php';
 
 // ---------------------------------------------------------------------------
 // Configuration
