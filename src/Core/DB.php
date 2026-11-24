@@ -62,6 +62,9 @@ final class DB
             }
             $fix = '<p>In <code>config/config.php</code>, set <code>\'database\' =&gt; \'…\'</code> to the exact name of the database you created in phpMyAdmin.</p>'
                 . ($list ? '<p>Databases found on this server: <strong>' . e(implode(', ', $list)) . '</strong></p>' : '<p>No databases were found — create one in phpMyAdmin and import <code>database/savie_amour_full.sql</code> into it.</p>');
+        } elseif (str_contains($msg, '1044')) {
+            $title = 'Database “' . $db . '” not found or not allowed';
+            $fix = '<p>Either no database called <strong>' . e($db) . '</strong> exists, or this MySQL user has no access to it. In <code>config/config.php</code>, set <code>\'database\'</code> to the exact name you created in phpMyAdmin (and check <code>\'username\'</code>).</p>';
         } elseif (str_contains($msg, '1045') || stripos($msg, 'Access denied') !== false) {
             $title = 'MySQL username or password is wrong';
             $fix = '<p>In <code>config/config.php</code>, fix <code>\'username\'</code> and <code>\'password\'</code>. On XAMPP the defaults are <code>root</code> and an empty password <code>\'\'</code>.</p>';
