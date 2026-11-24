@@ -37,6 +37,7 @@ final class ContentController extends Controller
         }
         try {
             $image = Uploader::image('image', 'banners', 1600);
+            $image2 = Uploader::image('image2', 'banners', 1600);
         } catch (RuntimeException $e) {
             with_errors(['image' => $e->getMessage()], $_POST);
             redirect('/admin/banners');
@@ -51,6 +52,9 @@ final class ContentController extends Controller
         ];
         if ($image) {
             $row['image'] = $image;
+        }
+        if ($image2) {
+            $row['image2'] = $image2;
         }
         if ($id) {
             DB::update('banners', $row, 'id = :id', ['id' => $id]);

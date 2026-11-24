@@ -66,14 +66,41 @@ This cancels online orders left unpaid for 2+ hours (returning their stock) and 
 
 ---
 
+## Admin roles
+
+| Role | Access |
+|---|---|
+| **Website Developer** | Everything, including the homepage sections, hero banners, testimonials, Instagram gallery, CMS pages, logo/website texts and SEO. |
+| **Store Owner** | Products, categories, collections, orders, customers, coupons, reviews, messages, newsletter, business settings (contact details, shipping, GST, payments, e-mail) and team accounts. Cannot change the website design/content or developer accounts. |
+| **Store Manager** | Catalogue, orders, customers, coupons, reviews, messages. |
+| **Customer Support** | Orders, customers, reviews, messages. |
+
+The first account (created by the installer or the SQL import) is the developer account. Create the client's login from **Admin → Admin users** with the role *Store Owner*.
+
+## Shipping & order tracking
+
+1. A new order arrives (e-mail alert + **Orders** badge) with status *Pending*.
+2. Confirm it (status *Confirmed* — the customer is e-mailed), pack it and book the shipment with your courier or a shipping aggregator (Shiprocket, Delhivery, etc.).
+3. On the order page, fill **Courier**, **Tracking/AWB number** and the **Tracking link**, tick *Mark as shipped & notify customer* and save.
+4. The customer receives a shipping e-mail with a **Track shipment** button, and sees the courier details under *My account → Orders* and on the public **Track order** page (`/track-order`, order number + e-mail or phone — works for guest orders too).
+5. When the courier delivers, set the status to *Delivered* (COD orders are marked paid automatically). Cancelling or refunding returns stock.
+
+Automatic status updates from a courier API (e.g. Shiprocket webhooks) can be added later; the current flow is manual and works with any courier.
+
+## Database updates
+
+New features that need database changes upgrade an existing database automatically on the next page load (tracked by the `schema_version` setting) — no re-import needed.
+
+---
+
 ## Features
 
 **Storefront**
-- Homepage with 13 sections, all manageable from the admin: rotating announcement bar, hero slider, scrolling ticker, featured categories, best sellers with AJAX category tabs, brand quote, new-arrivals carousel, promotional banners, special collection, trending products, brand benefits, testimonials, Instagram gallery, newsletter.
+- Homepage with 13 sections, all manageable from the admin: rotating announcement bar, 3-panel hero slider (image · text · image) with a logo preloader, scrolling ticker, featured categories, best sellers with AJAX category tabs, brand quote, new-arrivals carousel, promotional banners, special collection, trending products, brand benefits, testimonials, Instagram gallery, newsletter.
 - Mega menu, mobile off-canvas navigation, live AJAX search suggestions.
 - Shop, category, subcategory, collection and search pages with AJAX filters (category, type, price range, stock, sale, new, best seller, featured), sorting, pagination and *Load more*.
 - Product cards with hover image, badges, discount %, shade swatches, wishlist, add to bag and quick view.
-- Product page: gallery with hover zoom, shade/size variants with their own price, stock and image, quantity, Add to bag, Buy now, specifications, additional info, reviews and ratings, related and recently viewed products, Product/Breadcrumb JSON-LD.
+- Product page: gallery with hover zoom, shade/size variants with their own price, stock and image, quantity, Add to bag, Buy now, specifications, additional info, reviews and ratings, customer reviews with up to 3 photos, related and recently viewed products, Product/Breadcrumb JSON-LD.
 - Slide-in cart drawer (no page reload), cart page with quantity updates, coupons, free-shipping progress, stock validation.
 - Checkout: contact, shipping and billing addresses (saved addresses for members), order notes, coupons, GST, shipping and COD fee, **Cash on Delivery** and **Razorpay**. Stock is locked and decremented in a transaction, so the last unit can't be sold twice.
 - Order confirmation page and e-mails.

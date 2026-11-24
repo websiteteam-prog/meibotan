@@ -12,7 +12,7 @@ namespace App\Core;
  */
 final class Schema
 {
-    public const VERSION = 2;
+    public const VERSION = 3;
 
     public static function upgrade(): void
     {
@@ -23,6 +23,9 @@ final class Schema
         try {
             if ($current < 2) {
                 self::v2();
+            }
+            if ($current < 3) {
+                self::v3();
             }
             Settings::set('schema_version', (string) self::VERSION, 'system');
         } catch (\Throwable $e) {
@@ -36,6 +39,26 @@ final class Schema
             'SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :t AND COLUMN_NAME = :c',
             ['t' => $table, 'c' => $column]
         );
+    }
+
+    /** v3: second (right-hand) image for the 3-panel hero slider; demo slides switch to the new layout. */
+    private static function v3(): void
+    {
+        if (!self::hasColumn('banners', 'image2')) {
+            DB::pdo()->exec('ALTER TABLE banners ADD COLUMN image2 VARCHAR(255) NULL AFTER image');
+        }
+        // Only touch the untouched demo slides — never content the developer has edited.
+        DB::exec("UPDATE banners SET image = 'banners/demo-hero-l1.webp', image2 = 'banners/demo-hero-r1.webp', theme = 'cotton',
+                    eyebrow = 'The art of beauty', title = 'Sacred vermilion,', title_italic = 'velvety noir',
+                    subtitle = 'Ritual-inspired sindoor, tints and kohl — crafted for rituals that linger.',
+                    button_text = 'Explore the collection', button_link = '/shop', button2_text = NULL, button2_link = NULL
+                  WHERE type = 'hero' AND image = 'banners/demo-hero-ritual.webp'");
+        DB::exec("UPDATE banners SET image = 'banners/demo-hero-l2.webp', image2 = 'banners/demo-hero-r2.webp', theme = 'cotton',
+                    eyebrow = 'New · Velvet tints', title = 'Four shades of', title_italic = 'amour',
+                    subtitle = 'A weightless lip & cheek tint that melts in for a velvet flush that lasts all day.',
+                    button_text = 'Shop tints', button_link = '/category/tints', button2_text = NULL, button2_link = NULL
+                  WHERE type = 'hero' AND image = 'banners/demo-hero-tints.webp'");
+        DB::exec("UPDATE banners SET is_active = 0 WHERE type = 'hero' AND image = 'banners/demo-hero-noir.webp'");
     }
 
     /** v2: review photos, developer role, courier tracking link. */

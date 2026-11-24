@@ -291,9 +291,8 @@ return static function (): void {
 
     // ------------------------------------------------------------ banners
     $banners = [
-        ['hero', 'the art of beauty', 'Where sacred vermilion meets', 'velvety noir', 'Ritual-inspired sindoor, tints and kohl — crafted for rituals that linger.', 'Shop the collection', '/shop', 'Discover sindoor', '/category/sindoor', 'banners/demo-hero-ritual.webp', 'noir'],
-        ['hero', 'New · Velvet Lip & Cheek Tint', 'Four shades of', 'amour', 'A weightless tint that melts into lips and cheeks for a velvet flush that lasts all day.', 'Shop tints', '/category/tints', 'View shades', '/product/velvet-lip-cheek-tint', 'banners/demo-hero-tints.webp', 'cotton'],
-        ['hero', 'Kohl & Eyeliner', 'Lines as deep as', 'noir', 'Smudge-proof kohl and precision liners with up to 24-hour staying power.', 'Shop kohl', '/category/kohl-pencils', 'Shop eyeliner', '/category/eyeliner', 'banners/demo-hero-noir.webp', 'cherry'],
+        ['hero', 'The art of beauty', 'Sacred vermilion,', 'velvety noir', 'Ritual-inspired sindoor, tints and kohl — crafted for rituals that linger.', 'Explore the collection', '/shop', null, null, 'banners/demo-hero-l1.webp', 'cotton', 'banners/demo-hero-r1.webp'],
+        ['hero', 'New · Velvet tints', 'Four shades of', 'amour', 'A weightless lip & cheek tint that melts in for a velvet flush that lasts all day.', 'Shop tints', '/category/tints', null, null, 'banners/demo-hero-l2.webp', 'cotton', 'banners/demo-hero-r2.webp'],
         ['promo', 'Limited edition', 'The Bridal', 'Edit', 'Use code AMOUR15 for 15% off sindoor, tints and kohl for the big day.', 'Shop the edit', '/collection/the-bridal-edit', null, null, 'banners/demo-promo-bridal.webp', 'cotton'],
         ['promo', 'Smudge-proof for 24 hours', 'Kohl in', 'three moods', 'Noir, emerald and plum — find the kohl that matches your mood.', 'Shop kohl', '/category/kohl-pencils', null, null, 'banners/demo-promo-kohl.webp', 'noir'],
     ];
@@ -301,7 +300,7 @@ return static function (): void {
         DB::insert('banners', [
             'type' => $b[0], 'eyebrow' => $b[1], 'title' => $b[2], 'title_italic' => $b[3], 'subtitle' => $b[4],
             'button_text' => $b[5], 'button_link' => $b[6], 'button2_text' => $b[7], 'button2_link' => $b[8],
-            'image' => $b[9], 'theme' => $b[10], 'sort_order' => $i + 1, 'is_active' => 1, 'created_at' => $now,
+            'image' => $b[9], 'image2' => $b[11] ?? null, 'theme' => $b[10], 'sort_order' => $i + 1, 'is_active' => 1, 'created_at' => $now,
         ]);
     }
 

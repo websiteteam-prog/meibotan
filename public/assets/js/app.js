@@ -458,6 +458,7 @@
       slides[i].classList.add('is-active');
       if (dots[i]) { dots[i].classList.remove('is-active'); void dots[i].offsetWidth; dots[i].classList.add('is-active'); }
       hero.classList.toggle('on-cotton', slides[i].getAttribute('data-theme') === 'cotton');
+      hero.classList.toggle('dots-light', slides[i].getAttribute('data-theme') !== 'cotton' && hero.classList.contains('hero3'));
       if (count) count.textContent = ('0' + (i + 1)).slice(-2) + ' / ' + ('0' + slides.length).slice(-2);
       restart();
     }

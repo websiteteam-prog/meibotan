@@ -306,7 +306,7 @@ body.admin .adm-side .adm-nav a.active { color: #fff; }
 .vc-fields .vc-name { grid-column: span 3; }
 .vc-fields .vc-colour { grid-column: span 1; }
 .vc-fields .vc-sku { grid-column: span 2; }
-.vc-colour label { display: flex !important; align-items: center; gap: 5px; white-space: nowrap; }
+.vc-colour label { display: flex !important; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; }
 .vc-colour input[type=color] { width: 100%; height: 40px; padding: 3px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
 .variant-card .form-control { padding: 8px 11px; font-size: 13.5px; }
 .variant-card .input-group-text { padding: 0 10px; }

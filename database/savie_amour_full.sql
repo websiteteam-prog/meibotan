@@ -1,5 +1,5 @@
 -- Savié Amour — complete database (schema + demo content) for phpMyAdmin / hosting import.
--- Default admin: admin@savieamour.com / ChangeMe@2026  (CHANGE IT right after first login).
+-- Default login (Website Developer): admin@savieamour.com / ChangeMe@2026 — CHANGE IT after first login.
 -- Generated 2026-11-24
 
 
@@ -21,7 +21,7 @@ CREATE TABLE `admins` (
   `name` varchar(120) NOT NULL,
   `email` varchar(190) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `role` enum('super_admin','manager','support') NOT NULL DEFAULT 'manager',
+  `role` enum('developer','super_admin','manager','support') NOT NULL DEFAULT 'manager',
   `phone` varchar(20) DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `last_login_at` datetime DEFAULT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `admins` (
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
 INSERT INTO `admins` VALUES
-(1,'Store Owner','admin@savieamour.com','$2y$10$D2cCGpCzvgCKdOdGv0hateKPO5LLMm9eKJumcHZOpOcrE5Ooly0yW','super_admin',NULL,1,NULL,'2026-11-24 13:01:27',NULL);
+(1,'Website Developer','admin@savieamour.com','$2y$10$3KZECaOX1rMgJ5he.mnz3e2AfmzTfJtXMlPOuPBGmBbUFcWfFEs5q','developer',NULL,1,NULL,'2026-11-24 14:28:14',NULL);
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `banners`;
@@ -52,7 +52,8 @@ CREATE TABLE `banners` (
   `button_link` varchar(255) DEFAULT NULL,
   `button2_text` varchar(60) DEFAULT NULL,
   `button2_link` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL COMMENT 'Hero: left image / promo: background',
+  `image2` varchar(255) DEFAULT NULL COMMENT 'Hero: right image',
   `theme` enum('noir','cotton','cherry') NOT NULL DEFAULT 'noir',
   `sort_order` int(11) NOT NULL DEFAULT 0,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
@@ -62,17 +63,16 @@ CREATE TABLE `banners` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_banners` (`type`,`is_active`,`sort_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `banners` WRITE;
 /*!40000 ALTER TABLE `banners` DISABLE KEYS */;
 INSERT INTO `banners` VALUES
-(1,'hero','the art of beauty','Where sacred vermilion meets','velvety noir','Ritual-inspired sindoor, tints and kohl — crafted for rituals that linger.','Shop the collection','/shop','Discover sindoor','/category/sindoor','banners/demo-hero-ritual.webp','noir',1,1,NULL,NULL,'2026-11-24 13:01:27',NULL),
-(2,'hero','New · Velvet Lip & Cheek Tint','Four shades of','amour','A weightless tint that melts into lips and cheeks for a velvet flush that lasts all day.','Shop tints','/category/tints','View shades','/product/velvet-lip-cheek-tint','banners/demo-hero-tints.webp','cotton',2,1,NULL,NULL,'2026-11-24 13:01:27',NULL),
-(3,'hero','Kohl & Eyeliner','Lines as deep as','noir','Smudge-proof kohl and precision liners with up to 24-hour staying power.','Shop kohl','/category/kohl-pencils','Shop eyeliner','/category/eyeliner','banners/demo-hero-noir.webp','cherry',3,1,NULL,NULL,'2026-11-24 13:01:27',NULL),
-(4,'promo','Limited edition','The Bridal','Edit','Use code AMOUR15 for 15% off sindoor, tints and kohl for the big day.','Shop the edit','/collection/the-bridal-edit',NULL,NULL,'banners/demo-promo-bridal.webp','cotton',4,1,NULL,NULL,'2026-11-24 13:01:27',NULL),
-(5,'promo','Smudge-proof for 24 hours','Kohl in','three moods','Noir, emerald and plum — find the kohl that matches your mood.','Shop kohl','/category/kohl-pencils',NULL,NULL,'banners/demo-promo-kohl.webp','noir',5,1,NULL,NULL,'2026-11-24 13:01:27',NULL);
+(1,'hero','The art of beauty','Sacred vermilion,','velvety noir','Ritual-inspired sindoor, tints and kohl — crafted for rituals that linger.','Explore the collection','/shop',NULL,NULL,'banners/demo-hero-l1.webp','banners/demo-hero-r1.webp','cotton',1,1,NULL,NULL,'2026-11-24 14:28:13',NULL),
+(2,'hero','New · Velvet tints','Four shades of','amour','A weightless lip & cheek tint that melts in for a velvet flush that lasts all day.','Shop tints','/category/tints',NULL,NULL,'banners/demo-hero-l2.webp','banners/demo-hero-r2.webp','cotton',2,1,NULL,NULL,'2026-11-24 14:28:13',NULL),
+(3,'promo','Limited edition','The Bridal','Edit','Use code AMOUR15 for 15% off sindoor, tints and kohl for the big day.','Shop the edit','/collection/the-bridal-edit',NULL,NULL,'banners/demo-promo-bridal.webp',NULL,'cotton',3,1,NULL,NULL,'2026-11-24 14:28:13',NULL),
+(4,'promo','Smudge-proof for 24 hours','Kohl in','three moods','Noir, emerald and plum — find the kohl that matches your mood.','Shop kohl','/category/kohl-pencils',NULL,NULL,'banners/demo-promo-kohl.webp',NULL,'noir',4,1,NULL,NULL,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `banners` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `cart_items`;
@@ -147,10 +147,10 @@ CREATE TABLE `categories` (
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES
-(1,'Sindoor','sindoor','Sacred vermilion for every ritual','Liquid and powder sindoor in rich, long-lasting vermilion — crafted for daily wear and once-in-a-lifetime moments.','categories/demo-sindoor.webp',1,1,1,'Sindoor | Savié Amour','Liquid and powder sindoor in rich, long-lasting vermilion — crafted for daily wear and once-in-a-lifetime moments.','2026-11-24 13:01:27',NULL),
-(2,'Tints','tints','Lip & cheek colour that melts in','Weightless lip and cheek tints that build from a sheer flush to velvet-rich colour.','categories/demo-tints.webp',2,1,1,'Tints | Savié Amour','Weightless lip and cheek tints that build from a sheer flush to velvet-rich colour.','2026-11-24 13:01:27',NULL),
-(3,'Kohl Pencils','kohl-pencils','Smudge-proof depth, from noir to emerald','Creamy, highly pigmented kohl that glides on and stays put — in classic noir and jewel tones.','categories/demo-kohl.webp',3,1,1,'Kohl Pencils | Savié Amour','Creamy, highly pigmented kohl that glides on and stays put — in classic noir and jewel tones.','2026-11-24 13:01:27',NULL),
-(4,'Eyeliner','eyeliner','Precision lines, velvet finish','Liquid and felt-tip liners for the finest flick to the boldest wing.','categories/demo-eyeliner.webp',4,1,1,'Eyeliner | Savié Amour','Liquid and felt-tip liners for the finest flick to the boldest wing.','2026-11-24 13:01:27',NULL);
+(1,'Sindoor','sindoor','Sacred vermilion for every ritual','Liquid and powder sindoor in rich, long-lasting vermilion — crafted for daily wear and once-in-a-lifetime moments.','categories/demo-sindoor.webp',1,1,1,'Sindoor | Savié Amour','Liquid and powder sindoor in rich, long-lasting vermilion — crafted for daily wear and once-in-a-lifetime moments.','2026-11-24 14:28:13',NULL),
+(2,'Tints','tints','Lip & cheek colour that melts in','Weightless lip and cheek tints that build from a sheer flush to velvet-rich colour.','categories/demo-tints.webp',2,1,1,'Tints | Savié Amour','Weightless lip and cheek tints that build from a sheer flush to velvet-rich colour.','2026-11-24 14:28:13',NULL),
+(3,'Kohl Pencils','kohl-pencils','Smudge-proof depth, from noir to emerald','Creamy, highly pigmented kohl that glides on and stays put — in classic noir and jewel tones.','categories/demo-kohl.webp',3,1,1,'Kohl Pencils | Savié Amour','Creamy, highly pigmented kohl that glides on and stays put — in classic noir and jewel tones.','2026-11-24 14:28:13',NULL),
+(4,'Eyeliner','eyeliner','Precision lines, velvet finish','Liquid and felt-tip liners for the finest flick to the boldest wing.','categories/demo-eyeliner.webp',4,1,1,'Eyeliner | Savié Amour','Liquid and felt-tip liners for the finest flick to the boldest wing.','2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `collection_products`;
@@ -207,8 +207,8 @@ CREATE TABLE `collections` (
 LOCK TABLES `collections` WRITE;
 /*!40000 ALTER TABLE `collections` DISABLE KEYS */;
 INSERT INTO `collections` VALUES
-(1,'The Bridal Edit','the-bridal-edit','Special collection','Vermilion, velvet and noir for the most cherished rituals.','Everything for the bride and her circle — heirloom sindoor, a tint that lasts through every ceremony and kohl that never smudges.','collections/demo-bridal-edit.webp',1,1,1,'2026-11-24 13:01:27',NULL),
-(2,'Noir Essentials','noir-essentials','Collection','The deepest blacks for the boldest eyes.','Kohl and liners in our richest noir.','banners/demo-promo-kohl.webp',0,2,1,'2026-11-24 13:01:27',NULL);
+(1,'The Bridal Edit','the-bridal-edit','Special collection','Vermilion, velvet and noir for the most cherished rituals.','Everything for the bride and her circle — heirloom sindoor, a tint that lasts through every ceremony and kohl that never smudges.','collections/demo-bridal-edit.webp',1,1,1,'2026-11-24 14:28:13',NULL),
+(2,'Noir Essentials','noir-essentials','Collection','The deepest blacks for the boldest eyes.','Kohl and liners in our richest noir.','banners/demo-promo-kohl.webp',0,2,1,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `collections` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `contact_messages`;
@@ -283,9 +283,9 @@ CREATE TABLE `coupons` (
 LOCK TABLES `coupons` WRITE;
 /*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
 INSERT INTO `coupons` VALUES
-(1,'AMOUR15','15% off orders above ₹999 (max ₹300)','percent',15.00,999.00,300.00,NULL,NULL,0,NULL,NULL,1,'2026-11-24 13:01:27',NULL),
-(2,'WELCOME100','₹100 off your first order above ₹699','fixed',100.00,699.00,NULL,NULL,1,0,NULL,NULL,1,'2026-11-24 13:01:27',NULL),
-(3,'FESTIVE10','10% festive offer','percent',10.00,0.00,NULL,500,NULL,0,NULL,'2027-01-23 23:59:59',1,'2026-11-24 13:01:27',NULL);
+(1,'AMOUR15','15% off orders above ₹999 (max ₹300)','percent',15.00,999.00,300.00,NULL,NULL,0,NULL,NULL,1,'2026-11-24 14:28:13',NULL),
+(2,'WELCOME100','₹100 off your first order above ₹699','fixed',100.00,699.00,NULL,NULL,1,0,NULL,NULL,1,'2026-11-24 14:28:13',NULL),
+(3,'FESTIVE10','10% festive offer','percent',10.00,0.00,NULL,500,NULL,0,NULL,'2027-01-23 23:59:59',1,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `customer_addresses`;
@@ -529,6 +529,7 @@ CREATE TABLE `orders` (
   `admin_notes` text DEFAULT NULL,
   `courier_name` varchar(100) DEFAULT NULL,
   `tracking_number` varchar(100) DEFAULT NULL,
+  `tracking_url` varchar(500) DEFAULT NULL,
   `cancel_reason` varchar(255) DEFAULT NULL,
   `cancelled_at` datetime DEFAULT NULL,
   `ip_address` varchar(45) DEFAULT NULL,
@@ -570,11 +571,11 @@ CREATE TABLE `pages` (
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
 INSERT INTO `pages` VALUES
-(1,'About Us','about-us','<h2>The art of beauty, rooted in ritual</h2>\n<p>Savié Amour was born from a simple belief: the most beautiful rituals are the ones that linger. From the sacred stroke of vermilion to the depth of a kohl-lined eye, we craft colour that honours Indian beauty traditions and lives effortlessly in modern life.</p>\n<p>Every formula is developed in India with skin-safe pigments, tested for long wear and comfort, and finished in packaging made to be kept — maroon, gold and noir, like the petals that inspired us.</p>\n<h3>What we stand for</h3>\n<ul>\n<li><strong>Ritual first</strong> — products designed around the moments that matter.</li>\n<li><strong>Clean, kind formulas</strong> — cruelty-free, free of lead and mercury.</li>\n<li><strong>Colour that lasts</strong> — smudge-proof, transfer-resistant wear.</li>\n<li><strong>Made to be treasured</strong> — keepsake packaging and thoughtful details.</li>\n</ul>','About Us | Savié Amour','The art of beauty, rooted in ritual\nSavié Amour was born from a simple belief: the most beautiful rituals are the ones that linger. From the sacred stroke…',1,1,'2026-11-24 13:01:27',NULL),
-(2,'Privacy Policy','privacy-policy','<p>This policy explains how Savié Amour collects, uses and protects your personal information when you use our website.</p>\n<h3>Information we collect</h3>\n<p>When you create an account or place an order we collect your name, e-mail address, phone number and delivery address. Payments made online are processed securely by our payment partner; we never store your card or UPI details.</p>\n<h3>How we use your information</h3>\n<ul><li>To process and deliver your orders and keep you updated about them.</li><li>To provide customer support.</li><li>To send newsletters if you have subscribed (you can unsubscribe at any time).</li></ul>\n<h3>Cookies</h3>\n<p>We use essential cookies to keep you signed in, remember your shopping bag and recently viewed products.</p>\n<h3>Your rights</h3>\n<p>You can view and update your details from your account at any time, or write to us to request deletion of your data.</p>','Privacy Policy | Savié Amour','This policy explains how Savié Amour collects, uses and protects your personal information when you use our website.\nInformation we collect\nWhen you create…',1,1,'2026-11-24 13:01:27',NULL),
-(3,'Terms & Conditions','terms-and-conditions','<p>By using this website and placing an order you agree to the following terms.</p>\n<h3>Orders</h3>\n<p>All orders are subject to availability and confirmation. We reserve the right to cancel an order in case of pricing errors or suspected fraud; any amount paid will be refunded in full.</p>\n<h3>Pricing</h3>\n<p>Prices are listed in Indian Rupees and are inclusive of GST unless stated otherwise. Shipping charges, if any, are shown at checkout.</p>\n<h3>Product use</h3>\n<p>Our products are for external use only. Please read the ingredient list and patch test before first use.</p>\n<h3>Intellectual property</h3>\n<p>All content on this website, including the Savié Amour name and logo, is our property and may not be used without permission.</p>','Terms & Conditions | Savié Amour','By using this website and placing an order you agree to the following terms.\nOrders\nAll orders are subject to availability and confirmation. We reserve the…',1,1,'2026-11-24 13:01:27',NULL),
-(4,'Shipping Policy','shipping-policy','<p>We ship across India through trusted courier partners.</p>\n<ul><li>Orders are dispatched within 1–2 business days.</li><li>Delivery usually takes 3–7 business days depending on your location.</li><li>Shipping is free on orders above ₹999; a flat fee applies below that.</li><li>Cash on Delivery is available on most PIN codes.</li></ul>\n<p>Once your order ships you will receive the courier name and tracking number by e-mail and in your account.</p>','Shipping Policy | Savié Amour','We ship across India through trusted courier partners.\nOrders are dispatched within 1–2 business days.Delivery usually takes 3–7 business days depending on…',1,1,'2026-11-24 13:01:27',NULL),
-(5,'Returns & Refunds','return-refund-policy','<p>For hygiene reasons cosmetic products can only be returned if they arrive damaged, defective or incorrect.</p>\n<ul><li>Please contact us within 48 hours of delivery with your order number and photos of the product and packaging.</li><li>Once approved, we will arrange a replacement or a refund to your original payment method.</li><li>Refunds are processed within 5–7 business days of approval.</li></ul>\n<p>You can cancel an order from your account any time before it is shipped.</p>','Returns & Refunds | Savié Amour','For hygiene reasons cosmetic products can only be returned if they arrive damaged, defective or incorrect.\nPlease contact us within 48 hours of delivery wi…',1,1,'2026-11-24 13:01:27',NULL);
+(1,'About Us','about-us','<h2>The art of beauty, rooted in ritual</h2>\n<p>Savié Amour was born from a simple belief: the most beautiful rituals are the ones that linger. From the sacred stroke of vermilion to the depth of a kohl-lined eye, we craft colour that honours Indian beauty traditions and lives effortlessly in modern life.</p>\n<p>Every formula is developed in India with skin-safe pigments, tested for long wear and comfort, and finished in packaging made to be kept — maroon, gold and noir, like the petals that inspired us.</p>\n<h3>What we stand for</h3>\n<ul>\n<li><strong>Ritual first</strong> — products designed around the moments that matter.</li>\n<li><strong>Clean, kind formulas</strong> — cruelty-free, free of lead and mercury.</li>\n<li><strong>Colour that lasts</strong> — smudge-proof, transfer-resistant wear.</li>\n<li><strong>Made to be treasured</strong> — keepsake packaging and thoughtful details.</li>\n</ul>','About Us | Savié Amour','The art of beauty, rooted in ritual\nSavié Amour was born from a simple belief: the most beautiful rituals are the ones that linger. From the sacred stroke…',1,1,'2026-11-24 14:28:13',NULL),
+(2,'Privacy Policy','privacy-policy','<p>This policy explains how Savié Amour collects, uses and protects your personal information when you use our website.</p>\n<h3>Information we collect</h3>\n<p>When you create an account or place an order we collect your name, e-mail address, phone number and delivery address. Payments made online are processed securely by our payment partner; we never store your card or UPI details.</p>\n<h3>How we use your information</h3>\n<ul><li>To process and deliver your orders and keep you updated about them.</li><li>To provide customer support.</li><li>To send newsletters if you have subscribed (you can unsubscribe at any time).</li></ul>\n<h3>Cookies</h3>\n<p>We use essential cookies to keep you signed in, remember your shopping bag and recently viewed products.</p>\n<h3>Your rights</h3>\n<p>You can view and update your details from your account at any time, or write to us to request deletion of your data.</p>','Privacy Policy | Savié Amour','This policy explains how Savié Amour collects, uses and protects your personal information when you use our website.\nInformation we collect\nWhen you create…',1,1,'2026-11-24 14:28:13',NULL),
+(3,'Terms & Conditions','terms-and-conditions','<p>By using this website and placing an order you agree to the following terms.</p>\n<h3>Orders</h3>\n<p>All orders are subject to availability and confirmation. We reserve the right to cancel an order in case of pricing errors or suspected fraud; any amount paid will be refunded in full.</p>\n<h3>Pricing</h3>\n<p>Prices are listed in Indian Rupees and are inclusive of GST unless stated otherwise. Shipping charges, if any, are shown at checkout.</p>\n<h3>Product use</h3>\n<p>Our products are for external use only. Please read the ingredient list and patch test before first use.</p>\n<h3>Intellectual property</h3>\n<p>All content on this website, including the Savié Amour name and logo, is our property and may not be used without permission.</p>','Terms & Conditions | Savié Amour','By using this website and placing an order you agree to the following terms.\nOrders\nAll orders are subject to availability and confirmation. We reserve the…',1,1,'2026-11-24 14:28:13',NULL),
+(4,'Shipping Policy','shipping-policy','<p>We ship across India through trusted courier partners.</p>\n<ul><li>Orders are dispatched within 1–2 business days.</li><li>Delivery usually takes 3–7 business days depending on your location.</li><li>Shipping is free on orders above ₹999; a flat fee applies below that.</li><li>Cash on Delivery is available on most PIN codes.</li></ul>\n<p>Once your order ships you will receive the courier name and tracking number by e-mail and in your account.</p>','Shipping Policy | Savié Amour','We ship across India through trusted courier partners.\nOrders are dispatched within 1–2 business days.Delivery usually takes 3–7 business days depending on…',1,1,'2026-11-24 14:28:13',NULL),
+(5,'Returns & Refunds','return-refund-policy','<p>For hygiene reasons cosmetic products can only be returned if they arrive damaged, defective or incorrect.</p>\n<ul><li>Please contact us within 48 hours of delivery with your order number and photos of the product and packaging.</li><li>Once approved, we will arrange a replacement or a refund to your original payment method.</li><li>Refunds are processed within 5–7 business days of approval.</li></ul>\n<p>You can cancel an order from your account any time before it is shipped.</p>','Returns & Refunds | Savié Amour','For hygiene reasons cosmetic products can only be returned if they arrive damaged, defective or incorrect.\nPlease contact us within 48 hours of delivery wi…',1,1,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_resets`;
@@ -646,48 +647,48 @@ CREATE TABLE `product_images` (
 LOCK TABLES `product_images` WRITE;
 /*!40000 ALTER TABLE `product_images` DISABLE KEYS */;
 INSERT INTO `product_images` VALUES
-(1,1,'products/demo-liquid-sindoor-swatch.webp','Sacred Vermilion Liquid Sindoor',1,'2026-11-24 13:01:27'),
-(2,1,'products/demo-liquid-sindoor-moody.webp','Sacred Vermilion Liquid Sindoor',2,'2026-11-24 13:01:27'),
-(3,1,'products/demo-liquid-sindoor-hover.webp','Sacred Vermilion Liquid Sindoor',3,'2026-11-24 13:01:27'),
-(4,2,'products/demo-powder-sindoor-swatch.webp','Heritage Kumkum Powder Sindoor',1,'2026-11-24 13:01:27'),
-(5,2,'products/demo-powder-sindoor-moody.webp','Heritage Kumkum Powder Sindoor',2,'2026-11-24 13:01:27'),
-(6,2,'products/demo-powder-sindoor-hover.webp','Heritage Kumkum Powder Sindoor',3,'2026-11-24 13:01:27'),
-(7,3,'products/demo-maroon-sindoor-swatch.webp','Noor Maroon Liquid Sindoor',1,'2026-11-24 13:01:27'),
-(8,3,'products/demo-maroon-sindoor-moody.webp','Noor Maroon Liquid Sindoor',2,'2026-11-24 13:01:27'),
-(9,3,'products/demo-maroon-sindoor-hover.webp','Noor Maroon Liquid Sindoor',3,'2026-11-24 13:01:27'),
-(10,4,'products/demo-velvet-tint-swatch.webp','Velvet Lip & Cheek Tint',1,'2026-11-24 13:01:27'),
-(11,4,'products/demo-velvet-tint-moody.webp','Velvet Lip & Cheek Tint',2,'2026-11-24 13:01:27'),
-(12,4,'products/demo-velvet-tint-hover.webp','Velvet Lip & Cheek Tint',3,'2026-11-24 13:01:27'),
-(13,5,'products/demo-glass-tint-swatch.webp','Glass Kiss Water Tint',1,'2026-11-24 13:01:27'),
-(14,5,'products/demo-glass-tint-moody.webp','Glass Kiss Water Tint',2,'2026-11-24 13:01:27'),
-(15,5,'products/demo-glass-tint-hover.webp','Glass Kiss Water Tint',3,'2026-11-24 13:01:27'),
-(16,6,'products/demo-matte-tint-swatch.webp','Matte Desire Liquid Tint',1,'2026-11-24 13:01:27'),
-(17,6,'products/demo-matte-tint-moody.webp','Matte Desire Liquid Tint',2,'2026-11-24 13:01:27'),
-(18,6,'products/demo-matte-tint-hover.webp','Matte Desire Liquid Tint',3,'2026-11-24 13:01:27'),
-(19,7,'products/demo-bloom-tint-swatch.webp','Bloom Cheek Tint',1,'2026-11-24 13:01:27'),
-(20,7,'products/demo-bloom-tint-moody.webp','Bloom Cheek Tint',2,'2026-11-24 13:01:27'),
-(21,7,'products/demo-bloom-tint-hover.webp','Bloom Cheek Tint',3,'2026-11-24 13:01:27'),
-(22,8,'products/demo-kohl-noir-swatch.webp','Noir Absolu Kohl Pencil',1,'2026-11-24 13:01:27'),
-(23,8,'products/demo-kohl-noir-moody.webp','Noir Absolu Kohl Pencil',2,'2026-11-24 13:01:27'),
-(24,8,'products/demo-kohl-noir-hover.webp','Noir Absolu Kohl Pencil',3,'2026-11-24 13:01:27'),
-(25,9,'products/demo-kohl-brown-swatch.webp','Smoky Brown Kohl',1,'2026-11-24 13:01:27'),
-(26,9,'products/demo-kohl-brown-moody.webp','Smoky Brown Kohl',2,'2026-11-24 13:01:27'),
-(27,9,'products/demo-kohl-brown-hover.webp','Smoky Brown Kohl',3,'2026-11-24 13:01:27'),
-(28,10,'products/demo-kohl-plum-swatch.webp','Midnight Plum Kohl',1,'2026-11-24 13:01:27'),
-(29,10,'products/demo-kohl-plum-moody.webp','Midnight Plum Kohl',2,'2026-11-24 13:01:27'),
-(30,10,'products/demo-kohl-plum-hover.webp','Midnight Plum Kohl',3,'2026-11-24 13:01:27'),
-(31,11,'products/demo-kohl-emerald-swatch.webp','Royal Emerald Kohl',1,'2026-11-24 13:01:27'),
-(32,11,'products/demo-kohl-emerald-moody.webp','Royal Emerald Kohl',2,'2026-11-24 13:01:27'),
-(33,11,'products/demo-kohl-emerald-hover.webp','Royal Emerald Kohl',3,'2026-11-24 13:01:27'),
-(34,12,'products/demo-kohl-duo-swatch.webp','Kajal Duo Set',1,'2026-11-24 13:01:27'),
-(35,12,'products/demo-kohl-duo-moody.webp','Kajal Duo Set',2,'2026-11-24 13:01:27'),
-(36,12,'products/demo-kohl-duo-hover.webp','Kajal Duo Set',3,'2026-11-24 13:01:27'),
-(37,13,'products/demo-liner-noir-swatch.webp','Ink Noir Liquid Eyeliner',1,'2026-11-24 13:01:27'),
-(38,13,'products/demo-liner-noir-moody.webp','Ink Noir Liquid Eyeliner',2,'2026-11-24 13:01:27'),
-(39,13,'products/demo-liner-noir-hover.webp','Ink Noir Liquid Eyeliner',3,'2026-11-24 13:01:27'),
-(40,14,'products/demo-liner-pen-swatch.webp','Precision Felt-Tip Liner',1,'2026-11-24 13:01:27'),
-(41,14,'products/demo-liner-pen-moody.webp','Precision Felt-Tip Liner',2,'2026-11-24 13:01:27'),
-(42,14,'products/demo-liner-pen-hover.webp','Precision Felt-Tip Liner',3,'2026-11-24 13:01:27');
+(1,1,'products/demo-liquid-sindoor-swatch.webp','Sacred Vermilion Liquid Sindoor',1,'2026-11-24 14:28:13'),
+(2,1,'products/demo-liquid-sindoor-moody.webp','Sacred Vermilion Liquid Sindoor',2,'2026-11-24 14:28:13'),
+(3,1,'products/demo-liquid-sindoor-hover.webp','Sacred Vermilion Liquid Sindoor',3,'2026-11-24 14:28:13'),
+(4,2,'products/demo-powder-sindoor-swatch.webp','Heritage Kumkum Powder Sindoor',1,'2026-11-24 14:28:13'),
+(5,2,'products/demo-powder-sindoor-moody.webp','Heritage Kumkum Powder Sindoor',2,'2026-11-24 14:28:13'),
+(6,2,'products/demo-powder-sindoor-hover.webp','Heritage Kumkum Powder Sindoor',3,'2026-11-24 14:28:13'),
+(7,3,'products/demo-maroon-sindoor-swatch.webp','Noor Maroon Liquid Sindoor',1,'2026-11-24 14:28:13'),
+(8,3,'products/demo-maroon-sindoor-moody.webp','Noor Maroon Liquid Sindoor',2,'2026-11-24 14:28:13'),
+(9,3,'products/demo-maroon-sindoor-hover.webp','Noor Maroon Liquid Sindoor',3,'2026-11-24 14:28:13'),
+(10,4,'products/demo-velvet-tint-swatch.webp','Velvet Lip & Cheek Tint',1,'2026-11-24 14:28:13'),
+(11,4,'products/demo-velvet-tint-moody.webp','Velvet Lip & Cheek Tint',2,'2026-11-24 14:28:13'),
+(12,4,'products/demo-velvet-tint-hover.webp','Velvet Lip & Cheek Tint',3,'2026-11-24 14:28:13'),
+(13,5,'products/demo-glass-tint-swatch.webp','Glass Kiss Water Tint',1,'2026-11-24 14:28:13'),
+(14,5,'products/demo-glass-tint-moody.webp','Glass Kiss Water Tint',2,'2026-11-24 14:28:13'),
+(15,5,'products/demo-glass-tint-hover.webp','Glass Kiss Water Tint',3,'2026-11-24 14:28:13'),
+(16,6,'products/demo-matte-tint-swatch.webp','Matte Desire Liquid Tint',1,'2026-11-24 14:28:13'),
+(17,6,'products/demo-matte-tint-moody.webp','Matte Desire Liquid Tint',2,'2026-11-24 14:28:13'),
+(18,6,'products/demo-matte-tint-hover.webp','Matte Desire Liquid Tint',3,'2026-11-24 14:28:13'),
+(19,7,'products/demo-bloom-tint-swatch.webp','Bloom Cheek Tint',1,'2026-11-24 14:28:13'),
+(20,7,'products/demo-bloom-tint-moody.webp','Bloom Cheek Tint',2,'2026-11-24 14:28:13'),
+(21,7,'products/demo-bloom-tint-hover.webp','Bloom Cheek Tint',3,'2026-11-24 14:28:13'),
+(22,8,'products/demo-kohl-noir-swatch.webp','Noir Absolu Kohl Pencil',1,'2026-11-24 14:28:13'),
+(23,8,'products/demo-kohl-noir-moody.webp','Noir Absolu Kohl Pencil',2,'2026-11-24 14:28:13'),
+(24,8,'products/demo-kohl-noir-hover.webp','Noir Absolu Kohl Pencil',3,'2026-11-24 14:28:13'),
+(25,9,'products/demo-kohl-brown-swatch.webp','Smoky Brown Kohl',1,'2026-11-24 14:28:13'),
+(26,9,'products/demo-kohl-brown-moody.webp','Smoky Brown Kohl',2,'2026-11-24 14:28:13'),
+(27,9,'products/demo-kohl-brown-hover.webp','Smoky Brown Kohl',3,'2026-11-24 14:28:13'),
+(28,10,'products/demo-kohl-plum-swatch.webp','Midnight Plum Kohl',1,'2026-11-24 14:28:13'),
+(29,10,'products/demo-kohl-plum-moody.webp','Midnight Plum Kohl',2,'2026-11-24 14:28:13'),
+(30,10,'products/demo-kohl-plum-hover.webp','Midnight Plum Kohl',3,'2026-11-24 14:28:13'),
+(31,11,'products/demo-kohl-emerald-swatch.webp','Royal Emerald Kohl',1,'2026-11-24 14:28:13'),
+(32,11,'products/demo-kohl-emerald-moody.webp','Royal Emerald Kohl',2,'2026-11-24 14:28:13'),
+(33,11,'products/demo-kohl-emerald-hover.webp','Royal Emerald Kohl',3,'2026-11-24 14:28:13'),
+(34,12,'products/demo-kohl-duo-swatch.webp','Kajal Duo Set',1,'2026-11-24 14:28:13'),
+(35,12,'products/demo-kohl-duo-moody.webp','Kajal Duo Set',2,'2026-11-24 14:28:13'),
+(36,12,'products/demo-kohl-duo-hover.webp','Kajal Duo Set',3,'2026-11-24 14:28:13'),
+(37,13,'products/demo-liner-noir-swatch.webp','Ink Noir Liquid Eyeliner',1,'2026-11-24 14:28:13'),
+(38,13,'products/demo-liner-noir-moody.webp','Ink Noir Liquid Eyeliner',2,'2026-11-24 14:28:13'),
+(39,13,'products/demo-liner-noir-hover.webp','Ink Noir Liquid Eyeliner',3,'2026-11-24 14:28:13'),
+(40,14,'products/demo-liner-pen-swatch.webp','Precision Felt-Tip Liner',1,'2026-11-24 14:28:13'),
+(41,14,'products/demo-liner-pen-moody.webp','Precision Felt-Tip Liner',2,'2026-11-24 14:28:13'),
+(42,14,'products/demo-liner-pen-hover.webp','Precision Felt-Tip Liner',3,'2026-11-24 14:28:13');
 /*!40000 ALTER TABLE `product_images` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `product_variants`;
@@ -716,20 +717,20 @@ CREATE TABLE `product_variants` (
 LOCK TABLES `product_variants` WRITE;
 /*!40000 ALTER TABLE `product_variants` DISABLE KEYS */;
 INSERT INTO `product_variants` VALUES
-(1,4,'Cherry Amour','#8E0B14','SA-TNT-001-1',NULL,NULL,40,'variants/demo-velvet-tint-v1.webp',1,1,'2026-11-24 13:01:27',NULL),
-(2,4,'Rosewood','#9E4A4F','SA-TNT-001-2',NULL,NULL,32,'variants/demo-velvet-tint-v2.webp',2,1,'2026-11-24 13:01:27',NULL),
-(3,4,'Noir Berry','#4A0D1C','SA-TNT-001-3',NULL,NULL,18,'variants/demo-velvet-tint-v3.webp',3,1,'2026-11-24 13:01:27',NULL),
-(4,4,'Nude Petal','#C17F73','SA-TNT-001-4',NULL,NULL,4,'variants/demo-velvet-tint-v4.webp',4,1,'2026-11-24 13:01:27',NULL),
-(5,5,'Crimson Dew','#B01224','SA-TNT-002-1',NULL,NULL,30,'variants/demo-glass-tint-v1.webp',1,1,'2026-11-24 13:01:27',NULL),
-(6,5,'Petal Pink','#D46A78','SA-TNT-002-2',NULL,NULL,26,'variants/demo-glass-tint-v2.webp',2,1,'2026-11-24 13:01:27',NULL),
-(7,5,'Plum Wine','#6B1630','SA-TNT-002-3',NULL,NULL,22,'variants/demo-glass-tint-v3.webp',3,1,'2026-11-24 13:01:27',NULL),
-(8,6,'Sindoor Red','#A3120E','SA-TNT-003-1',NULL,NULL,28,'variants/demo-matte-tint-v1.webp',1,1,'2026-11-24 13:01:27',NULL),
-(9,6,'Maroon Muse','#630000','SA-TNT-003-2',799.00,699.00,25,'variants/demo-matte-tint-v2.webp',2,1,'2026-11-24 13:01:27',NULL),
-(10,6,'Brick Rose','#9A3B32','SA-TNT-003-3',NULL,NULL,0,'variants/demo-matte-tint-v3.webp',3,1,'2026-11-24 13:01:27',NULL),
-(11,7,'Blush Bloom','#C9636A','SA-TNT-004-1',NULL,NULL,20,'variants/demo-bloom-tint-v1.webp',1,1,'2026-11-24 13:01:27',NULL),
-(12,7,'Coral Silk','#D2735E','SA-TNT-004-2',NULL,NULL,16,'variants/demo-bloom-tint-v2.webp',2,1,'2026-11-24 13:01:27',NULL),
-(13,14,'Noir','#141111','SA-EYE-002-1',NULL,NULL,45,'variants/demo-liner-pen-v1.webp',1,1,'2026-11-24 13:01:27',NULL),
-(14,14,'Bordeaux','#5B0A14','SA-EYE-002-2',NULL,NULL,22,'variants/demo-liner-pen-v2.webp',2,1,'2026-11-24 13:01:27',NULL);
+(1,4,'Cherry Amour','#8E0B14','SA-TNT-001-1',NULL,NULL,40,'variants/demo-velvet-tint-v1.webp',1,1,'2026-11-24 14:28:13',NULL),
+(2,4,'Rosewood','#9E4A4F','SA-TNT-001-2',NULL,NULL,32,'variants/demo-velvet-tint-v2.webp',2,1,'2026-11-24 14:28:13',NULL),
+(3,4,'Noir Berry','#4A0D1C','SA-TNT-001-3',NULL,NULL,18,'variants/demo-velvet-tint-v3.webp',3,1,'2026-11-24 14:28:13',NULL),
+(4,4,'Nude Petal','#C17F73','SA-TNT-001-4',NULL,NULL,4,'variants/demo-velvet-tint-v4.webp',4,1,'2026-11-24 14:28:13',NULL),
+(5,5,'Crimson Dew','#B01224','SA-TNT-002-1',NULL,NULL,30,'variants/demo-glass-tint-v1.webp',1,1,'2026-11-24 14:28:13',NULL),
+(6,5,'Petal Pink','#D46A78','SA-TNT-002-2',NULL,NULL,26,'variants/demo-glass-tint-v2.webp',2,1,'2026-11-24 14:28:13',NULL),
+(7,5,'Plum Wine','#6B1630','SA-TNT-002-3',NULL,NULL,22,'variants/demo-glass-tint-v3.webp',3,1,'2026-11-24 14:28:13',NULL),
+(8,6,'Sindoor Red','#A3120E','SA-TNT-003-1',NULL,NULL,28,'variants/demo-matte-tint-v1.webp',1,1,'2026-11-24 14:28:13',NULL),
+(9,6,'Maroon Muse','#630000','SA-TNT-003-2',799.00,699.00,25,'variants/demo-matte-tint-v2.webp',2,1,'2026-11-24 14:28:13',NULL),
+(10,6,'Brick Rose','#9A3B32','SA-TNT-003-3',NULL,NULL,0,'variants/demo-matte-tint-v3.webp',3,1,'2026-11-24 14:28:13',NULL),
+(11,7,'Blush Bloom','#C9636A','SA-TNT-004-1',NULL,NULL,20,'variants/demo-bloom-tint-v1.webp',1,1,'2026-11-24 14:28:13',NULL),
+(12,7,'Coral Silk','#D2735E','SA-TNT-004-2',NULL,NULL,16,'variants/demo-bloom-tint-v2.webp',2,1,'2026-11-24 14:28:13',NULL),
+(13,14,'Noir','#141111','SA-EYE-002-1',NULL,NULL,45,'variants/demo-liner-pen-v1.webp',1,1,'2026-11-24 14:28:13',NULL),
+(14,14,'Bordeaux','#5B0A14','SA-EYE-002-2',NULL,NULL,22,'variants/demo-liner-pen-v2.webp',2,1,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `product_variants` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `products`;
@@ -782,21 +783,40 @@ CREATE TABLE `products` (
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` VALUES
-(1,1,1,'Sacred Vermilion Liquid Sindoor','sacred-vermilion-liquid-sindoor','SA-SIN-001','A long-lasting liquid sindoor in a true, sacred vermilion — one precise stroke that stays vivid all day.','<p>Our signature <strong>Sacred Vermilion</strong> is a quick-drying liquid sindoor that sets to a soft, transfer-resistant finish. The slim applicator draws a clean line along the parting in a single stroke.</p><ul><li>Rich, true-red vermilion pigment</li><li>Quick-drying and water-resistant</li><li>Gentle on the scalp; free of lead and mercury</li></ul><p>Worn daily or for once-in-a-lifetime ceremonies, it is colour crafted for rituals that linger.</p>','[{\"label\":\"Net quantity\",\"value\":\"5 ml\"},{\"label\":\"Finish\",\"value\":\"Soft matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 16 hours\"},{\"label\":\"Skin type\",\"value\":\"All skin types\"},{\"label\":\"Shelf life\",\"value\":\"24 months\"}]','<p><strong>How to use:</strong> Shake gently. Draw the applicator along the hair parting in one stroke and let it set for 30 seconds.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,399.00,64,'in_stock',NULL,'products/demo-liquid-sindoor.webp','products/demo-liquid-sindoor-hover.webp','Best Seller',1,1,0,1,'Sacred Vermilion Liquid Sindoor | Savié Amour','A long-lasting liquid sindoor in a true, sacred vermilion — one precise stroke that stays vivid all day.',412,0,0.00,0,'2026-07-27 13:01:27',NULL),
-(2,1,2,'Heritage Kumkum Powder Sindoor','heritage-kumkum-powder-sindoor','SA-SIN-002','Finely milled kumkum in an heirloom maroon-and-gold keepsake box.','<p>Velvety, finely milled powder sindoor in a deep vermilion, presented in a keepsake box with gold filigree — made to be treasured and gifted.</p><ul><li>Silky, non-gritty texture</li><li>Buildable colour from soft to intense</li><li>Free of lead, mercury and synthetic fragrance</li></ul>','[{\"label\":\"Net weight\",\"value\":\"6 g\"},{\"label\":\"Finish\",\"value\":\"Powder matte\"},{\"label\":\"Packaging\",\"value\":\"Keepsake box with mirror lid\"},{\"label\":\"Shelf life\",\"value\":\"36 months\"}]','<p><strong>How to use:</strong> Dip the tip of the ring finger or a fine brush and press gently along the parting.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,NULL,38,'in_stock',NULL,'products/demo-powder-sindoor.webp','products/demo-powder-sindoor-hover.webp','Ritual Essential',1,0,0,1,'Heritage Kumkum Powder Sindoor | Savié Amour','Finely milled kumkum in an heirloom maroon-and-gold keepsake box.',186,0,0.00,0,'2026-08-26 13:01:27',NULL),
-(3,1,1,'Noor Maroon Liquid Sindoor','noor-maroon-liquid-sindoor','SA-SIN-003','A deep maroon liquid sindoor with a satin sheen — modern, rich and long-wearing.','<p><strong>Noor Maroon</strong> brings the depth of our brand colour to a liquid sindoor. Its satin finish catches the light softly, and the quick-dry formula resists smudging.</p>','[{\"label\":\"Net quantity\",\"value\":\"5 ml\"},{\"label\":\"Finish\",\"value\":\"Satin\"},{\"label\":\"Wear time\",\"value\":\"Up to 16 hours\"},{\"label\":\"Shelf life\",\"value\":\"24 months\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,NULL,42,'in_stock',NULL,'products/demo-maroon-sindoor.webp','products/demo-maroon-sindoor-hover.webp',NULL,0,0,1,1,'Noor Maroon Liquid Sindoor | Savié Amour','A deep maroon liquid sindoor with a satin sheen — modern, rich and long-wearing.',24,0,0.00,0,'2026-11-18 13:01:27',NULL),
-(4,2,3,'Velvet Lip & Cheek Tint','velvet-lip-cheek-tint','SA-TNT-001','A weightless, blendable tint that gives lips and cheeks a velvety flush of colour.','<p>The tint that started it all. A whipped, weightless formula that melts into lips and cheeks, blurring into a natural, velvet-soft finish that lasts all day.</p><ul><li>Two-in-one for lips and cheeks</li><li>Buildable from sheer to vivid</li><li>Enriched with rosehip oil and vitamin E</li></ul>','[{\"label\":\"Net quantity\",\"value\":\"4 ml\"},{\"label\":\"Finish\",\"value\":\"Velvet matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 8 hours\"},{\"label\":\"Key ingredients\",\"value\":\"Rosehip oil, Vitamin E\"},{\"label\":\"Vegan\",\"value\":\"Yes\"}]','<p><strong>How to use:</strong> Dab onto the centre of the lips and the apples of the cheeks, then blend with fingertips.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',699.00,599.00,0,'in_stock','Shade','products/demo-velvet-tint.webp','products/demo-velvet-tint-hover.webp','Iconic Shade',1,1,0,1,'Velvet Lip & Cheek Tint | Savié Amour','A weightless, blendable tint that gives lips and cheeks a velvety flush of colour.',538,0,0.00,0,'2026-09-10 13:01:27',NULL),
-(5,2,4,'Glass Kiss Water Tint','glass-kiss-water-tint','SA-TNT-002','A juicy water tint that stains lips with sheer, glassy colour.','<p>A water-light stain that sinks in for a just-bitten look, with a glassy sheen. Layer for more intensity or top with balm for shine.</p>','[{\"label\":\"Net quantity\",\"value\":\"4.5 ml\"},{\"label\":\"Finish\",\"value\":\"Glassy stain\"},{\"label\":\"Wear time\",\"value\":\"Up to 6 hours\"},{\"label\":\"Vegan\",\"value\":\"Yes\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',599.00,NULL,0,'in_stock','Shade','products/demo-glass-tint.webp','products/demo-glass-tint-hover.webp',NULL,1,0,1,1,'Glass Kiss Water Tint | Savié Amour','A juicy water tint that stains lips with sheer, glassy colour.',64,0,0.00,0,'2026-11-20 13:01:27',NULL),
-(6,2,3,'Matte Desire Liquid Tint','matte-desire-liquid-tint','SA-TNT-003','High-impact liquid colour that dries to a comfortable, transfer-proof matte.','<p>Saturated colour in a single swipe. Matte Desire dries down to a feather-light matte that will not crack or transfer.</p>','[{\"label\":\"Net quantity\",\"value\":\"4 ml\"},{\"label\":\"Finish\",\"value\":\"Transfer-proof matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 12 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',749.00,649.00,0,'in_stock','Shade','products/demo-matte-tint.webp','products/demo-matte-tint-hover.webp',NULL,0,1,0,1,'Matte Desire Liquid Tint | Savié Amour','High-impact liquid colour that dries to a comfortable, transfer-proof matte.',301,0,0.00,0,'2026-09-25 13:01:27',NULL),
-(7,2,3,'Bloom Cheek Tint','bloom-cheek-tint','SA-TNT-004','A sheer gel tint for a fresh, from-within flush on cheeks.','<p>A cooling gel tint that blends invisibly for a natural flush that lasts.</p>','[{\"label\":\"Net quantity\",\"value\":\"6 ml\"},{\"label\":\"Finish\",\"value\":\"Natural\"},{\"label\":\"Wear time\",\"value\":\"Up to 8 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,NULL,0,'in_stock','Shade','products/demo-bloom-tint.webp','products/demo-bloom-tint-hover.webp',NULL,0,0,0,1,'Bloom Cheek Tint | Savié Amour','A sheer gel tint for a fresh, from-within flush on cheeks.',77,0,0.00,0,'2026-10-15 13:01:27',NULL),
-(8,3,5,'Noir Absolu Kohl Pencil','noir-absolu-kohl-pencil','SA-KHL-001','Our deepest black kohl — creamy, smudge-proof and safe for the waterline.','<p>An intensely black, creamy kohl that glides across the waterline without tugging and sets to a smudge-proof, water-resistant finish.</p><ul><li>Ophthalmologist tested</li><li>24-hour smudge-proof wear</li><li>Enriched with castor oil and camphor</li></ul>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Intense matte black\"},{\"label\":\"Wear time\",\"value\":\"Up to 24 hours\"},{\"label\":\"Ophthalmologist tested\",\"value\":\"Yes\"}]','<p><strong>How to use:</strong> Glide along the upper and lower waterline. Smudge within 30 seconds for a smoky look.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',399.00,NULL,120,'in_stock',NULL,'products/demo-kohl-noir.webp','products/demo-kohl-noir-hover.webp','Best Seller',1,1,0,1,'Noir Absolu Kohl Pencil | Savié Amour','Our deepest black kohl — creamy, smudge-proof and safe for the waterline.',690,0,0.00,0,'2026-06-27 13:01:27',NULL),
-(9,3,6,'Smoky Brown Kohl','smoky-brown-kohl','SA-KHL-002','A soft, smoky espresso kohl for subtle everyday definition.','<p>A warm espresso brown that defines without harshness — perfect for daytime and softer smoky eyes.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Soft matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',399.00,NULL,54,'in_stock',NULL,'products/demo-kohl-brown.webp','products/demo-kohl-brown-hover.webp',NULL,0,0,0,1,'Smoky Brown Kohl | Savié Amour','A soft, smoky espresso kohl for subtle everyday definition.',142,0,0.00,0,'2026-09-05 13:01:27',NULL),
-(10,3,6,'Midnight Plum Kohl','midnight-plum-kohl','SA-KHL-003','A deep aubergine kohl that makes every eye colour glow.','<p>A rich plum with a hint of shimmer, designed to brighten brown and hazel eyes.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Satin shimmer\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,NULL,3,'in_stock',NULL,'products/demo-kohl-plum.webp','products/demo-kohl-plum-hover.webp',NULL,0,0,1,1,'Midnight Plum Kohl | Savié Amour','A deep aubergine kohl that makes every eye colour glow.',33,0,0.00,0,'2026-11-15 13:01:27',NULL),
-(11,3,6,'Royal Emerald Kohl','royal-emerald-kohl','SA-KHL-004','A jewel-toned emerald kohl for festive, statement eyes.','<p>Deep, regal emerald with a satin finish — our favourite for celebrations.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Satin\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,379.00,26,'in_stock',NULL,'products/demo-kohl-emerald.webp','products/demo-kohl-emerald-hover.webp',NULL,0,0,0,1,'Royal Emerald Kohl | Savié Amour','A jewel-toned emerald kohl for festive, statement eyes.',58,0,0.00,0,'2026-10-10 13:01:27',NULL),
-(12,3,7,'Kajal Duo Set','kajal-duo-set','SA-KHL-005','Noir Absolu and Smoky Brown kohl together — day to night in one set.','<p>The essential pairing: our cult Noir Absolu for intensity and Smoky Brown for softer days, presented in a gift sleeve.</p>','[{\"label\":\"Contents\",\"value\":\"2 × 1.2 g kohl pencils\"},{\"label\":\"Shades\",\"value\":\"Noir Absolu, Smoky Brown\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',749.00,649.00,30,'in_stock',NULL,'products/demo-kohl-duo.webp','products/demo-kohl-duo-hover.webp','Gift Set',1,0,0,1,'Kajal Duo Set | Savié Amour','Noir Absolu and Smoky Brown kohl together — day to night in one set.',97,0,0.00,0,'2026-10-25 13:01:27',NULL),
-(13,4,8,'Ink Noir Liquid Eyeliner','ink-noir-liquid-eyeliner','SA-EYE-001','A jet-black liquid liner with an ultra-fine brush for a razor-sharp wing.','<p>Glossy, jet-black ink and a fine, flexible brush for anything from a whisper-thin line to a dramatic wing. Waterproof and flake-free.</p>','[{\"label\":\"Net quantity\",\"value\":\"3.5 ml\"},{\"label\":\"Finish\",\"value\":\"Glossy black\"},{\"label\":\"Wear time\",\"value\":\"Up to 24 hours\"},{\"label\":\"Waterproof\",\"value\":\"Yes\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',599.00,NULL,70,'in_stock',NULL,'products/demo-liner-noir.webp','products/demo-liner-noir-hover.webp',NULL,1,1,0,1,'Ink Noir Liquid Eyeliner | Savié Amour','A jet-black liquid liner with an ultra-fine brush for a razor-sharp wing.',355,0,0.00,0,'2026-08-16 13:01:27',NULL),
-(14,4,9,'Precision Felt-Tip Liner','precision-felt-tip-liner','SA-EYE-002','A felt-tip liner pen with a firm, fine point for effortless control.','<p>The easiest way to a perfect line. A firm felt tip delivers even, saturated colour from the first stroke to the last.</p>','[{\"label\":\"Net quantity\",\"value\":\"1 ml\"},{\"label\":\"Tip\",\"value\":\"0.1 mm felt tip\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,479.00,0,'in_stock','Shade','products/demo-liner-pen.webp','products/demo-liner-pen-hover.webp',NULL,0,0,1,1,'Precision Felt-Tip Liner | Savié Amour','A felt-tip liner pen with a firm, fine point for effortless control.',48,0,0.00,0,'2026-11-12 13:01:27',NULL);
+(1,1,1,'Sacred Vermilion Liquid Sindoor','sacred-vermilion-liquid-sindoor','SA-SIN-001','A long-lasting liquid sindoor in a true, sacred vermilion — one precise stroke that stays vivid all day.','<p>Our signature <strong>Sacred Vermilion</strong> is a quick-drying liquid sindoor that sets to a soft, transfer-resistant finish. The slim applicator draws a clean line along the parting in a single stroke.</p><ul><li>Rich, true-red vermilion pigment</li><li>Quick-drying and water-resistant</li><li>Gentle on the scalp; free of lead and mercury</li></ul><p>Worn daily or for once-in-a-lifetime ceremonies, it is colour crafted for rituals that linger.</p>','[{\"label\":\"Net quantity\",\"value\":\"5 ml\"},{\"label\":\"Finish\",\"value\":\"Soft matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 16 hours\"},{\"label\":\"Skin type\",\"value\":\"All skin types\"},{\"label\":\"Shelf life\",\"value\":\"24 months\"}]','<p><strong>How to use:</strong> Shake gently. Draw the applicator along the hair parting in one stroke and let it set for 30 seconds.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,399.00,64,'in_stock',NULL,'products/demo-liquid-sindoor.webp','products/demo-liquid-sindoor-hover.webp','Best Seller',1,1,0,1,'Sacred Vermilion Liquid Sindoor | Savié Amour','A long-lasting liquid sindoor in a true, sacred vermilion — one precise stroke that stays vivid all day.',412,0,0.00,0,'2026-07-27 14:28:14',NULL),
+(2,1,2,'Heritage Kumkum Powder Sindoor','heritage-kumkum-powder-sindoor','SA-SIN-002','Finely milled kumkum in an heirloom maroon-and-gold keepsake box.','<p>Velvety, finely milled powder sindoor in a deep vermilion, presented in a keepsake box with gold filigree — made to be treasured and gifted.</p><ul><li>Silky, non-gritty texture</li><li>Buildable colour from soft to intense</li><li>Free of lead, mercury and synthetic fragrance</li></ul>','[{\"label\":\"Net weight\",\"value\":\"6 g\"},{\"label\":\"Finish\",\"value\":\"Powder matte\"},{\"label\":\"Packaging\",\"value\":\"Keepsake box with mirror lid\"},{\"label\":\"Shelf life\",\"value\":\"36 months\"}]','<p><strong>How to use:</strong> Dip the tip of the ring finger or a fine brush and press gently along the parting.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,NULL,38,'in_stock',NULL,'products/demo-powder-sindoor.webp','products/demo-powder-sindoor-hover.webp','Ritual Essential',1,0,0,1,'Heritage Kumkum Powder Sindoor | Savié Amour','Finely milled kumkum in an heirloom maroon-and-gold keepsake box.',186,0,0.00,0,'2026-08-26 14:28:14',NULL),
+(3,1,1,'Noor Maroon Liquid Sindoor','noor-maroon-liquid-sindoor','SA-SIN-003','A deep maroon liquid sindoor with a satin sheen — modern, rich and long-wearing.','<p><strong>Noor Maroon</strong> brings the depth of our brand colour to a liquid sindoor. Its satin finish catches the light softly, and the quick-dry formula resists smudging.</p>','[{\"label\":\"Net quantity\",\"value\":\"5 ml\"},{\"label\":\"Finish\",\"value\":\"Satin\"},{\"label\":\"Wear time\",\"value\":\"Up to 16 hours\"},{\"label\":\"Shelf life\",\"value\":\"24 months\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,NULL,42,'in_stock',NULL,'products/demo-maroon-sindoor.webp','products/demo-maroon-sindoor-hover.webp',NULL,0,0,1,1,'Noor Maroon Liquid Sindoor | Savié Amour','A deep maroon liquid sindoor with a satin sheen — modern, rich and long-wearing.',24,0,0.00,0,'2026-11-18 14:28:14',NULL),
+(4,2,3,'Velvet Lip & Cheek Tint','velvet-lip-cheek-tint','SA-TNT-001','A weightless, blendable tint that gives lips and cheeks a velvety flush of colour.','<p>The tint that started it all. A whipped, weightless formula that melts into lips and cheeks, blurring into a natural, velvet-soft finish that lasts all day.</p><ul><li>Two-in-one for lips and cheeks</li><li>Buildable from sheer to vivid</li><li>Enriched with rosehip oil and vitamin E</li></ul>','[{\"label\":\"Net quantity\",\"value\":\"4 ml\"},{\"label\":\"Finish\",\"value\":\"Velvet matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 8 hours\"},{\"label\":\"Key ingredients\",\"value\":\"Rosehip oil, Vitamin E\"},{\"label\":\"Vegan\",\"value\":\"Yes\"}]','<p><strong>How to use:</strong> Dab onto the centre of the lips and the apples of the cheeks, then blend with fingertips.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',699.00,599.00,0,'in_stock','Shade','products/demo-velvet-tint.webp','products/demo-velvet-tint-hover.webp','Iconic Shade',1,1,0,1,'Velvet Lip & Cheek Tint | Savié Amour','A weightless, blendable tint that gives lips and cheeks a velvety flush of colour.',538,0,0.00,0,'2026-09-10 14:28:14',NULL),
+(5,2,4,'Glass Kiss Water Tint','glass-kiss-water-tint','SA-TNT-002','A juicy water tint that stains lips with sheer, glassy colour.','<p>A water-light stain that sinks in for a just-bitten look, with a glassy sheen. Layer for more intensity or top with balm for shine.</p>','[{\"label\":\"Net quantity\",\"value\":\"4.5 ml\"},{\"label\":\"Finish\",\"value\":\"Glassy stain\"},{\"label\":\"Wear time\",\"value\":\"Up to 6 hours\"},{\"label\":\"Vegan\",\"value\":\"Yes\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',599.00,NULL,0,'in_stock','Shade','products/demo-glass-tint.webp','products/demo-glass-tint-hover.webp',NULL,1,0,1,1,'Glass Kiss Water Tint | Savié Amour','A juicy water tint that stains lips with sheer, glassy colour.',64,0,0.00,0,'2026-11-20 14:28:14',NULL),
+(6,2,3,'Matte Desire Liquid Tint','matte-desire-liquid-tint','SA-TNT-003','High-impact liquid colour that dries to a comfortable, transfer-proof matte.','<p>Saturated colour in a single swipe. Matte Desire dries down to a feather-light matte that will not crack or transfer.</p>','[{\"label\":\"Net quantity\",\"value\":\"4 ml\"},{\"label\":\"Finish\",\"value\":\"Transfer-proof matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 12 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',749.00,649.00,0,'in_stock','Shade','products/demo-matte-tint.webp','products/demo-matte-tint-hover.webp',NULL,0,1,0,1,'Matte Desire Liquid Tint | Savié Amour','High-impact liquid colour that dries to a comfortable, transfer-proof matte.',301,0,0.00,0,'2026-09-25 14:28:14',NULL),
+(7,2,3,'Bloom Cheek Tint','bloom-cheek-tint','SA-TNT-004','A sheer gel tint for a fresh, from-within flush on cheeks.','<p>A cooling gel tint that blends invisibly for a natural flush that lasts.</p>','[{\"label\":\"Net quantity\",\"value\":\"6 ml\"},{\"label\":\"Finish\",\"value\":\"Natural\"},{\"label\":\"Wear time\",\"value\":\"Up to 8 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,NULL,0,'in_stock','Shade','products/demo-bloom-tint.webp','products/demo-bloom-tint-hover.webp',NULL,0,0,0,1,'Bloom Cheek Tint | Savié Amour','A sheer gel tint for a fresh, from-within flush on cheeks.',77,0,0.00,0,'2026-10-15 14:28:14',NULL),
+(8,3,5,'Noir Absolu Kohl Pencil','noir-absolu-kohl-pencil','SA-KHL-001','Our deepest black kohl — creamy, smudge-proof and safe for the waterline.','<p>An intensely black, creamy kohl that glides across the waterline without tugging and sets to a smudge-proof, water-resistant finish.</p><ul><li>Ophthalmologist tested</li><li>24-hour smudge-proof wear</li><li>Enriched with castor oil and camphor</li></ul>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Intense matte black\"},{\"label\":\"Wear time\",\"value\":\"Up to 24 hours\"},{\"label\":\"Ophthalmologist tested\",\"value\":\"Yes\"}]','<p><strong>How to use:</strong> Glide along the upper and lower waterline. Smudge within 30 seconds for a smoky look.</p><p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',399.00,NULL,120,'in_stock',NULL,'products/demo-kohl-noir.webp','products/demo-kohl-noir-hover.webp','Best Seller',1,1,0,1,'Noir Absolu Kohl Pencil | Savié Amour','Our deepest black kohl — creamy, smudge-proof and safe for the waterline.',690,0,0.00,0,'2026-06-27 14:28:14',NULL),
+(9,3,6,'Smoky Brown Kohl','smoky-brown-kohl','SA-KHL-002','A soft, smoky espresso kohl for subtle everyday definition.','<p>A warm espresso brown that defines without harshness — perfect for daytime and softer smoky eyes.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Soft matte\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',399.00,NULL,54,'in_stock',NULL,'products/demo-kohl-brown.webp','products/demo-kohl-brown-hover.webp',NULL,0,0,0,1,'Smoky Brown Kohl | Savié Amour','A soft, smoky espresso kohl for subtle everyday definition.',142,0,0.00,0,'2026-09-05 14:28:14',NULL),
+(10,3,6,'Midnight Plum Kohl','midnight-plum-kohl','SA-KHL-003','A deep aubergine kohl that makes every eye colour glow.','<p>A rich plum with a hint of shimmer, designed to brighten brown and hazel eyes.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Satin shimmer\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,NULL,3,'in_stock',NULL,'products/demo-kohl-plum.webp','products/demo-kohl-plum-hover.webp',NULL,0,0,1,1,'Midnight Plum Kohl | Savié Amour','A deep aubergine kohl that makes every eye colour glow.',33,0,0.00,0,'2026-11-15 14:28:14',NULL),
+(11,3,6,'Royal Emerald Kohl','royal-emerald-kohl','SA-KHL-004','A jewel-toned emerald kohl for festive, statement eyes.','<p>Deep, regal emerald with a satin finish — our favourite for celebrations.</p>','[{\"label\":\"Net weight\",\"value\":\"1.2 g\"},{\"label\":\"Finish\",\"value\":\"Satin\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',449.00,379.00,26,'in_stock',NULL,'products/demo-kohl-emerald.webp','products/demo-kohl-emerald-hover.webp',NULL,0,0,0,1,'Royal Emerald Kohl | Savié Amour','A jewel-toned emerald kohl for festive, statement eyes.',58,0,0.00,0,'2026-10-10 14:28:14',NULL),
+(12,3,7,'Kajal Duo Set','kajal-duo-set','SA-KHL-005','Noir Absolu and Smoky Brown kohl together — day to night in one set.','<p>The essential pairing: our cult Noir Absolu for intensity and Smoky Brown for softer days, presented in a gift sleeve.</p>','[{\"label\":\"Contents\",\"value\":\"2 × 1.2 g kohl pencils\"},{\"label\":\"Shades\",\"value\":\"Noir Absolu, Smoky Brown\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',749.00,649.00,30,'in_stock',NULL,'products/demo-kohl-duo.webp','products/demo-kohl-duo-hover.webp','Gift Set',1,0,0,1,'Kajal Duo Set | Savié Amour','Noir Absolu and Smoky Brown kohl together — day to night in one set.',97,0,0.00,0,'2026-10-25 14:28:14',NULL),
+(13,4,8,'Ink Noir Liquid Eyeliner','ink-noir-liquid-eyeliner','SA-EYE-001','A jet-black liquid liner with an ultra-fine brush for a razor-sharp wing.','<p>Glossy, jet-black ink and a fine, flexible brush for anything from a whisper-thin line to a dramatic wing. Waterproof and flake-free.</p>','[{\"label\":\"Net quantity\",\"value\":\"3.5 ml\"},{\"label\":\"Finish\",\"value\":\"Glossy black\"},{\"label\":\"Wear time\",\"value\":\"Up to 24 hours\"},{\"label\":\"Waterproof\",\"value\":\"Yes\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',599.00,NULL,70,'in_stock',NULL,'products/demo-liner-noir.webp','products/demo-liner-noir-hover.webp',NULL,1,1,0,1,'Ink Noir Liquid Eyeliner | Savié Amour','A jet-black liquid liner with an ultra-fine brush for a razor-sharp wing.',355,0,0.00,0,'2026-08-16 14:28:14',NULL),
+(14,4,9,'Precision Felt-Tip Liner','precision-felt-tip-liner','SA-EYE-002','A felt-tip liner pen with a firm, fine point for effortless control.','<p>The easiest way to a perfect line. A firm felt tip delivers even, saturated colour from the first stroke to the last.</p>','[{\"label\":\"Net quantity\",\"value\":\"1 ml\"},{\"label\":\"Tip\",\"value\":\"0.1 mm felt tip\"},{\"label\":\"Wear time\",\"value\":\"Up to 20 hours\"}]','<p><strong>Manufactured &amp; marketed by:</strong> Savié Amour, Mumbai, India.</p><p><strong>Country of origin:</strong> India</p><p>For external use only. Patch test before first use. Store in a cool, dry place away from direct sunlight.</p>',549.00,479.00,0,'in_stock','Shade','products/demo-liner-pen.webp','products/demo-liner-pen-hover.webp',NULL,0,0,1,1,'Precision Felt-Tip Liner | Savié Amour','A felt-tip liner pen with a firm, fine point for effortless control.',48,0,0.00,0,'2026-11-12 14:28:14',NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `review_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `review_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `review_id` int(10) unsigned NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_review_images_review` (`review_id`),
+  CONSTRAINT `fk_review_images_review` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `review_images` WRITE;
+/*!40000 ALTER TABLE `review_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review_images` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -839,64 +859,65 @@ CREATE TABLE `settings` (
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 INSERT INTO `settings` VALUES
-('admin_notification_email','orders@savieamour.com','email','2026-11-24 07:31:27'),
-('announcement_messages','Complimentary shipping on orders above ₹999\nNew — Velvet Lip & Cheek Tint in four shades\nUse code AMOUR15 for 15% off the Bridal Edit','general','2026-11-24 07:31:27'),
-('benefits','[{\"icon\":\"leaf\",\"title\":\"Cruelty-free & vegan\",\"text\":\"Never tested on animals, free of animal-derived ingredients.\"},{\"icon\":\"shield\",\"title\":\"Dermatologically tested\",\"text\":\"Gentle, skin-safe pigments made for everyday rituals.\"},{\"icon\":\"sparkle\",\"title\":\"Long-wear colour\",\"text\":\"Smudge-proof formulas that stay true from dawn to dusk.\"},{\"icon\":\"truck\",\"title\":\"Free shipping over ₹999\",\"text\":\"Fast, insured delivery with Cash on Delivery across India.\"}]','home','2026-11-24 07:31:27'),
-('business_hours','Mon – Sat, 10:00 am – 7:00 pm IST','general','2026-11-24 07:31:27'),
-('cod_enabled','1','shipping','2026-11-24 07:31:27'),
-('cod_fee','0','shipping','2026-11-24 07:31:27'),
-('copyright_text','© {year} Savié Amour. All rights reserved.','general','2026-11-24 07:31:27'),
-('currency_code','INR','general','2026-11-24 07:31:27'),
-('currency_symbol','₹','general','2026-11-24 07:31:27'),
-('default_country','India','general','2026-11-24 07:31:27'),
-('delivery_estimate','Delivered in 3–7 business days across India','shipping','2026-11-24 07:31:27'),
-('facebook_url','https://www.facebook.com/savieamour','social','2026-11-24 07:31:27'),
-('favicon','','general','2026-11-24 07:31:27'),
-('footer_about','Savié Amour crafts ritual-inspired colour — sacred vermilion, velvet tints and kohl as deep as noir — for beauty that lingers.','general','2026-11-24 07:31:27'),
-('free_shipping_threshold','999','shipping','2026-11-24 07:31:27'),
-('google_analytics_id','','seo','2026-11-24 07:31:27'),
-('gstin','','tax','2026-11-24 07:31:27'),
-('guest_checkout','1','general','2026-11-24 07:31:27'),
-('instagram_handle','@savieamour','social','2026-11-24 07:31:27'),
-('instagram_url','https://www.instagram.com/savieamour','social','2026-11-24 07:31:27'),
-('logo','','general','2026-11-24 07:31:27'),
-('logo_light','','general','2026-11-24 07:31:27'),
-('low_stock_threshold','5','general','2026-11-24 07:31:27'),
-('mail_driver','log','email','2026-11-24 07:31:27'),
-('mail_from_address','hello@savieamour.com','email','2026-11-24 07:31:27'),
-('mail_from_name','Savié Amour','email','2026-11-24 07:31:27'),
-('meta_description','Shop ritual-inspired beauty from Savié Amour: liquid & powder sindoor, velvet lip and cheek tints, smudge-proof kohl pencils and precision eyeliners. Free shipping over ₹999.','seo','2026-11-24 07:31:27'),
-('meta_keywords','sindoor, liquid sindoor, lip tint, cheek tint, kohl pencil, kajal, eyeliner, Indian beauty','seo','2026-11-24 07:31:27'),
-('meta_title','Savié Amour — The Art of Beauty | Sindoor, Lip Tints, Kohl & Eyeliner','seo','2026-11-24 07:31:27'),
-('notify_admin_new_order','1','email','2026-11-24 07:31:27'),
-('notify_customer_order_status','1','email','2026-11-24 07:31:27'),
-('order_prefix','SA','general','2026-11-24 07:31:27'),
-('pinterest_url','https://www.pinterest.com/savieamour','social','2026-11-24 07:31:27'),
-('prices_include_tax','1','tax','2026-11-24 07:31:27'),
-('products_per_page','12','general','2026-11-24 07:31:27'),
-('razorpay_enabled','0','payment','2026-11-24 07:31:27'),
-('razorpay_key_id','','payment','2026-11-24 07:31:27'),
-('razorpay_key_secret','','payment','2026-11-24 07:31:27'),
-('razorpay_webhook_secret','','payment','2026-11-24 07:31:27'),
-('review_auto_approve','0','general','2026-11-24 07:31:27'),
-('shipping_enabled','1','shipping','2026-11-24 07:31:27'),
-('shipping_flat_rate','79','shipping','2026-11-24 07:31:27'),
-('site_address','Savié Amour Studio\nBandra West, Mumbai 400050\nMaharashtra, India','general','2026-11-24 07:31:27'),
-('site_email','hello@savieamour.com','general','2026-11-24 07:31:27'),
-('site_name','Savié Amour','general','2026-11-24 07:31:27'),
-('site_phone','+91 98200 00000','general','2026-11-24 07:31:27'),
-('site_tagline','the art of beauty','general','2026-11-24 07:31:27'),
-('smtp_encryption','tls','email','2026-11-24 07:31:27'),
-('smtp_host','','email','2026-11-24 07:31:27'),
-('smtp_password','','email','2026-11-24 07:31:27'),
-('smtp_port','587','email','2026-11-24 07:31:27'),
-('smtp_username','','email','2026-11-24 07:31:27'),
-('tax_enabled','1','tax','2026-11-24 07:31:27'),
-('tax_label','GST','tax','2026-11-24 07:31:27'),
-('tax_rate','18','tax','2026-11-24 07:31:27'),
-('whatsapp_number','919820000000','general','2026-11-24 07:31:27'),
-('x_url','','social','2026-11-24 07:31:27'),
-('youtube_url','','social','2026-11-24 07:31:27');
+('admin_notification_email','orders@savieamour.com','email','2026-11-24 08:58:14'),
+('announcement_messages','Complimentary shipping on orders above ₹999\nNew — Velvet Lip & Cheek Tint in four shades\nUse code AMOUR15 for 15% off the Bridal Edit','general','2026-11-24 08:58:13'),
+('benefits','[{\"icon\":\"leaf\",\"title\":\"Cruelty-free & vegan\",\"text\":\"Never tested on animals, free of animal-derived ingredients.\"},{\"icon\":\"shield\",\"title\":\"Dermatologically tested\",\"text\":\"Gentle, skin-safe pigments made for everyday rituals.\"},{\"icon\":\"sparkle\",\"title\":\"Long-wear colour\",\"text\":\"Smudge-proof formulas that stay true from dawn to dusk.\"},{\"icon\":\"truck\",\"title\":\"Free shipping over ₹999\",\"text\":\"Fast, insured delivery with Cash on Delivery across India.\"}]','home','2026-11-24 08:58:14'),
+('business_hours','Mon – Sat, 10:00 am – 7:00 pm IST','general','2026-11-24 08:58:13'),
+('cod_enabled','1','shipping','2026-11-24 08:58:13'),
+('cod_fee','0','shipping','2026-11-24 08:58:13'),
+('copyright_text','© {year} Savié Amour. All rights reserved.','general','2026-11-24 08:58:13'),
+('currency_code','INR','general','2026-11-24 08:58:13'),
+('currency_symbol','₹','general','2026-11-24 08:58:13'),
+('default_country','India','general','2026-11-24 08:58:13'),
+('delivery_estimate','Delivered in 3–7 business days across India','shipping','2026-11-24 08:58:13'),
+('facebook_url','https://www.facebook.com/savieamour','social','2026-11-24 08:58:13'),
+('favicon','','general','2026-11-24 08:58:13'),
+('footer_about','Savié Amour crafts ritual-inspired colour — sacred vermilion, velvet tints and kohl as deep as noir — for beauty that lingers.','general','2026-11-24 08:58:13'),
+('free_shipping_threshold','999','shipping','2026-11-24 08:58:13'),
+('google_analytics_id','','seo','2026-11-24 08:58:14'),
+('gstin','','tax','2026-11-24 08:58:13'),
+('guest_checkout','1','general','2026-11-24 08:58:13'),
+('instagram_handle','@savieamour','social','2026-11-24 08:58:13'),
+('instagram_url','https://www.instagram.com/savieamour','social','2026-11-24 08:58:13'),
+('logo','','general','2026-11-24 08:58:13'),
+('logo_light','','general','2026-11-24 08:58:13'),
+('low_stock_threshold','5','general','2026-11-24 08:58:13'),
+('mail_driver','log','email','2026-11-24 08:58:14'),
+('mail_from_address','hello@savieamour.com','email','2026-11-24 08:58:14'),
+('mail_from_name','Savié Amour','email','2026-11-24 08:58:14'),
+('meta_description','Shop ritual-inspired beauty from Savié Amour: liquid & powder sindoor, velvet lip and cheek tints, smudge-proof kohl pencils and precision eyeliners. Free shipping over ₹999.','seo','2026-11-24 08:58:14'),
+('meta_keywords','sindoor, liquid sindoor, lip tint, cheek tint, kohl pencil, kajal, eyeliner, Indian beauty','seo','2026-11-24 08:58:14'),
+('meta_title','Savié Amour — The Art of Beauty | Sindoor, Lip Tints, Kohl & Eyeliner','seo','2026-11-24 08:58:14'),
+('notify_admin_new_order','1','email','2026-11-24 08:58:14'),
+('notify_customer_order_status','1','email','2026-11-24 08:58:14'),
+('order_prefix','SA','general','2026-11-24 08:58:13'),
+('pinterest_url','https://www.pinterest.com/savieamour','social','2026-11-24 08:58:13'),
+('prices_include_tax','1','tax','2026-11-24 08:58:13'),
+('products_per_page','12','general','2026-11-24 08:58:13'),
+('razorpay_enabled','0','payment','2026-11-24 08:58:13'),
+('razorpay_key_id','','payment','2026-11-24 08:58:14'),
+('razorpay_key_secret','','payment','2026-11-24 08:58:14'),
+('razorpay_webhook_secret','','payment','2026-11-24 08:58:14'),
+('review_auto_approve','0','general','2026-11-24 08:58:13'),
+('schema_version','3','system','2026-11-24 08:58:13'),
+('shipping_enabled','1','shipping','2026-11-24 08:58:13'),
+('shipping_flat_rate','79','shipping','2026-11-24 08:58:13'),
+('site_address','Savié Amour Studio\nBandra West, Mumbai 400050\nMaharashtra, India','general','2026-11-24 08:58:13'),
+('site_email','hello@savieamour.com','general','2026-11-24 08:58:13'),
+('site_name','Savié Amour','general','2026-11-24 08:58:13'),
+('site_phone','+91 98200 00000','general','2026-11-24 08:58:13'),
+('site_tagline','the art of beauty','general','2026-11-24 08:58:13'),
+('smtp_encryption','tls','email','2026-11-24 08:58:14'),
+('smtp_host','','email','2026-11-24 08:58:14'),
+('smtp_password','','email','2026-11-24 08:58:14'),
+('smtp_port','587','email','2026-11-24 08:58:14'),
+('smtp_username','','email','2026-11-24 08:58:14'),
+('tax_enabled','1','tax','2026-11-24 08:58:13'),
+('tax_label','GST','tax','2026-11-24 08:58:13'),
+('tax_rate','18','tax','2026-11-24 08:58:13'),
+('whatsapp_number','919820000000','general','2026-11-24 08:58:13'),
+('x_url','','social','2026-11-24 08:58:13'),
+('youtube_url','','social','2026-11-24 08:58:13');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `social_posts`;
@@ -917,12 +938,12 @@ CREATE TABLE `social_posts` (
 LOCK TABLES `social_posts` WRITE;
 /*!40000 ALTER TABLE `social_posts` DISABLE KEYS */;
 INSERT INTO `social_posts` VALUES
-(1,'social/demo-1.webp','https://www.instagram.com/savieamour','Sacred vermilion, one stroke.',1,1,'2026-11-24 13:01:27'),
-(2,'social/demo-2.webp','https://www.instagram.com/savieamour','Velvet tints in every mood.',2,1,'2026-11-24 13:01:27'),
-(3,'social/demo-3.webp','https://www.instagram.com/savieamour','Kohl as deep as noir.',3,1,'2026-11-24 13:01:27'),
-(4,'social/demo-4.webp','https://www.instagram.com/savieamour','Swatch the shades.',4,1,'2026-11-24 13:01:27'),
-(5,'social/demo-5.webp','https://www.instagram.com/savieamour','An heirloom for every ritual.',5,1,'2026-11-24 13:01:27'),
-(6,'social/demo-6.webp','https://www.instagram.com/savieamour','The precision liner.',6,1,'2026-11-24 13:01:27');
+(1,'social/demo-1.webp','https://www.instagram.com/savieamour','Sacred vermilion, one stroke.',1,1,'2026-11-24 14:28:13'),
+(2,'social/demo-2.webp','https://www.instagram.com/savieamour','Velvet tints in every mood.',2,1,'2026-11-24 14:28:13'),
+(3,'social/demo-3.webp','https://www.instagram.com/savieamour','Kohl as deep as noir.',3,1,'2026-11-24 14:28:13'),
+(4,'social/demo-4.webp','https://www.instagram.com/savieamour','Swatch the shades.',4,1,'2026-11-24 14:28:13'),
+(5,'social/demo-5.webp','https://www.instagram.com/savieamour','An heirloom for every ritual.',5,1,'2026-11-24 14:28:13'),
+(6,'social/demo-6.webp','https://www.instagram.com/savieamour','The precision liner.',6,1,'2026-11-24 14:28:13');
 /*!40000 ALTER TABLE `social_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `subcategories`;
@@ -948,15 +969,15 @@ CREATE TABLE `subcategories` (
 LOCK TABLES `subcategories` WRITE;
 /*!40000 ALTER TABLE `subcategories` DISABLE KEYS */;
 INSERT INTO `subcategories` VALUES
-(1,1,'Liquid Sindoor','liquid-sindoor',NULL,NULL,1,1,'2026-11-24 13:01:27',NULL),
-(2,1,'Powder Sindoor','powder-sindoor',NULL,NULL,2,1,'2026-11-24 13:01:27',NULL),
-(3,2,'Lip & Cheek Tints','lip-cheek-tints',NULL,NULL,1,1,'2026-11-24 13:01:27',NULL),
-(4,2,'Water Tints','water-tints',NULL,NULL,2,1,'2026-11-24 13:01:27',NULL),
-(5,3,'Classic Kohl','classic-kohl',NULL,NULL,1,1,'2026-11-24 13:01:27',NULL),
-(6,3,'Coloured Kohl','coloured-kohl',NULL,NULL,2,1,'2026-11-24 13:01:27',NULL),
-(7,3,'Gift Sets','gift-sets',NULL,NULL,3,1,'2026-11-24 13:01:27',NULL),
-(8,4,'Liquid Liner','liquid-liner',NULL,NULL,1,1,'2026-11-24 13:01:27',NULL),
-(9,4,'Pen Liner','pen-liner',NULL,NULL,2,1,'2026-11-24 13:01:27',NULL);
+(1,1,'Liquid Sindoor','liquid-sindoor',NULL,NULL,1,1,'2026-11-24 14:28:13',NULL),
+(2,1,'Powder Sindoor','powder-sindoor',NULL,NULL,2,1,'2026-11-24 14:28:13',NULL),
+(3,2,'Lip & Cheek Tints','lip-cheek-tints',NULL,NULL,1,1,'2026-11-24 14:28:13',NULL),
+(4,2,'Water Tints','water-tints',NULL,NULL,2,1,'2026-11-24 14:28:13',NULL),
+(5,3,'Classic Kohl','classic-kohl',NULL,NULL,1,1,'2026-11-24 14:28:13',NULL),
+(6,3,'Coloured Kohl','coloured-kohl',NULL,NULL,2,1,'2026-11-24 14:28:13',NULL),
+(7,3,'Gift Sets','gift-sets',NULL,NULL,3,1,'2026-11-24 14:28:13',NULL),
+(8,4,'Liquid Liner','liquid-liner',NULL,NULL,1,1,'2026-11-24 14:28:13',NULL),
+(9,4,'Pen Liner','pen-liner',NULL,NULL,2,1,'2026-11-24 14:28:13',NULL);
 /*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `testimonials`;
@@ -980,11 +1001,11 @@ CREATE TABLE `testimonials` (
 LOCK TABLES `testimonials` WRITE;
 /*!40000 ALTER TABLE `testimonials` DISABLE KEYS */;
 INSERT INTO `testimonials` VALUES
-(1,'Ananya R.','Mumbai',NULL,5,'The liquid sindoor stayed perfect through my entire wedding day — not a single smudge. The colour is exactly the red I wanted.','Sacred Vermilion Liquid Sindoor',1,1,'2026-11-24 13:01:27'),
-(2,'Meher K.','New Delhi',NULL,5,'Velvet Tint in Cherry Amour is my everyday shade now. It looks like my lips, only better, and it lasts through lunch.','Velvet Lip & Cheek Tint',2,1,'2026-11-24 13:01:27'),
-(3,'Sanya P.','Bengaluru',NULL,5,'I have watery eyes and Noir Absolu is the first kohl that does not travel. Deep black, super creamy.','Noir Absolu Kohl Pencil',3,1,'2026-11-24 13:01:27'),
-(4,'Ishita M.','Kolkata',NULL,5,'The kumkum box is so beautiful I keep it on my dressing table. Fine powder and a lovely deep colour.','Heritage Kumkum Powder Sindoor',4,1,'2026-11-24 13:01:27'),
-(5,'Rhea D.','Pune',NULL,5,'Gorgeous packaging, quick delivery and the liner brush gives the sharpest wing I have ever managed.','Ink Noir Liquid Eyeliner',5,1,'2026-11-24 13:01:27');
+(1,'Ananya R.','Mumbai',NULL,5,'The liquid sindoor stayed perfect through my entire wedding day — not a single smudge. The colour is exactly the red I wanted.','Sacred Vermilion Liquid Sindoor',1,1,'2026-11-24 14:28:13'),
+(2,'Meher K.','New Delhi',NULL,5,'Velvet Tint in Cherry Amour is my everyday shade now. It looks like my lips, only better, and it lasts through lunch.','Velvet Lip & Cheek Tint',2,1,'2026-11-24 14:28:13'),
+(3,'Sanya P.','Bengaluru',NULL,5,'I have watery eyes and Noir Absolu is the first kohl that does not travel. Deep black, super creamy.','Noir Absolu Kohl Pencil',3,1,'2026-11-24 14:28:13'),
+(4,'Ishita M.','Kolkata',NULL,5,'The kumkum box is so beautiful I keep it on my dressing table. Fine powder and a lovely deep colour.','Heritage Kumkum Powder Sindoor',4,1,'2026-11-24 14:28:13'),
+(5,'Rhea D.','Pune',NULL,5,'Gorgeous packaging, quick delivery and the liner brush gives the sharpest wing I have ever managed.','Ink Noir Liquid Eyeliner',5,1,'2026-11-24 14:28:13');
 /*!40000 ALTER TABLE `testimonials` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `wishlist`;

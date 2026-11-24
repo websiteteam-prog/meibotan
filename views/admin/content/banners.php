@@ -1,5 +1,5 @@
 <?php /** @var array $banners */
-$newHero = e(json_encode(['id' => 0, 'type' => 'hero', 'theme' => 'noir', 'is_active' => 1, 'sort_order' => 0]));
+$newHero = e(json_encode(['id' => 0, 'type' => 'hero', 'theme' => 'cotton', 'is_active' => 1, 'sort_order' => 0]));
 $newPromo = e(json_encode(['id' => 0, 'type' => 'promo', 'theme' => 'cotton', 'is_active' => 1, 'sort_order' => 0]));
 ?>
 <?= adm_head('Banners', 'Hero slides at the top of the homepage and the two promotional banners below the new arrivals.',
@@ -7,14 +7,14 @@ $newPromo = e(json_encode(['id' => 0, 'type' => 'promo', 'theme' => 'cotton', 'i
   . '<button class="btn-a" type="button" data-bs-toggle="modal" data-bs-target="#bannerModal" data-fill-form="#bannerForm" data-title="New hero slide" data-values="' . $newHero . '">' . icon('plus', 'ic-sm') . ' Hero slide</button>') ?>
 <?php foreach (['hero' => 'Hero slider', 'promo' => 'Promotional banners'] as $type => $label): $list = array_filter($banners, static fn($b) => $b['type'] === $type); ?>
 <div class="card-a flush">
-  <div class="card-title"><?= $label ?> <small><?= $type === 'hero' ? 'Image shows inside an arch beside the text — portrait 9:11 works best.' : 'Landscape 3:2 image; text sits on the left half.' ?></small></div>
+  <div class="card-title"><?= $label ?> <small><?= $type === 'hero' ? 'Three panels: left image · text · right image. Portrait images (about 9:10) work best.' : 'Landscape 3:2 image; text sits on the left half.' ?></small></div>
   <div class="table-wrap"><table class="table-a">
     <thead><tr><th>Banner</th><th>Buttons</th><th>Theme</th><th>Schedule</th><th>Order</th><th>Status</th><th class="actions"></th></tr></thead>
     <tbody>
     <?php foreach ($list as $b):
-      $vals = $b; $vals['image'] = $b['image'] ? upload_url($b['image'], '300') : ''; $vals['starts_at'] = $b['starts_at'] ? date('Y-m-d\TH:i', strtotime($b['starts_at'])) : ''; $vals['ends_at'] = $b['ends_at'] ? date('Y-m-d\TH:i', strtotime($b['ends_at'])) : ''; ?>
+      $vals = $b; $vals['image'] = $b['image'] ? upload_url($b['image'], '300') : ''; $vals['image2'] = !empty($b['image2']) ? upload_url($b['image2'], '300') : ''; $vals['starts_at'] = $b['starts_at'] ? date('Y-m-d\TH:i', strtotime($b['starts_at'])) : ''; $vals['ends_at'] = $b['ends_at'] ? date('Y-m-d\TH:i', strtotime($b['ends_at'])) : ''; ?>
       <tr>
-        <td><div class="d-flex gap-3 align-items-center"><img class="thumb" src="<?= e(upload_url($b['image'], '300')) ?>" alt="" style="width:<?= $type === 'hero' ? 46 : 80 ?>px"><div><span class="sub"><?= e($b['eyebrow'] ?? '') ?></span><strong><?= e($b['title']) ?> <em class="text-danger"><?= e($b['title_italic'] ?? '') ?></em></strong><span class="sub"><?= e(str_limit($b['subtitle'], 80)) ?></span></div></div></td>
+        <td><div class="d-flex gap-3 align-items-center"><img class="thumb" src="<?= e(upload_url($b['image'], '300')) ?>" alt="" style="width:<?= $type === 'hero' ? 46 : 80 ?>px"><?php if ($type === 'hero' && !empty($b['image2'])): ?><img class="thumb" src="<?= e(upload_url($b['image2'], '300')) ?>" alt="" style="width:46px"><?php endif; ?><div><span class="sub"><?= e($b['eyebrow'] ?? '') ?></span><strong><?= e($b['title']) ?> <em class="text-danger"><?= e($b['title_italic'] ?? '') ?></em></strong><span class="sub"><?= e(str_limit($b['subtitle'], 80)) ?></span></div></div></td>
         <td><?= e($b['button_text'] ?? '—') ?><span class="sub"><?= e($b['button_link'] ?? '') ?></span><?php if ($b['button2_text']): ?><span class="sub"><?= e($b['button2_text']) ?> → <?= e($b['button2_link']) ?></span><?php endif; ?></td>
         <td><span class="badge-a"><?= e(ucfirst($b['theme'])) ?></span></td>
         <td><span class="sub"><?= $b['starts_at'] ? 'From ' . format_date($b['starts_at']) : 'Always' ?><?= $b['ends_at'] ? ' until ' . format_date($b['ends_at']) : '' ?></span></td>
@@ -38,7 +38,7 @@ $newPromo = e(json_encode(['id' => 0, 'type' => 'promo', 'theme' => 'cotton', 'i
         <div class="col-lg-8">
           <div class="row">
             <?= adm_select('type', 'Placement', ['hero' => 'Hero slider', 'promo' => 'Promotional banner'], 'hero', ['col' => 'col-md-4 mb-3']) ?>
-            <?= adm_select('theme', 'Colour theme', ['noir' => 'Noir petals (dark)', 'cherry' => 'Cherry (red)', 'cotton' => 'Cotton (light)'], 'noir', ['col' => 'col-md-4 mb-3']) ?>
+            <?= adm_select('theme', 'Text panel colour', ['cotton' => 'Cotton (light)', 'noir' => 'Noir (dark)', 'cherry' => 'Cherry (red)'], 'cotton', ['col' => 'col-md-4 mb-3']) ?>
             <?= adm_input('sort_order', 'Order', '0', ['type' => 'number', 'col' => 'col-md-4 mb-3']) ?>
           </div>
           <?= adm_input('eyebrow', 'Eyebrow (small text above title)', '', ['optional' => true]) ?>
@@ -57,7 +57,8 @@ $newPromo = e(json_encode(['id' => 0, 'type' => 'promo', 'theme' => 'cotton', 'i
           </div>
         </div>
         <div class="col-lg-4">
-          <?= adm_image('image', 'Image', null, ['preview_key' => 'image']) ?>
+          <?= adm_image('image', 'Image (hero: left panel)', null, ['preview_key' => 'image', 'small' => true]) ?>
+          <?= adm_image('image2', 'Right panel image (hero only)', null, ['preview_key' => 'image2', 'small' => true]) ?>
           <?= adm_switch('is_active', 'Live on homepage', true) ?>
         </div>
       </div>

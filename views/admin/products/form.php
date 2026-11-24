@@ -24,7 +24,7 @@ $variantRow = static function ($key, array $row) {
         . '</label>'
         . '<div class="vc-fields">'
         .   '<div class="vc-name"><label>Variant name</label><input class="form-control" name="' . $n . '[name]" value="' . e($row['name'] ?? '') . '" placeholder="e.g. Cherry Amour" required></div>'
-        .   '<div class="vc-colour"><label><input type="checkbox" name="' . $n . '[use_swatch]" value="1"' . ($useSwatch ? ' checked' : '') . '> Colour swatch</label><input type="color" name="' . $n . '[swatch]" value="' . e($row['swatch'] ?? '#810100') . '" aria-label="Swatch colour"></div>'
+        .   '<div class="vc-colour"><label><input type="checkbox" name="' . $n . '[use_swatch]" value="1"' . ($useSwatch ? ' checked' : '') . '> Colour</label><input type="color" name="' . $n . '[swatch]" value="' . e($row['swatch'] ?? '#810100') . '" aria-label="Swatch colour"></div>'
         .   '<div class="vc-sku"><label>SKU</label><input class="form-control" name="' . $n . '[sku]" value="' . e($row['sku'] ?? '') . '" placeholder="Optional"></div>'
         .   '<div><label>Price</label><div class="input-group"><span class="input-group-text">' . $cur . '</span><input class="form-control" type="number" step="0.01" min="0" name="' . $n . '[price]" value="' . e($row['price'] ?? '') . '" placeholder="Same as product"></div></div>'
         .   '<div><label>Sale price</label><div class="input-group"><span class="input-group-text">' . $cur . '</span><input class="form-control" type="number" step="0.01" min="0" name="' . $n . '[sale_price]" value="' . e($row['sale_price'] ?? '') . '" placeholder="Optional"></div></div>'

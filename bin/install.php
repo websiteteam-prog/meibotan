@@ -82,7 +82,7 @@ foreach (array_filter(array_map('trim', explode(";\n", $schema))) as $sql) {
     $pdo->exec($sql);
 }
 echo "  ✓ Database tables ready\n";
-$pdo->exec("INSERT INTO settings (`key`, `value`, `group`, updated_at) VALUES ('schema_version', '2', 'system', NOW()) ON DUPLICATE KEY UPDATE `value` = GREATEST(`value`, '2')");
+$pdo->exec("INSERT INTO settings (`key`, `value`, `group`, updated_at) VALUES ('schema_version', '3', 'system', NOW()) ON DUPLICATE KEY UPDATE `value` = GREATEST(`value`, '3')");
 
 // Boot the application now that config + tables exist.
 require $root . '/src/bootstrap.php';
