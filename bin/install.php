@@ -82,6 +82,7 @@ foreach (array_filter(array_map('trim', explode(";\n", $schema))) as $sql) {
     $pdo->exec($sql);
 }
 echo "  ✓ Database tables ready\n";
+$pdo->exec("INSERT INTO settings (`key`, `value`, `group`, updated_at) VALUES ('schema_version', '2', 'system', NOW()) ON DUPLICATE KEY UPDATE `value` = GREATEST(`value`, '2')");
 
 // Boot the application now that config + tables exist.
 require $root . '/src/bootstrap.php';
@@ -119,8 +120,9 @@ if ($adminCount === 0 || isset($opts['admin-email'])) {
         App\Core\DB::update('admins', ['password_hash' => password_hash($password, PASSWORD_DEFAULT), 'is_active' => 1], 'id = :id', ['id' => $existing]);
         echo "  ✓ Updated admin {$email}\n";
     } else {
-        App\Core\DB::insert('admins', ['name' => $name, 'email' => $email, 'password_hash' => password_hash($password, PASSWORD_DEFAULT), 'role' => 'super_admin', 'is_active' => 1, 'created_at' => date('Y-m-d H:i:s')]);
-        echo "  ✓ Created super admin {$email}\n";
+        $role = $adminCount === 0 ? 'developer' : 'super_admin';
+        App\Core\DB::insert('admins', ['name' => $name, 'email' => $email, 'password_hash' => password_hash($password, PASSWORD_DEFAULT), 'role' => $role, 'is_active' => 1, 'created_at' => date('Y-m-d H:i:s')]);
+        echo "  ✓ Created " . ($role === 'developer' ? 'developer (full access)' : 'store owner') . " account {$email}\n";
     }
 }
 

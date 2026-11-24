@@ -9,14 +9,20 @@ namespace App\Core;
 final class AdminAuth
 {
     /** Role => list of permissions ('*' means everything). */
+    /*
+     * "content" (homepage, banners, testimonials, gallery, pages) and "design"
+     * (logo, website texts, SEO) are reserved for the website developer.
+     */
     public const ROLES = [
-        'super_admin' => ['*'],
-        'manager' => ['dashboard', 'catalog', 'orders', 'customers', 'marketing', 'content', 'reviews', 'messages'],
+        'developer' => ['*'],
+        'super_admin' => ['dashboard', 'catalog', 'orders', 'customers', 'marketing', 'reviews', 'messages', 'settings', 'admins'],
+        'manager' => ['dashboard', 'catalog', 'orders', 'customers', 'marketing', 'reviews', 'messages'],
         'support' => ['dashboard', 'orders', 'customers', 'reviews', 'messages'],
     ];
 
     public const ROLE_LABELS = [
-        'super_admin' => 'Super Admin',
+        'developer' => 'Website Developer',
+        'super_admin' => 'Store Owner',
         'manager' => 'Store Manager',
         'support' => 'Customer Support',
     ];

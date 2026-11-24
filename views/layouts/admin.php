@@ -26,14 +26,14 @@ $menu = [
         ['customers', 'admin/customers', 'users', 'Customers', 'customers', 0],
         ['coupons', 'admin/coupons', 'percent', 'Coupons', 'marketing', 0],
         ['newsletter', 'admin/newsletter', 'mail', 'Newsletter', 'marketing', 0],
+        ['messages', 'admin/messages', 'message', 'Messages', 'messages', $unreadMessages],
     ],
-    'Content' => [
+    'Website (developer)' => [
         ['homepage', 'admin/homepage', 'home', 'Homepage', 'content', 0],
         ['banners', 'admin/banners', 'image', 'Banners', 'content', 0],
-        ['testimonials', 'admin/testimonials', 'message', 'Testimonials', 'content', 0],
+        ['testimonials', 'admin/testimonials', 'star', 'Testimonials', 'content', 0],
         ['social', 'admin/social', 'instagram', 'Instagram gallery', 'content', 0],
         ['pages', 'admin/pages', 'file', 'Pages', 'content', 0],
-        ['messages', 'admin/messages', 'mail', 'Messages', 'messages', $unreadMessages],
     ],
     'System' => [
         ['settings', 'admin/settings', 'settings', 'Settings', 'settings', 0],

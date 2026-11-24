@@ -92,4 +92,5 @@ set_exception_handler(static function (Throwable $e) use ($isDev): void {
 if (PHP_SAPI !== 'cli') {
     App\Core\Session::start();
     App\Core\Http::securityHeaders();
+    App\Core\Schema::upgrade();
 }

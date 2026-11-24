@@ -15,10 +15,13 @@ final class SettingsController extends Controller
     /** tab => [key => type]. Types: text, textarea, email, url, number, bool, secret, image, select:<a,b> */
     public const SCHEMA = [
         'general' => [
-            'site_name' => 'text', 'site_tagline' => 'text', 'site_email' => 'email', 'site_phone' => 'text', 'whatsapp_number' => 'text',
-            'site_address' => 'textarea', 'business_hours' => 'text', 'announcement_messages' => 'textarea', 'footer_about' => 'textarea', 'copyright_text' => 'text',
+            'site_name' => 'text', 'site_email' => 'email', 'site_phone' => 'text', 'whatsapp_number' => 'text',
+            'site_address' => 'textarea', 'business_hours' => 'text',
         ],
-        'branding' => ['logo' => 'image', 'logo_light' => 'image', 'favicon' => 'image', 'og_image' => 'image'],
+        'website' => [
+            'site_tagline' => 'text', 'announcement_messages' => 'textarea', 'footer_about' => 'textarea', 'copyright_text' => 'text',
+            'logo' => 'image', 'logo_light' => 'image', 'favicon' => 'image', 'og_image' => 'image',
+        ],
         'social' => ['instagram_url' => 'url', 'instagram_handle' => 'text', 'facebook_url' => 'url', 'youtube_url' => 'url', 'pinterest_url' => 'url', 'x_url' => 'url'],
         'store' => ['currency_code' => 'text', 'currency_symbol' => 'text', 'products_per_page' => 'number', 'low_stock_threshold' => 'number', 'order_prefix' => 'text', 'guest_checkout' => 'bool', 'review_auto_approve' => 'bool'],
         'shipping' => ['shipping_enabled' => 'bool', 'shipping_flat_rate' => 'number', 'free_shipping_threshold' => 'number', 'cod_enabled' => 'bool', 'cod_fee' => 'number', 'delivery_estimate' => 'text', 'shipping_countries' => 'text'],
@@ -33,14 +36,23 @@ final class SettingsController extends Controller
     ];
 
     public const TABS = [
-        'general' => 'General', 'branding' => 'Logo & favicon', 'social' => 'Social links', 'store' => 'Store', 'shipping' => 'Shipping & COD',
-        'tax' => 'Tax / GST', 'payment' => 'Payments', 'email' => 'E-mail', 'seo' => 'SEO',
+        'general' => 'Business details', 'social' => 'Social links', 'store' => 'Store', 'shipping' => 'Shipping & COD',
+        'tax' => 'Tax / GST', 'payment' => 'Payments', 'email' => 'E-mail', 'website' => 'Website & logo', 'seo' => 'SEO',
     ];
+
+    /** Tabs that change the look/content of the website — developer only. */
+    public const DEVELOPER_TABS = ['website', 'seo'];
+
+    /** Tabs the signed-in admin may use. */
+    public static function tabs(): array
+    {
+        return array_filter(self::TABS, static fn($k) => !in_array($k, self::DEVELOPER_TABS, true) || AdminAuth::can('design'), ARRAY_FILTER_USE_KEY);
+    }
 
     public function index(): void
     {
         $tab = (string) input('tab', 'general');
-        if (!isset(self::TABS[$tab])) {
+        if (!isset(self::tabs()[$tab])) {
             $tab = 'general';
         }
         $this->admin('settings', ['title' => 'Settings', 'active' => 'settings', 'tab' => $tab]);
@@ -49,8 +61,8 @@ final class SettingsController extends Controller
     public function save(): void
     {
         $tab = (string) input('tab', '');
-        if (!isset(self::SCHEMA[$tab])) {
-            abort(404);
+        if (!isset(self::SCHEMA[$tab]) || !isset(self::tabs()[$tab])) {
+            abort(403, 'This section is managed by the website developer.');
         }
         $errors = [];
         foreach (self::SCHEMA[$tab] as $key => $type) {

@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS admins (
   name            VARCHAR(120) NOT NULL,
   email           VARCHAR(190) NOT NULL,
   password_hash   VARCHAR(255) NOT NULL,
-  role            ENUM('super_admin','manager','support') NOT NULL DEFAULT 'manager',
+  role            ENUM('developer','super_admin','manager','support') NOT NULL DEFAULT 'manager',
   phone           VARCHAR(20) NULL,
   is_active       TINYINT(1) NOT NULL DEFAULT 1,
   last_login_at   DATETIME NULL,
@@ -248,6 +248,17 @@ CREATE TABLE IF NOT EXISTS reviews (
   CONSTRAINT fk_reviews_customer FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS review_images (
+  id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  review_id       INT UNSIGNED NOT NULL,
+  image           VARCHAR(255) NOT NULL,
+  sort_order      INT NOT NULL DEFAULT 0,
+  created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_review_images_review (review_id),
+  CONSTRAINT fk_review_images_review FOREIGN KEY (review_id) REFERENCES reviews (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Wishlist & cart ------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS wishlist (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -354,6 +365,7 @@ CREATE TABLE IF NOT EXISTS orders (
   admin_notes           TEXT NULL,
   courier_name          VARCHAR(100) NULL,
   tracking_number       VARCHAR(100) NULL,
+  tracking_url          VARCHAR(500) NULL,
   cancel_reason         VARCHAR(255) NULL,
   cancelled_at          DATETIME NULL,
   ip_address            VARCHAR(45) NULL,

@@ -7,7 +7,7 @@ $secretHint = static fn(string $k) => setting($k) ? 'A value is saved. Leave bla
 ?>
 <?= adm_head('Settings', 'Store-wide configuration. Changes apply to the website immediately.') ?>
 <div class="tabs-a">
-  <?php foreach (SettingsController::TABS as $k => $label): ?>
+  <?php foreach (SettingsController::tabs() as $k => $label): ?>
     <a class="<?= $tab === $k ? 'active' : '' ?>" href="<?= e(url('admin/settings', ['tab' => $k])) ?>"><?= e($label) ?></a>
   <?php endforeach; ?>
 </div>
@@ -19,17 +19,18 @@ $secretHint = static fn(string $k) => setting($k) ? 'A value is saved. Leave bla
   <?php if ($tab === 'general'): ?>
     <div class="row">
       <?= adm_input('site_name', 'Store name', $s('site_name'), ['col' => 'col-md-6 mb-3', 'attrs' => ['required' => true]]) ?>
-      <?= adm_input('site_tagline', 'Tagline', $s('site_tagline'), ['col' => 'col-md-6 mb-3']) ?>
       <?= adm_input('site_email', 'Contact e-mail', $s('site_email'), ['type' => 'email', 'col' => 'col-md-6 mb-3']) ?>
       <?= adm_input('site_phone', 'Phone (shown in top bar & footer)', $s('site_phone'), ['col' => 'col-md-6 mb-3']) ?>
       <?= adm_input('whatsapp_number', 'WhatsApp number', $s('whatsapp_number'), ['col' => 'col-md-6 mb-3', 'help' => 'With country code, digits only, e.g. 919820000000']) ?>
       <?= adm_input('business_hours', 'Business hours', $s('business_hours'), ['col' => 'col-md-6 mb-3']) ?>
     </div>
-    <?= adm_textarea('site_address', 'Address', $s('site_address'), ['rows' => 3]) ?>
+    <?= adm_textarea('site_address', 'Address', $s('site_address'), ['rows' => 3, 'help' => 'Shown in the footer, on the Contact page and on invoices.']) ?>
+  <?php elseif ($tab === 'website'): ?>
+    <div class="alert-strip"><?= icon('lock', 'ic-sm') ?><span>Developer-only: these settings change the look and texts of the website.</span></div>
+    <?= adm_input('site_tagline', 'Tagline', $s('site_tagline')) ?>
     <?= adm_textarea('announcement_messages', 'Announcement bar messages', $s('announcement_messages'), ['rows' => 3, 'help' => 'One message per line — they rotate in the top bar.']) ?>
     <?= adm_textarea('footer_about', 'Footer description', $s('footer_about'), ['rows' => 2]) ?>
     <?= adm_input('copyright_text', 'Copyright text', $s('copyright_text'), ['help' => '{year} is replaced with the current year.']) ?>
-  <?php elseif ($tab === 'branding'): ?>
     <div class="row">
       <?= adm_image('logo', 'Logo (for light backgrounds)', $s('logo') ?: null, ['col' => 'col-md-6 mb-3', 'removable' => true, 'help' => 'Transparent PNG/WebP. Default: Savié Amour logo in maroon.']) ?>
       <?= adm_image('logo_light', 'Logo (for dark backgrounds)', $s('logo_light') ?: null, ['col' => 'col-md-6 mb-3', 'removable' => true, 'help' => 'Used in the footer. Default: logo in cotton.']) ?>
